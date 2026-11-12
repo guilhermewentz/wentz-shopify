@@ -21,6 +21,24 @@
       --product-gallery-media-list-gap: calc(var(--grid-gutter) / 2);
     }
 
+    {%- if section.settings.desktop_media_layout == 'carousel_thumbnails_left' -%}
+      /* Use the full photo width instead of letterboxing it inside a fixed viewport height. */
+      #shopify-section-{{ section.id }} .product-gallery__media[data-media-type="image"] {
+        height: auto;
+      }
+
+      #shopify-section-{{ section.id }} .product-gallery__media[data-media-type="image"] img {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        object-fit: contain;
+      }
+
+      #shopify-section-{{ section.id }} .product-info {
+        padding-inline-start: 16px;
+      }
+    {%- endif -%}
+
     {%- if section.settings.desktop_media_layout == 'grid_highlight' -%}
       #shopify-section-{{ section.id }} .product-gallery__media-list > :not([hidden]) {
         grid-column: span 2;
