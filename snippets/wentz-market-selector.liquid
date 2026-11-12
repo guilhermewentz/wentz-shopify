@@ -76,7 +76,7 @@
             aria-selected="true"
           {% endif %}
         >
-          🇧🇷 BRASIL
+          {% if show_country_flag != false %}🇧🇷 {% endif %}BRASIL
         </button>
 
         <button
@@ -89,7 +89,7 @@
             aria-selected="true"
           {% endunless %}
         >
-          🌐 INTERNATIONAL
+          {% if show_country_flag != false %}🌐 {% endif %}INTERNATIONAL
         </button>
 
       </x-listbox>
