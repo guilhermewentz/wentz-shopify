@@ -3280,8 +3280,8 @@ updateVariantProductionTime() {
     return;
   }
 
-  // Sem estoque e venda sob encomenda permitida
-  if (management && quantity <= 0 && policy === 'continue') {
+  // Estoque não rastreado ou venda permitida após esgotar o estoque.
+  if (!management || (quantity <= 0 && policy === 'continue')) {
     const normalizedTime = rawTime.toLowerCase();
     const match = normalizedTime.match(/^(\d+)\s*(dias?|days?)?$/);
 
@@ -3299,7 +3299,7 @@ updateVariantProductionTime() {
     return;
   }
 
-  // Estoque não gerenciado ou situação não identificada
+  // Outras situações de disponibilidade
   show(messages.inquiry);
 }
 
