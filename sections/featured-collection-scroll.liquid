@@ -30,6 +30,12 @@
       --product-list-carousel-item-width: calc(var(--container-inner-width) / {{ section.settings.products_per_row_desktop }} - (var(--product-list-column-gap) / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}));
     }
   }
+  {% if section.settings.full_width %}
+    #shopify-section-{{ section.id }} > .section {
+      padding-inline: 0;
+    }
+  {% endif %}
+
   /* WENTZ — Featured Collection Overlay */
 
 #shopify-section-{{ section.id }} .floating-controls-container,
@@ -87,18 +93,20 @@
 /* WENTZ — Featured Collection Footer */
 
 #shopify-section-{{ section.id }} .wentz-featured-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: baseline;
   width: 100%;
   margin-top: 40px;
+  padding-inline: 12px;
   text-align: center;
 }
 
 #shopify-section-{{ section.id }} .wentz-featured-view-all {
+  grid-column: 2;
   color: inherit;
-  font-size: var(--text-base);
-  font-weight: 400;
+  font: inherit;
+  letter-spacing: inherit;
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
@@ -107,6 +115,26 @@
 
 #shopify-section-{{ section.id }} .wentz-featured-view-all:hover {
   opacity: 0.5;
+}
+
+#shopify-section-{{ section.id }} .wentz-loop-nav button {
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+#shopify-section-{{ section.id }} .wentz-loop-prev {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+#shopify-section-{{ section.id }} .wentz-loop-next {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
 }
 
 @media screen and (max-width: 699px) {
@@ -137,17 +165,6 @@
     transform: none;
   }
   #shopify-section-{{ section.id }} .wentz-loop-track > * { min-width: 0; }
-  #shopify-section-{{ section.id }} .wentz-loop-nav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 12px;
-  }
-  #shopify-section-{{ section.id }} .wentz-loop-nav button {
-    padding: 8px 12px;
-    font-size: 18px;
-    line-height: 1;
-    cursor: pointer;
-  }
   @media (min-width: 700px) {
     #shopify-section-{{ section.id }} .wentz-loop-track { grid-auto-columns: 36vw; }
   }
@@ -214,19 +231,17 @@
           {%- endfor -%}
         </div>
       </div>
-      <div class="wentz-loop-nav" aria-label="Navegação do carrossel">
-        <button type="button" class="wentz-loop-prev" aria-label="Produtos anteriores">&#8592;</button>
-        <button type="button" class="wentz-loop-next" aria-label="Próximos produtos">&#8594;</button>
-      </div>
     </div>
 
-    {%- if section.settings.link_text != blank and link_url != blank -%}
-      <div class="wentz-featured-footer">
+    <nav class="wentz-featured-footer wentz-loop-nav" aria-label="Navegação do carrossel">
+      <button type="button" class="wentz-loop-prev" aria-label="Produtos anteriores" aria-controls="{{ scroll_area_id }}">&lt;</button>
+      {%- if section.settings.link_text != blank and link_url != blank -%}
         <a href="{{ link_url }}" class="wentz-featured-view-all">
           {{ section.settings.link_text | escape }}
         </a>
-      </div>
-    {%- endif -%}
+      {%- endif -%}
+      <button type="button" class="wentz-loop-next" aria-label="Próximos produtos" aria-controls="{{ scroll_area_id }}">&gt;</button>
+    </nav>
 
   </div>
 </div>
