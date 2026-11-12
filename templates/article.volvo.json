@@ -1,0 +1,143 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "video_ffDXaL": {
+      "type": "video",
+      "blocks": {
+        "play_bH4fnK": {
+          "type": "play",
+          "settings": {}
+        },
+        "heading_PCPcxL": {
+          "type": "heading",
+          "disabled": true,
+          "settings": {
+            "text": "Video",
+            "heading_tag": "h1"
+          }
+        }
+      },
+      "block_order": [
+        "play_bH4fnK",
+        "heading_PCPcxL"
+      ],
+      "disabled": true,
+      "name": "Video",
+      "settings": {
+        "full_width": true,
+        "allow_transparent_header": true,
+        "autoplay": true,
+        "video_size": "auto",
+        "external_video_url": "https://youtu.be/aFTqBTdBPLU?si=qjKnQKzVIdyqCY6d",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "custom_liquid_tbYexA": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Space",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div style=\"height:100px;\"></div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "main": {
+      "type": "main-article",
+      "blocks": {
+        "navigation_e9Ffp4": {
+          "type": "navigation",
+          "disabled": true,
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "navigation_e9Ffp4"
+      ],
+      "settings": {
+        "allow_transparent_header": false,
+        "layout": "content_first",
+        "show_author": false,
+        "show_date": false,
+        "show_comments_count": false,
+        "show_share_buttons": false,
+        "banner_background": "#fbfaf7",
+        "banner_text_color": "",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "content_width": "750px"
+      }
+    },
+    "custom_liquid_CgyJiD": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "Space",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div style=\"height:100px;\"></div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "blog_posts_iFxM8Q": {
+      "type": "blog-posts",
+      "blocks": {
+        "blog_Q3g3yx": {
+          "type": "blog",
+          "settings": {
+            "blog": "journal-pt",
+            "posts_count": 3,
+            "stack_items": false
+          }
+        }
+      },
+      "block_order": [
+        "blog_Q3g3yx"
+      ],
+      "name": "Blog posts",
+      "settings": {
+        "full_width": true,
+        "show_excerpt": false,
+        "show_date": false,
+        "show_author": false,
+        "show_comments_count": false,
+        "show_category": false,
+        "subheading": "",
+        "title": "MAIS HISTÓRIAS",
+        "heading_size": "h6",
+        "content": "",
+        "link_url": "",
+        "link_text": "Ver todas",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": ""
+      }
+    }
+  },
+  "order": [
+    "video_ffDXaL",
+    "custom_liquid_tbYexA",
+    "main",
+    "custom_liquid_CgyJiD",
+    "blog_posts_iFxM8Q"
+  ]
+}
