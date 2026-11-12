@@ -51,7 +51,7 @@
     "reduce_drawer_animation": false,
     "reduce_menu_animation": false,
     "heading_apparition": "split_fade",
-    "color_swatch_style": "square",
+    "color_swatch_style": "round",
     "color_swatch_config": "Café:#111111\nOff White:#EFEDEC\nOff Black:#1E1A19\nCastanha Mescla:#B5A283\nCimento:#CDC1C1\nPreto:#000000\nInox:#C0C0C0\nAreia:#DCD3C2",
     "product_title_transform": "uppercase",
     "product_title_size": "h6",
