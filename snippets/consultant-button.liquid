@@ -29,10 +29,15 @@ Thank you.
 
   {% endif %}
 
+  {%- assign consultant_is_primary = false -%}
+  {%- if localization.country.iso_code != 'BR' or product.selected_or_first_available_variant.available != true -%}
+    {%- assign consultant_is_primary = true -%}
+  {%- endif -%}
+
   <div id="consultant-button" class="simulator-button">
     <a
       id="simulator-button"
-      class="button button--lg {{ consultant_button_style }}"
+      class="button button--lg w-full{% unless consultant_is_primary %} button--outline{% endunless %}"
       href="{{ consultant_url }}"
       {% unless localization.country.iso_code == 'BR' %}
         data-no-instant

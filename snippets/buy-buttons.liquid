@@ -78,7 +78,7 @@ Supported variables
 
     <buy-buttons class="buy-buttons {% if show_payment_button %}buy-buttons--multiple{% endif %}" template="{{ product.template_suffix | escape }}" form="{{ form_id }}">
   {% if localization.country.iso_code == 'BR' %}
-    {%- render 'button', content: button_content, type: 'submit', size: button_size, disabled: button_disabled, secondary: show_payment_button, subdued: button_disabled, background: atc_button_background, text_color: atc_button_text_color -%}
+    {%- render 'button', content: button_content, type: 'submit', size: button_size, disabled: button_disabled, style: 'fill', stretch: true, secondary: false, subdued: button_disabled, background: atc_button_background, text_color: atc_button_text_color -%}
     {%- if show_payment_button -%}
       {{- form | payment_button -}}
       <style>

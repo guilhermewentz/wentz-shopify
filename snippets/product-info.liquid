@@ -322,6 +322,11 @@ Supported variables
               {%- render 'buy-buttons', product: product, form_id: product_form_id, show_payment_button: block.settings.show_payment_button, show_gift_card_recipient: block.settings.show_gift_card_recipient, atc_button_background: block.settings.atc_button_background, atc_button_text_color: block.settings.atc_button_text_color, payment_button_background: block.settings.payment_button_background, payment_button_text_color: block.settings.payment_button_text_color -%}
             </div>
           {%- endif -%}
+          {% render 'consultant-button', 
+            consultant_button_style: block.settings.consultant_button_style, 
+            show_consultant_button: block.settings.show_consultant_button,
+            consultant_number: block.settings.consultant_number,
+            consultant_message: block.settings.consultant_message %}
           {%- if template.suffix == 'hibrido2' and block.settings.show_simulator_button and block.settings.simulator_intro_text != blank -%}
             <div class="product-info__hybrid-description" style="padding: 24px 0 0;">
               <p>{{ block.settings.simulator_intro_text | escape | newline_to_br }}</p>
@@ -331,11 +336,7 @@ Supported variables
             simulator_button_style: block.settings.simulator_button_style, 
             show_simulator_button: block.settings.show_simulator_button,
            %}
-          {% render 'consultant-button', 
-            consultant_button_style: block.settings.consultant_button_style, 
-            show_consultant_button: block.settings.show_consultant_button,
-            consultant_number: block.settings.consultant_number,
-            consultant_message: block.settings.consultant_message %}
+
 
         {%- when 'pickup_availability' -%}
           {%- if localization.country.iso_code != 'BR' -%}{%- continue -%}{%- endif -%}
