@@ -1,0 +1,115 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "custom_liquid_pVbMii": {
+      "type": "custom-liquid",
+      "name": "Space",
+      "settings": {
+        "full_width": true,
+        "remove_vertical_spacing": false,
+        "remove_horizontal_spacing": false,
+        "liquid": "<div style=\"height:100px;\"></div>",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "links_ip4L4w": {
+          "type": "links",
+          "settings": {
+            "menu": "footer",
+            "show_menu_title": true,
+            "menu_title": "WENTZ",
+            "heading_size": "h6"
+          }
+        },
+        "links": {
+          "type": "links",
+          "settings": {
+            "menu": "footer-produtos",
+            "show_menu_title": true,
+            "menu_title": "PRODUTOS",
+            "heading_size": "h6"
+          }
+        },
+        "links_JVnjQB": {
+          "type": "links",
+          "settings": {
+            "menu": "footer-suporte",
+            "show_menu_title": true,
+            "menu_title": "SUPORTE",
+            "heading_size": "h6"
+          }
+        },
+        "links_B3XqbR": {
+          "type": "links",
+          "settings": {
+            "menu": "footer-legal",
+            "show_menu_title": true,
+            "menu_title": "LEGAL",
+            "heading_size": "h6"
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "image_width": 300,
+            "title": "NEWSLETTER",
+            "heading_size": "h6",
+            "content": "<p>Be the first to know about new collections, products, exhibitions, and other exclusive updates.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "links_ip4L4w",
+        "links",
+        "links_JVnjQB",
+        "links_B3XqbR",
+        "newsletter"
+      ],
+      "custom_css": [],
+      "settings": {
+        "show_social_media": true,
+        "show_payment_icons": false,
+        "show_country_selector": true,
+        "show_country_flag": true,
+        "show_country_name": true,
+        "show_locale_selector": true
+      }
+    },
+    "scrolling_text_fFrU66": {
+      "type": "scrolling-text",
+      "name": "Scrolling text",
+      "settings": {
+        "full_width": true,
+        "text": "DESIGNED AND MADE IN BRASIL",
+        "text_size": "xlarge",
+        "text_style": "fill",
+        "scrolling_mode": "auto",
+        "scrolling_speed": 10,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "text_gradient": ""
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_pVbMii",
+    "footer",
+    "scrolling_text_fFrU66"
+  ]
+}

@@ -1,0 +1,136 @@
+<style>
+.section-anchor-buttons-container {
+    display: flex;
+    justify-content: flex-start;
+    /* margin: var(--spacing-10) var(--spacing-5) 0; */
+}
+
+.section-anchor-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-5);
+ 
+}
+
+@media (min-width: 768px) {
+    .section-anchor-buttons-container {
+        /* margin: var(--spacing-10) 0 0; */
+        justify-content: center;
+    }
+
+    .section-anchor-buttons {
+        flex-direction: row;
+        gap: var(--spacing-20);
+        
+    }
+}
+    
+</style>
+
+<div {% render 'section-properties' %}>
+    <div class="section-anchor-buttons-container">
+        {% assign heading_size = section.settings.heading_size %}
+    <anchor-buttons class="section-anchor-buttons">
+        {% for block in section.blocks %}
+            {% assign anchor_title = block.settings.anchor_title | t %}
+            {% case block.type %}
+                {% when 'anchor_buttons' %}                    
+                
+                    {% if anchor_title != "" %}
+                        <button 
+                            class="button--anchor" 
+                            data-target="{{ block.settings.anchor_target }}"
+                            data-anchor="{{ anchor_title | handleize }}">
+                            <span 
+                                class="{{ heading_size }}">
+                                {{ anchor_title }} +
+                            </span>
+                        </button>
+                    {% endif %}                        
+                
+            {% endcase %}
+        {% endfor %}
+    </anchor-buttons>
+    </div>
+</div>
+
+
+
+
+{% schema %}
+    {
+        "name": "Anchor Buttons",
+        "class": "shopify-section--anchor-butttons",
+        "tag": "section",
+        "settings": [
+ 
+        
+            {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Heading size",
+            "options": [
+                {
+                "value": "h0",
+                "label": "XX-Large"
+                },
+                {
+                "value": "h1",
+                "label": "X-Large"
+                },
+                {
+                "value": "h2",
+                "label": "Large"
+                },
+                {
+                "value": "h3",
+                "label": "Medium"
+                },
+                {
+                "value": "h4",
+                "label": "Small"
+                },
+                {
+                "value": "h5",
+                "label": "X-Small"
+                },
+                {
+                "value": "h6",
+                "label": "XX-Small"
+                }
+            ],
+            "default": "h6"
+            }
+        ],
+        "blocks": [
+           
+        {
+            "type": "anchor_buttons",
+            "name": "Anchor Buttons",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "anchor_title",
+                    "label": "Button Text",
+                    "default": "Anchor title"
+                },
+                {
+                    "type": "text",
+                    "id": "anchor_target",
+                    "label": "Target ID",
+                    "default": "Target ID",
+                    "info": "Section ID"
+                }
+            ]
+        }
+          
+        ],    
+        "presets": [
+            {
+                "name": "Anchor buttons",
+                "category": "Sections"
+            }
+        ]
+    }
+    {% endschema %}

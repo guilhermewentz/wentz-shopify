@@ -1,0 +1,43 @@
+{% assign iframe_url = section.settings.iframe_url %}
+{% comment %} {% assign iframe_url = 'https://bra-sao.s3.sa-east-1.amazonaws.com/jader-ver-8/cadeira-dinna-146/index.html' %}  <!-- Substitua o link da URL do iframe --> {% endcomment %}
+{% assign iframe_width = '100%' %}
+{% assign iframe_height = '600' %}
+<div id="{{ section.settings.section_id }}" data-simulator-section="simulator" {% render 'section-properties' %} >  
+    <iframe 
+        src="{{ iframe_url }}" 
+        width="{{ iframe_width }}" 
+        height="{{ iframe_height }}" 
+        frameborder="0" 
+        allowfullscreen>
+    </iframe>
+</div>
+
+{% schema %}
+{
+    "name": "Simulator",
+    "class": "shopify-section--simulator",
+    "tag": "section",
+    "disabled_on": {
+    "groups": ["header", "custom.overlay"]
+    },
+    "presets": [
+    {
+      "name": "Simulator"
+    }
+    ],
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_id",
+            "label": "ID da seção",
+            "default": "simulator"
+        },
+        {
+            "type": "text",
+            "id": "iframe_url",
+            "label": "URL do iFrame",
+            "default": "https://bra-sao.s3.sa-east-1.amazonaws.com/jader-ver-8/cadeira-dinna-146/index.html"
+        }        
+    ]
+}
+{% endschema %}

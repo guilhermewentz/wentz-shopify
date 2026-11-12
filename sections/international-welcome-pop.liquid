@@ -1,0 +1,513 @@
+{%- if localization.country.iso_code != 'BR' and request.page_type != 'captcha' -%}
+
+  {%- assign is_portuguese = false -%}
+  {%- if request.locale.iso_code == 'pt' or request.locale.iso_code == 'pt-BR' -%}
+    {%- assign is_portuguese = true -%}
+  {%- endif -%}
+
+  <div
+    id="wentz-international-popup"
+    class="wentz-international-popup"
+    hidden
+  >
+    <div class="wentz-international-popup__overlay"></div>
+
+    <div
+      class="wentz-international-popup__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="wentz-international-title"
+      aria-describedby="wentz-international-description"
+      tabindex="-1"
+    >
+
+      <button
+        type="button"
+        class="wentz-international-popup__close"
+        aria-label="{% if is_portuguese %}Fechar{% else %}Close{% endif %}"
+      >
+        {%- render 'icon' with 'close', width: 19, height: 19 -%}
+      </button>
+
+      <div class="wentz-international-popup__content">
+
+        <!-- TITLE -->
+
+        <h1
+  id="wentz-international-title"
+  class="h1"
+>
+  {%- if is_portuguese -%}
+    {{ section.settings.title_pt | escape | newline_to_br }}
+  {%- else -%}
+    {{ section.settings.title_en | escape | newline_to_br }}
+  {%- endif -%}
+</h1>
+
+        <!-- DESCRIPTION -->
+
+        <p
+          id="wentz-international-description"
+          class="wentz-international-popup__description"
+        >
+          {%- if is_portuguese -%}
+            {{ section.settings.description_pt | escape | newline_to_br }}
+          {%- else -%}
+            {{ section.settings.description_en | escape | newline_to_br }}
+          {%- endif -%}
+        </p>
+
+        <!-- LANGUAGE SELECTOR -->
+
+        <div class="wentz-international-popup__language">
+
+          <p class="h6">
+            {%- if is_portuguese -%}
+              {{ section.settings.language_label_pt | escape }}
+            {%- else -%}
+              {{ section.settings.language_label_en | escape }}
+            {%- endif -%}
+          </p>
+
+          {% form 'localization', id: 'wentz-international-language-form' %}
+
+            <input
+              type="hidden"
+              name="country_code"
+              value="{{ localization.country.iso_code }}"
+            >
+
+            <select
+              name="locale_code"
+              aria-label="{% if is_portuguese %}Idioma{% else %}Language{% endif %}"
+            >
+              {%- for language in localization.available_languages -%}
+                <option
+                  value="{{ language.iso_code }}"
+                  {% if language.iso_code == localization.language.iso_code %}
+                    selected
+                  {% endif %}
+                >
+                  {%- if language.iso_code == 'pt-BR' -%}
+  Português (Brasil)
+{%- elsif language.iso_code == 'en' -%}
+  English
+{%- else -%}
+  {{ language.endonym_name }}
+{%- endif -%}
+                </option>
+              {%- endfor -%}
+            </select>
+
+          {% endform %}
+
+        </div>
+
+        <!-- CONTINUE BUTTON -->
+
+        <button
+          type="button"
+          class="button button--xl wentz-international-popup__continue"
+        >
+          {%- if is_portuguese -%}
+            {{ section.settings.button_text_pt | escape }}
+          {%- else -%}
+            {{ section.settings.button_text_en | escape }}
+          {%- endif -%}
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <style>
+
+  /* VISIBILITY */
+
+  .wentz-international-popup[hidden] {
+    display: none !important;
+  }
+
+  /* POPUP CONTAINER */
+
+  .wentz-international-popup {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+  }
+
+  /* BACKDROP */
+
+  .wentz-international-popup__overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+  }
+
+  /* DIALOG — 3:4 PROPORTION */
+
+  .wentz-international-popup__dialog {
+    position: relative;
+
+    width: 100%;
+    max-width: 520px;
+
+    height: min(693px, calc(100dvh - 40px));
+    max-height: calc(100dvh - 40px);
+    box-sizing: border-box;
+
+    overflow-y: auto;
+
+    background: rgb(var(--background));
+    color: rgb(var(--text-color));
+
+    padding: 60px 48px 48px;
+
+    text-align: center;
+  }
+
+  /* CLOSE BUTTON */
+
+  .wentz-international-popup__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  /* CONTENT */
+
+ .wentz-international-popup__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 100%;
+  gap: 28px;
+}
+
+  /* H1 - NATIVE IMPACT TYPOGRAPHY */
+
+  .wentz-international-popup__content h1 {
+    margin: 0;
+    width: 100%;
+  }
+
+  /* DESCRIPTION - PARAGRAPH TYPOGRAPHY */
+
+  .wentz-international-popup__description {
+    line-height: 1.7;
+    max-width: 360px;
+    margin: 0;
+  }
+
+  /* LANGUAGE SELECTOR */
+
+  .wentz-international-popup__language {
+    width: 100%;
+  }
+
+  /* H6 - NATIVE IMPACT TYPOGRAPHY */
+
+  .wentz-international-popup__language > p {
+    margin: 0 0 12px;
+  }
+
+  /* LANGUAGE DROPDOWN */
+
+  .wentz-international-popup__language select {
+  width: 100%;
+  min-height: 52px;
+
+  border: 1px solid currentColor;
+  border-radius: 0;
+
+  padding: 14px 26px 14px 14px;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  line-height: normal;
+
+  cursor: pointer;
+}
+
+  .wentz-international-popup__language select:focus-visible {
+    outline: 1px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  /* CONTINUE BUTTON */
+
+  .wentz-international-popup__continue {
+    width: 100%;
+    cursor: pointer;
+  }
+
+  /* Espaçamento central do pop-up */
+
+.wentz-international-popup__language {
+  margin-top: auto;
+}
+
+.wentz-international-popup__continue {
+  flex-shrink: 0;
+}
+
+  /* MOBILE */
+
+  @media screen and (max-width: 699px) {
+
+    .wentz-international-popup__dialog {
+      aspect-ratio: auto;
+      min-height: min(600px, calc(100dvh - 40px));
+
+      padding: 56px 28px 36px;
+    }
+
+    .wentz-international-popup__content {
+      gap: 24px;
+    }
+
+  }
+
+</style>
+
+  <script>
+    (() => {
+
+      const popup = document.getElementById('wentz-international-popup');
+
+      if (!popup) return;
+
+      const storageKey = 'wentz-international-welcome-v1';
+
+      const dialog = popup.querySelector(
+        '.wentz-international-popup__dialog'
+      );
+
+      const closeButton = popup.querySelector(
+        '.wentz-international-popup__close'
+      );
+
+      const continueButton = popup.querySelector(
+        '.wentz-international-popup__continue'
+      );
+
+      const languageSelect = popup.querySelector(
+        'select[name="locale_code"]'
+      );
+
+      const languageForm = document.getElementById(
+        'wentz-international-language-form'
+      );
+
+      let previousFocus = null;
+      let previousOverflow = '';
+
+      /* LOCAL STORAGE */
+
+      const getStoredPreference = () => {
+        try {
+          return localStorage.getItem(storageKey);
+        } catch (error) {
+          return null;
+        }
+      };
+
+      const savePreference = () => {
+        try {
+          localStorage.setItem(storageKey, 'true');
+        } catch (error) {
+          // Continue without persistent storage.
+        }
+      };
+
+      /* CLOSE POPUP */
+
+      const closePopup = () => {
+
+        if (popup.hidden) return;
+
+        popup.hidden = true;
+
+        document.body.style.overflow = previousOverflow;
+
+        savePreference();
+
+        if (previousFocus && previousFocus.isConnected) {
+          previousFocus.focus();
+        }
+
+        window.dispatchEvent(
+          new CustomEvent('wentz:international-welcome-closed')
+        );
+
+      };
+
+      /* OPEN POPUP */
+
+      const openPopup = () => {
+
+        if (!popup.hidden) return;
+
+        previousFocus = document.activeElement;
+        previousOverflow = document.body.style.overflow;
+
+        popup.hidden = false;
+
+        document.body.style.overflow = 'hidden';
+
+        dialog.focus();
+
+      };
+
+      /* AUTOMATIC APPEARANCE */
+
+      if (!getStoredPreference()) {
+        window.setTimeout(openPopup, 1000);
+      }
+
+      /* CLOSE BUTTONS */
+
+      closeButton.addEventListener('click', closePopup);
+
+      continueButton.addEventListener('click', closePopup);
+
+      /* ESC KEY AND FOCUS MANAGEMENT */
+
+      popup.addEventListener('keydown', (event) => {
+
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          closePopup();
+          return;
+        }
+
+        if (event.key !== 'Tab') return;
+
+        const focusableElements = Array.from(
+          dialog.querySelectorAll(
+            'button:not([disabled]), select:not([disabled]), input:not([disabled]), a[href]'
+          )
+        ).filter((element) => element.getClientRects().length > 0);
+
+        if (!focusableElements.length) {
+          event.preventDefault();
+          dialog.focus();
+          return;
+        }
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstElement) {
+          event.preventDefault();
+          lastElement.focus();
+        } else if (
+          !event.shiftKey &&
+          document.activeElement === lastElement
+        ) {
+          event.preventDefault();
+          firstElement.focus();
+        } else if (document.activeElement === dialog) {
+          event.preventDefault();
+          (event.shiftKey ? lastElement : firstElement).focus();
+        }
+
+      });
+
+      /* LANGUAGE CHANGE */
+
+      languageSelect.addEventListener('change', () => {
+
+        savePreference();
+
+        languageForm.submit();
+
+      });
+
+    })();
+  </script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "International welcome",
+  "class": "shopify-section--international-welcome",
+  "settings": [
+    {
+      "type": "header",
+      "content": "English"
+    },
+    {
+      "type": "textarea",
+      "id": "title_en",
+      "label": "Heading",
+      "default": "WELCOME TO WENTZ"
+    },
+    {
+      "type": "textarea",
+      "id": "description_en",
+      "label": "Description",
+      "default": "Our online store is currently available exclusively in Brazil. For international orders, explore our collections and request a personalized quote."
+    },
+    {
+      "type": "text",
+      "id": "language_label_en",
+      "label": "Language selector heading",
+      "default": "SELECT YOUR LANGUAGE"
+    },
+    {
+      "type": "text",
+      "id": "button_text_en",
+      "label": "Button text",
+      "default": "CONTINUE"
+    },
+    {
+      "type": "header",
+      "content": "Português"
+    },
+    {
+      "type": "textarea",
+      "id": "title_pt",
+      "label": "Título",
+      "default": "BEM-VINDO À WENTZ"
+    },
+    {
+      "type": "textarea",
+      "id": "description_pt",
+      "label": "Descrição",
+      "default": "Nossa loja online está disponível exclusivamente no Brasil. Para compras internacionais, explore nossas coleções e solicite um orçamento personalizado."
+    },
+    {
+      "type": "text",
+      "id": "language_label_pt",
+      "label": "Título do seletor de idioma",
+      "default": "SELECIONE SEU IDIOMA"
+    },
+    {
+      "type": "text",
+      "id": "button_text_pt",
+      "label": "Texto do botão",
+      "default": "CONTINUAR"
+    }
+  ],
+  "presets": [
+    {
+      "name": "International welcome"
+    }
+  ]
+}
+{% endschema %}

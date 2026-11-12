@@ -1,0 +1,428 @@
+{%- render 'section-spacing-collapsing' -%}
+
+<style>
+  {%- assign section_background = section.settings.background | default: settings.background -%}
+  {%- assign card_background = section.settings.product_card_background | default: settings.product_card_background -%}
+  {%- assign card_blends = false -%}
+
+  {%- unless section_background != 'rgba(0,0,0,0)' and card_background != 'rgba(0,0,0,0)' and section_background != card_background -%}
+    {%- assign card_blends = true -%}
+  {%- endunless -%}
+
+  #shopify-section-{{ section.id }} .product-list {
+    --product-list-gap: {% if section.settings.stack_products and section.settings.products_per_row_mobile == '2' %}{% if card_blends %}var(--product-list-row-gap){% endif %} var(--spacing-2){% else %}var(--product-list-row-gap) var(--product-list-column-gap){% endif %};
+    --product-list-items-per-row: {{ section.settings.products_per_row_mobile | times: 1 }};
+    --product-list-carousel-item-width: 74vw;
+    --product-list-grid: {% if section.settings.stack_products %}auto / repeat(var(--product-list-items-per-row), minmax(0, 1fr)){% else %}auto / auto-flow var(--product-list-carousel-item-width){% endif %};
+  }
+
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} .product-list {
+      --product-list-gap: var(--product-list-row-gap) var(--product-list-column-gap);
+      --product-list-items-per-row: 2;
+      --product-list-carousel-item-width: 36vw;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    #shopify-section-{{ section.id }} .product-list {
+      --product-list-items-per-row: {{ section.settings.products_per_row_desktop }};
+      --product-list-carousel-item-width: calc(var(--container-inner-width) / {{ section.settings.products_per_row_desktop }} - (var(--product-list-column-gap) / {{ section.settings.products_per_row_desktop }} * {{ section.settings.products_per_row_desktop | minus: 1 }}));
+    }
+  }
+  /* WENTZ — Featured Collection Overlay */
+
+#shopify-section-{{ section.id }} .floating-controls-container,
+#shopify-section-{{ section.id }} .scrollable-with-controls {
+  position: relative;
+}
+
+#shopify-section-{{ section.id }} .wentz-featured-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#shopify-section-{{ section.id }} .wentz-featured-overlay h2 {
+  margin: 0;
+  color: {{ section.settings.heading_color | default: section.settings.text_color | default: '#000000' }};
+}
+
+/* WENTZ — Featured Collection Heading Alignment */
+
+{% if section.settings.heading_alignment == 'center' %}
+  #shopify-section-{{ section.id }} .section-header {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .section-header .prose {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  @media screen and (min-width: 700px) {
+    #shopify-section-{{ section.id }} .section-header .text-with-icon {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+
+{% elsif section.settings.heading_alignment == 'right' %}
+  #shopify-section-{{ section.id }} .section-header .prose {
+    text-align: right;
+    margin-left: auto;
+  }
+{% endif %}
+
+/* WENTZ — Featured Collection Footer */
+
+#shopify-section-{{ section.id }} .wentz-featured-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 40px;
+  text-align: center;
+}
+
+#shopify-section-{{ section.id }} .wentz-featured-view-all {
+  color: inherit;
+  font-size: var(--text-base);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: opacity 0.25s ease;
+}
+
+#shopify-section-{{ section.id }} .wentz-featured-view-all:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 699px) {
+  #shopify-section-{{ section.id }} .wentz-featured-footer {
+    margin-top: 28px;
+  }
+}
+
+</style>
+
+<div {% render 'section-properties' %}>
+  <div class="section-stack">
+   {%- assign link_url = section.settings.link_url | default: section.settings.collection.url -%}
+
+{%- if section.settings.heading_alignment == 'left' -%}
+  {%- assign header_alignment = 'start' -%}
+{%- elsif section.settings.heading_alignment == 'right' -%}
+  {%- assign header_alignment = 'end' -%}
+{%- else -%}
+  {%- assign header_alignment = 'center' -%}
+{%- endif -%}
+
+{%- if section.settings.overlay_heading -%}
+  {%- assign header_heading = blank -%}
+{%- else -%}
+  {%- assign header_heading = section.settings.title -%}
+{%- endif -%}
+
+{%- render 'section-header',
+  subheading: section.settings.subheading,
+  heading: header_heading,
+  heading_size: section.settings.heading_size,
+  heading_color: section.settings.heading_color,
+  heading_gradient: section.settings.heading_gradient,
+  content: section.settings.content,
+  text_alignment: header_alignment
+-%}
+
+    <div class="{% if section.settings.show_progress_bar %}scrollable-with-controls{% else %}floating-controls-container{% endif %}">
+      {%- if section.settings.overlay_heading and section.settings.title != blank -%}
+  <div class="wentz-featured-overlay">
+    <h2 class="{{ section.settings.heading_size }}">
+      {{ section.settings.title | escape }}
+    </h2>
+  </div>
+{%- endif -%}
+      {%- assign scroll_area_id = 'scroll-area-' | append: section.id -%}
+
+      <scroll-carousel selector="product-card" id="{{ scroll_area_id }}" class="scroll-area bleed {% if section.settings.products_count > section.settings.products_per_row_desktop %}is-scrollable{% endif %}">
+        <reveal-items selector=".product-list > *">
+          <product-list class="product-list">
+            {%- if section.settings.use_article_related_products and article.metafields.custom.produtos_relacionados.value != blank -%}
+            {%- assign products = article.metafields.custom.produtos_relacionados.value -%}
+            {%- else -%}
+            {%- assign products = section.settings.products | default: section.settings.collection.products -%}
+            {%- endif -%}
+
+            {%- for product in products limit: section.settings.products_count -%}
+              {%- render 'product-card', product: product, stacked: section.settings.stack_products, position: forloop.index, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true, configurator_variant_title: section.settings.configurator_variant_title -%}
+            {%- else -%}
+              {%- for i in (1..section.settings.products_count) -%}
+                {%- capture placeholder_image -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}
+                {%- render 'product-card-placeholder', stacked: section.settings.stack_products, placeholder_image: placeholder_image, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, text_alignment: settings.product_info_alignment -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          </product-list>
+        </reveal-items>
+      </scroll-carousel>
+
+      {%- if section.settings.stack_products == false -%}
+        {%- if section.settings.show_progress_bar -%}
+          {%- assign default_progress = section.settings.products_per_row_desktop | times: 1.0 | divided_by: section.settings.products_count -%}
+          {%- render 'scrollbar', observes: scroll_area_id, default_progress: default_progress, show_buttons: true -%}
+        {%- else -%}
+          <button is="prev-button" class="circle-button circle-button--lg circle-button--fill group" aria-controls="{{ scroll_area_id }}" disabled>
+            <span class="sr-only">{{ 'general.accessibility.previous' | t }}</span>
+            <span class="animated-arrow animated-arrow--reverse">&gt;</span>
+          </button>
+
+          <button is="next-button" class="circle-button circle-button--lg circle-button--fill group" aria-controls="{{ scroll_area_id }}">
+            <span class="sr-only">{{ 'general.accessibility.next' | t }}</span>
+            <span class="animated-arrow">&gt;</span>
+          </button>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.link_text != blank and link_url != blank -%}
+      <div class="wentz-featured-footer">
+        <a href="{{ link_url }}" class="wentz-featured-view-all">
+          {{ section.settings.link_text | escape }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "class": "shopify-section--featured-collection",
+  "tag": "section",
+  "disabled_on": {
+    "templates": ["password"],
+    "groups": ["header", "custom.overlay"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "info": "Replaces collection when selected."
+    },
+    {
+      "type": "checkbox",
+      "id": "use_article_related_products",
+      "label": "Use related products from blog post",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Full width",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_products",
+      "label": "Stack products",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show carousel progress bar",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "min": 2,
+      "max": 50,
+      "label": "Products to show",
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "products_per_row_mobile",
+      "label": "Products per row (mobile)",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row_desktop",
+      "min": 2,
+      "max": 5,
+      "label": "Products per row (desktop)",
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "overlay_heading",
+      "label": "Overlay heading on products",
+      "default": false
+    },
+    {
+  "type": "select",
+  "id": "heading_alignment",
+  "label": "Heading alignment",
+  "options": [
+    {
+      "value": "left",
+      "label": "Left"
+    },
+    {
+      "value": "center",
+      "label": "Center"
+    },
+    {
+      "value": "right",
+      "label": "Right"
+    }
+  ],
+  "default": "left"
+},
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "h0",
+          "label": "XX-Large"
+        },
+        {
+          "value": "h1",
+          "label": "X-Large"
+        },
+        {
+          "value": "h2",
+          "label": "Large"
+        },
+        {
+          "value": "h3",
+          "label": "Medium"
+        },
+        {
+          "value": "h4",
+          "label": "Small"
+        },
+        {
+          "value": "h5",
+          "label": "X-Small"
+        },
+        {
+          "value": "h6",
+          "label": "XX-Small"
+        }
+      ],
+      "default": "h6"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL",
+      "info": "Default to collection URL."
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link text",
+      "default": "View all"
+    },
+    {
+      "type": "header",
+      "content": "Colors",
+      "info": "Gradient replaces solid colors when set."
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color"
+    },
+    {
+      "type": "color_background",
+      "id": "heading_gradient",
+      "label": "Heading gradient"
+    },
+    {
+      "type": "color",
+      "id": "product_card_background",
+      "label": "Product card background"
+    },
+    {
+      "type": "color",
+      "id": "product_card_text_color",
+      "label": "Product card text"
+    },
+    {
+      "type": "text",
+      "id": "configurator_variant_title",
+      "label": "Configurator variant title",
+      "default": "Configurador 3D"    
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured collection"
+    }
+  ]
+}
+{% endschema %}
