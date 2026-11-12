@@ -23,6 +23,7 @@ Image Gallery by Marcos Watanabe (https://marcoswatanabe.com/)
 {% endif %}
 
 {% unless all_images_empty %}
+<wentz-image-gallery>
 <section {% render 'section-properties' %} id="section-{{ section.id }}">
   {%- if section.settings.heading != blank -%}
     <div class="page-width"><h6>{{ section.settings.heading }}</h6></div>
@@ -86,18 +87,21 @@ Image Gallery by Marcos Watanabe (https://marcoswatanabe.com/)
 
 </div>
   
-  <div id="mw-modal" class="mw-modal">
+  <div id="mw-modal-{{ section.id }}" class="mw-modal" role="dialog" aria-modal="true" aria-label="Image gallery" tabindex="-1">
     <div class="mw-modal-content">
-      <img id="mw-modal-image" src="" alt="">
-      <a id="mw-modal-prev" class="mw-modal-prev mw-arrow mw-arrow-left" href="#">&#10094;</a>
-      <a id="mw-modal-next" class="mw-modal-next mw-arrow mw-arrow-right" href="#">&#10095;</a>
-      <a id="mw-modal-close" class="mw-modal-close" href="#">&#10005;</a>
+      <img id="mw-modal-image-{{ section.id }}" src="" alt="">
+      <a id="mw-modal-prev-{{ section.id }}" class="mw-modal-prev mw-arrow mw-arrow-left" href="#">&#10094;</a>
+      <a id="mw-modal-next-{{ section.id }}" class="mw-modal-next mw-arrow mw-arrow-right" href="#">&#10095;</a>
+      <a id="mw-modal-close-{{ section.id }}" class="mw-modal-close" href="#">&#10005;</a>
     </div>
   </div>
 </section>
+</wentz-image-gallery>
 {% endunless %}
 
 <style>
+wentz-image-gallery { display: block; }
+
 /* Gallery grid */
 .mw-image-gallery {
   display: grid;
@@ -262,68 +266,84 @@ Image Gallery by Marcos Watanabe (https://marcoswatanabe.com/)
 
 
 {% javascript %}
-(function(){
-  const images = document.querySelectorAll('.mw-image-gallery a');
-  const modal = document.querySelector('.mw-modal');
-  const modalImage = modal.querySelector('img');
-  let currentIndex = 0;
-  
-  // Open modal popup and show clicked image
-  function showModal(index) {
-    if(window.innerWidth > 749){
-      modalImage.src = images[index].dataset.desktop;
-    } else {
-      modalImage.src = images[index].dataset.mobile;  
-    }    
-    modal.classList.add('show');
-    currentIndex = index;
-  }
-  
-  // Hide modal popup
-  function hideModal() {
-    modal.classList.remove('show');
-  }
-  
-  // Show previous image in gallery
-  function showPrevImage(e) {
-    e.stopPropagation()
-    if (currentIndex === 0) {
-      showModal(images.length - 1);
-    } else {
-      showModal(currentIndex - 1);
-    }
-  }
-  
-  // Show next image in gallery
-  function showNextImage(e) {
-    e.stopPropagation()
-    if (currentIndex === images.length - 1) {
-      showModal(0);
-    } else {
-      showModal(currentIndex + 1);
-    }
-  }
-  
-  // Add click event listeners to all images
-  images.forEach((image, index) => {
-    image.addEventListener('click', (e) => {
-      e.preventDefault()
-      showModal(index);
-    });
-  });  
-    
-  // Add click event listeners to modal navigation arrows
-  const prevArrow = modal.querySelector('.mw-modal-prev');
-  prevArrow.addEventListener('click', showPrevImage);
-  
-  const nextArrow = modal.querySelector('.mw-modal-next');
-  nextArrow.addEventListener('click', showNextImage);
-  
-  // Add click event listener to modal background to hide it
-  modal.addEventListener('click', hideModal);
+if (!customElements.get('wentz-image-gallery')) {
+  customElements.define('wentz-image-gallery', class extends HTMLElement {
+    connectedCallback() {
+      this._controller?.abort();
+      this._controller = new AbortController();
+      const { signal } = this._controller;
+      const images = Array.from(this.querySelectorAll('.mw-image-gallery a'));
+      const modal = this.querySelector('.mw-modal');
+      const modalImage = modal?.querySelector('img');
+      if (!images.length || !modal || !modalImage) return;
 
-  
-})()
+      const closeButton = modal.querySelector('.mw-modal-close');
+      let currentIndex = 0;
+      let previousFocus = null;
+
+      const show = index => {
+        currentIndex = (index + images.length) % images.length;
+        const image = images[currentIndex];
+        modalImage.src = window.innerWidth > 749 ? image.dataset.desktop : image.dataset.mobile;
+        modalImage.alt = image.querySelector('img')?.alt || '';
+        modal.classList.add('show');
+      };
+      this._closeModal = () => {
+        modal.classList.remove('show');
+        if (previousFocus?.isConnected) previousFocus.focus();
+      };
+
+      images.forEach((image, index) => {
+        image.addEventListener('click', event => {
+          event.preventDefault();
+          previousFocus = document.activeElement;
+          show(index);
+          (closeButton || modal).focus();
+        }, { signal });
+      });
+      modal.querySelector('.mw-modal-prev')?.addEventListener('click', event => {
+        event.preventDefault();
+        show(currentIndex - 1);
+      }, { signal });
+      modal.querySelector('.mw-modal-next')?.addEventListener('click', event => {
+        event.preventDefault();
+        show(currentIndex + 1);
+      }, { signal });
+      closeButton?.addEventListener('click', event => {
+        event.preventDefault();
+        this._closeModal();
+      }, { signal });
+      modal.addEventListener('click', event => {
+        if (event.target === modal) this._closeModal();
+      }, { signal });
+      modal.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          this._closeModal();
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          show(currentIndex + (event.key === 'ArrowRight' ? 1 : -1));
+        } else if (event.key === 'Tab') {
+          const controls = Array.from(modal.querySelectorAll('a[href], button:not([disabled])'));
+          const first = controls[0];
+          const last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      }, { signal });
+    }
+
+    disconnectedCallback() {
+      this._controller?.abort();
+      this._closeModal = null;
+    }
+  });
+}
 {% endjavascript %}
 
 {% schema %}

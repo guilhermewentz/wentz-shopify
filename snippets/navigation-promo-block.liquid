@@ -14,6 +14,7 @@
   {%- assign promo_item_count = promo_item_count | plus: 1 -%}
 {%- endif -%}
 
+{%- if promo_item_count > 0 -%}
 {%- assign mega_menu_col = promo_item_count | plus: link_col -%}
 
 {% if force_carousel_mode or use_carousel_fallback_until %}
@@ -175,7 +176,7 @@
 </style>
 
 {%- capture promo_block_content -%}
-  {%- for i in (1..promo_item_count) -%}
+  {%- for i in (1..3) -%}
     {%- assign image_setting = 'image_' | append: i -%}
     {%- assign image_heading_setting = 'image_heading_' | append: i -%}
     {%- assign image_link_setting = 'image_link_' | append: i -%}
@@ -242,3 +243,4 @@
     </div>
   {%- endif -%}
 </div>
+{%- endif -%}

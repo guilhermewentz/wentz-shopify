@@ -60,7 +60,7 @@
 
 {%- assign buy_buttons_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
 
-{%- if section.settings.show_fixed_add_to_cart and product.available and buy_buttons_block != blank -%}
+{%- if localization.country.iso_code == 'BR' and section.settings.show_fixed_add_to_cart and product.available and buy_buttons_block != blank -%}
   <product-rerender id="{{ product_form_id }}-sticky-bar" observe-form="{{ product_form_id }}">
     {%- if product.selected_or_first_available_variant.available -%}
       <product-quick-add form="{{ product_form_id }}" class="product-quick-add">

@@ -223,7 +223,8 @@
         <div class="wentz-loop-track product-list">
           {%- for repetition in (1..3) -%}
             {%- for product in products limit: section.settings.products_count -%}
-              {%- render 'product-card', product: product, stacked: false, position: forloop.index, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true, configurator_variant_title: section.settings.configurator_variant_title -%}
+              {%- assign card_instance_id = 'loop-' | append: repetition | append: '-' | append: forloop.index -%}
+              {%- render 'product-card', product: product, card_instance_id: card_instance_id, stacked: false, position: forloop.index, background: section.settings.product_card_background, text_color: section.settings.product_card_text_color, show_badges: true, configurator_variant_title: section.settings.configurator_variant_title -%}
             {%- else -%}
               {%- for i in (1..section.settings.products_count) -%}
                 {%- capture placeholder_image -%}product-{% cycle '1', '2', '3', '4', '5', '6' %}{%- endcapture -%}

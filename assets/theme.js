@@ -4513,6 +4513,11 @@ var MegaMenuDisclosure = class extends DropdownDisclosure {
 };
 var MegaMenuPromoCarousel = class extends EffectCarousel {
   connectedCallback() {
+    // Empty promo configurations have no selected slide for BaseCarousel.
+    if (!this.items.length) {
+      this._abortController = new AbortController();
+      return;
+    }
     super.connectedCallback();
     if (this.nextElementSibling) {
       this.addEventListener("carousel:select", (event) => this._updateControlsColor(event.detail.slide));
@@ -4520,8 +4525,11 @@ var MegaMenuPromoCarousel = class extends EffectCarousel {
     this._updateControlsColor(this.items[this.selectedIndex]);
   }
   _updateControlsColor(slide) {
+    const controls = this.nextElementSibling;
+    if (!slide || !controls) return;
     const extractFrom = slide.classList.contains("content-over-media") ? slide : slide.firstElementChild;
-    this.nextElementSibling.style.setProperty("--text-color", extractFrom.style.getPropertyValue("--text-color"));
+    if (!extractFrom) return;
+    controls.style.setProperty("--text-color", extractFrom.style.getPropertyValue("--text-color"));
   }
 };
 var NavigationDrawer = class extends Drawer {

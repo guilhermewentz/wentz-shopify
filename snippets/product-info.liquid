@@ -141,6 +141,7 @@ Supported variables
           {%- endif -%}
 
         {%- when 'payment_terms' -%}
+          {%- if localization.country.iso_code != 'BR' -%}{%- continue -%}{%- endif -%}
           <payment-terms class="product-info__payment-terms">
             {%- capture product_installment_form_id -%}{{ product_form_id }}-product-installment-form{%- endcapture -%}
 
@@ -261,6 +262,7 @@ Supported variables
           {%- endif -%}
 
         {%- when 'quantity_selector' -%}
+          {%- if localization.country.iso_code != 'BR' -%}{%- continue -%}{%- endif -%}
           {%- if product.available -%}
             {%- assign variant = product.selected_or_first_available_variant -%}
 
@@ -336,6 +338,7 @@ Supported variables
             consultant_message: block.settings.consultant_message %}
 
         {%- when 'pickup_availability' -%}
+          {%- if localization.country.iso_code != 'BR' -%}{%- continue -%}{%- endif -%}
           <div class="product-info__pickup-availability">
             {%- render 'pickup-availability', product_variant: product.selected_or_first_available_variant -%}
           </div>

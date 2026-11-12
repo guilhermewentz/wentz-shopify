@@ -16,6 +16,7 @@ Supported variables
 * show_secondary_image: show or not the secondary image. If nothing is set, the theme uses the default product card setting
 * show_swatches: allow to force hiding swatches. If nothing is set, it will default to the default card strategy
 * stacked: indicate if the product is in stack mode
+* card_instance_id: optional unique instance suffix for repeated cards (swatches, quick buy and forms)
 * position: the position of the card in the list. If specified, the theme will eagerly load the first 3 cards images
 * reveal: if set to true the item will be revealed in a stacked mode
 * background: the background to use for the product card (if none is passed then the one from the global setting is used)
@@ -93,12 +94,13 @@ Supported variables
         {%- endif -%}
       </a>
 
-      {%- if show_quick_buy and product.available -%}
+      {%- if localization.country.iso_code == 'BR' and show_quick_buy and product.available -%}
         <div class="product-card__quick-buy">
           {%- assign quick_add_label = 'product.general.quick_add' | t -%}
 
           {%- if product.variants.size == 1 and product.selling_plan_groups.size == 0 -%}
-            {%- form 'product', product, is: 'product-form' -%}
+            {%- capture quick_add_form_id -%}quick-add-{{ section.id }}-{{ product.id }}{% if card_instance_id != blank %}-{{ card_instance_id }}{% endif %}{%- endcapture -%}
+            {%- form 'product', product, is: 'product-form', id: quick_add_form_id -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
 
               <div class="pointer-fine:hidden">
@@ -112,7 +114,7 @@ Supported variables
               </div>
             {%- endform -%}
           {%- else -%}
-            {%- capture quick_buy_id -%}quick-buy-{{ section.id }}-{{ product.id }}{%- endcapture -%}
+            {%- capture quick_buy_id -%}quick-buy-{{ section.id }}-{{ product.id }}{% if card_instance_id != blank %}-{{ card_instance_id }}{% endif %}{%- endcapture -%}
 
             <div class="pointer-fine:hidden">
               <button type="button" aria-controls="{{ quick_buy_id }}" aria-expanded="false" aria-label="{{ quick_add_label | escape }}" is="custom-button" class="product-card__mobile-quick-buy-button">
@@ -200,7 +202,7 @@ Supported variables
                 <fieldset class="product-card__swatch-list  h-stack {% if settings.color_swatch_style == 'rectangle' %}gap-2.5{% else %}gap-0.5{% endif %}" data-option-position="{{ product_option.position }}">
                   <legend class="sr-only">{{ product_option.name }}</legend>
 
-                  {%- capture param_name -%}swatch-{{ quick_buy_context }}-{{ section.id }}-{{ product.id }}-{{ product_option.position }}{%- endcapture -%}
+                  {%- capture param_name -%}swatch-{{ quick_buy_context }}-{{ section.id }}-{{ product.id }}-{{ product_option.position }}{% if card_instance_id != blank %}-{{ card_instance_id }}{% endif %}{%- endcapture -%}
 
                   {%- liquid
                     for option_value in product_option.values limit: 4
@@ -220,7 +222,7 @@ Supported variables
                 <fieldset class="product-card__variant-list" data-option-position="{{ product_option.position }}">
                   <legend class="sr-only">{{ product_option.name }}</legend>
                   
-                  {%- capture param_name -%}swatch-{{ quick_buy_context }}-{{ section.id }}-{{ product.id }}-{{ product_option.position }}{%- endcapture -%}
+                  {%- capture param_name -%}swatch-{{ quick_buy_context }}-{{ section.id }}-{{ product.id }}-{{ product_option.position }}{% if card_instance_id != blank %}-{{ card_instance_id }}{% endif %}{%- endcapture -%}
 
                   {%- for option_value in product_option.values limit: 4 -%}
                     {%- if forloop.first or option_value.variant.matched and option_value == product_option.selected_value -%}
