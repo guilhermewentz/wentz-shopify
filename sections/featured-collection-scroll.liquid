@@ -160,7 +160,7 @@
     grid-auto-flow: column;
     grid-auto-columns: 74vw;
     grid-template-columns: none;
-    gap: 10px;
+    gap: 20px;
     width: max-content;
     max-width: none;
     padding: 0;
@@ -172,7 +172,7 @@
   }
   @media (min-width: 1000px) {
     #shopify-section-{{ section.id }} .wentz-loop-track {
-      grid-auto-columns: calc((100vw - ({{ section.settings.products_per_row_desktop | minus: 1 }} * 10px)) / {{ section.settings.products_per_row_desktop }});
+      grid-auto-columns: calc((100vw - ({{ section.settings.products_per_row_desktop | minus: 1 }} * 20px)) / {{ section.settings.products_per_row_desktop }});
     }
   }
 </style>
