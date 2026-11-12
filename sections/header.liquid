@@ -391,6 +391,98 @@ the underlying logic of the menu.
 
 <script>
   document.documentElement.style.setProperty('--header-height', Math.round(document.getElementById('shopify-section-{{ section.id }}').clientHeight) + 'px');
+
+  (() => {
+    const sectionId = 'shopify-section-{{ section.id }}';
+    const desktopPointer = window.matchMedia('(min-width: 1000px) and (hover: hover) and (pointer: fine)');
+
+    const initializeSelectorHover = () => {
+      const root = document.getElementById(sectionId);
+      if (!root || !root.isConnected) return;
+      root._selectorHoverCleanup?.();
+      const controller = new AbortController();
+      const { signal } = controller;
+      const cleanups = [];
+
+      root.querySelectorAll('.header__secondary-nav x-popover[id^="wentz-market-"], .header__secondary-nav x-popover[id^="popover-localization-form-locale-"]').forEach(popover => {
+        const wrapper = popover.parentElement;
+        let openTimer;
+        let closeTimer;
+        let openedByHover = false;
+        const trapsFocus = popover.shouldTrapFocus;
+
+        // Hover must not pull keyboard focus away from the current element.
+        Object.defineProperty(popover, 'shouldTrapFocus', {
+          configurable: true,
+          get: () => !openedByHover && trapsFocus
+        });
+
+        const cancelTimers = () => {
+          clearTimeout(openTimer);
+          clearTimeout(closeTimer);
+        };
+        const scheduleClose = () => {
+          clearTimeout(openTimer);
+          clearTimeout(closeTimer);
+          closeTimer = setTimeout(() => {
+            if (popover.contains(document.activeElement)) return;
+            popover.hide();
+          }, 220);
+        };
+
+        wrapper.addEventListener('pointerenter', event => {
+          if (!desktopPointer.matches || event.pointerType !== 'mouse') return;
+          cancelTimers();
+          openTimer = setTimeout(() => {
+            if (!wrapper.isConnected || !desktopPointer.matches || popover.open) return;
+            openedByHover = true;
+            popover.show();
+          }, 120);
+        }, { signal });
+        wrapper.addEventListener('pointerleave', event => {
+          if (desktopPointer.matches && event.pointerType === 'mouse') scheduleClose();
+        }, { signal });
+        wrapper.addEventListener('focusin', cancelTimers, { signal });
+        wrapper.addEventListener('focusout', event => {
+          if (!wrapper.contains(event.relatedTarget)) scheduleClose();
+        }, { signal });
+        wrapper.addEventListener('keydown', event => {
+          if (event.key === 'Escape' && popover.open) {
+            cancelTimers();
+            popover.hide();
+          }
+        }, { signal });
+        wrapper.addEventListener('pointerdown', () => {
+          openedByHover = false;
+        }, { signal });
+        popover.addEventListener('dialog:after-hide', () => {
+          openedByHover = false;
+        }, { signal });
+        cleanups.push(() => {
+          cancelTimers();
+          delete popover.shouldTrapFocus;
+        });
+      });
+
+      root._selectorHoverCleanup = () => {
+        controller.abort();
+        cleanups.forEach(cleanup => cleanup());
+      };
+    };
+
+    customElements.whenDefined('x-popover').then(initializeSelectorHover);
+    document.addEventListener('shopify:section:load', event => {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        customElements.whenDefined('x-popover').then(initializeSelectorHover);
+      }
+    });
+    document.addEventListener('shopify:section:unload', event => {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        document.getElementById(sectionId)?._selectorHoverCleanup?.();
+      }
+    });
+  })();
+
 </script>
 
 {% schema %}
