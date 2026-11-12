@@ -54,7 +54,7 @@ Supported parameters
           <span class="badge badge--current badge--lg">{{ article.tags | first }}</span>
         {%- endif -%}
 
-        <p class="{% if heading_size != blank %}{{ heading_size }}{% elsif featured %}h2{% else %}h3{% endif %}"{% if featured %} style="line-height: 1.15;"{% endif %}>
+        <p class="{% if heading_size != blank %}{{ heading_size }}{% elsif featured %}h0{% else %}h3{% endif %}">
           {%- if article -%}
             <a href="{{ article.url }}">{{ article.title }}</a>
           {%- else -%}
