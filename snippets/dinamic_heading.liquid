@@ -1,0 +1,18 @@
+  
+<style>
+    .color_heading {
+        color: {{ block.settings.mobile_color_heading }};
+    }
+
+  @media screen and (min-width: 700px) {
+    .color_heading {
+      color: {{ block.settings.desktop_color_heading }};
+    }
+  }
+</style>
+<div 
+    class="{{ block.settings.heading_tag }} color_heading" 
+    {% if settings.heading_apparition != 'none' %}reveal-on-scroll="true"{% endif %} 
+    {{ block.shopify_attributes }}>
+{{ block.settings.richtext_heading }}
+</div>

@@ -1,0 +1,138 @@
+
+{% liquid
+  assign download_file = product.metafields.custom.download_file.value
+%}
+
+
+{% if download_file != blank %}
+  {% liquid
+    assign sheet_pt = download_file.technical_sheet_file.value
+    assign sheet_en = download_file.product_sheet_en.value
+
+    assign dwg_file = download_file.file_2d.value
+    assign dwg_link = download_file.arquivo_2d_dwg.value
+
+    assign skp_file = download_file.file_3d.value
+    assign skp_link = download_file.arquivo_3d_skp.value
+
+    assign obj_file = download_file.arquivo_3d_obj.value
+    assign obj_link = download_file.arquivo_3d_obj_url.value
+
+    assign archicad_file = download_file.arquivo_3d_archicad.value
+    assign archicad_link = download_file.arquivo_3d_archicad_url.value
+
+    assign revit_file = download_file.arquivo_3d_revit.value
+    assign revit_link = download_file.arquivo_3d_revit_url.value
+
+    assign textures_file = download_file.texturas_maps.value
+    assign textures_link = download_file.texturas_maps_url.value
+
+    assign all_3d_link = download_file.link_para_arquivos_3d.value
+
+    assign manual_file = download_file.download_manual.value
+    assign care_file = download_file.download_cuidado.value
+
+    assign has_sheets = false
+    if sheet_pt != blank or sheet_en != blank
+      assign has_sheets = true
+    endif
+
+    assign has_models = false
+    if dwg_file != blank or dwg_link != blank or skp_file != blank or skp_link != blank or obj_file != blank or obj_link != blank or archicad_file != blank or archicad_link != blank or revit_file != blank or revit_link != blank or textures_file != blank or textures_link != blank or all_3d_link != blank
+      assign has_models = true
+    endif
+
+    assign has_manuals = false
+    if manual_file != blank or care_file != blank
+      assign has_manuals = true
+    endif
+  %}
+
+  {% if has_sheets or has_models or has_manuals %}
+    <ul class="download-files-list wentz-download-grid">
+
+      {% if has_sheets %}
+        <li class="wentz-download-group">
+          <h6>{{ 'download_files.title_1' | t }}</h6>
+
+          {% if sheet_pt != blank %}
+            <a class="link" href="{{ sheet_pt.url }}" download>Ficha Técnica (PT)</a>
+          {% endif %}
+
+          {% if sheet_en != blank %}
+            <a class="link" href="{{ sheet_en.url }}" download>Product Sheet (EN)</a>
+          {% endif %}
+        </li>
+      {% endif %}
+
+      {% if has_models %}
+        <li class="wentz-download-group">
+          <h6>{{ 'download_files.title_2' | t }}</h6>
+
+          {% if dwg_file != blank %}
+            <a class="link" href="{{ dwg_file.url }}" download>2D (DWG)</a>
+          {% elsif dwg_link != blank %}
+            <a class="link" href="{{ dwg_link }}" target="_blank" rel="noopener noreferrer">2D (DWG)</a>
+          {% endif %}
+
+          {% if skp_file != blank %}
+            <a class="link" href="{{ skp_file.url }}" download>3D (SKP)</a>
+          {% elsif skp_link != blank %}
+            <a class="link" href="{{ skp_link }}" target="_blank" rel="noopener noreferrer">3D (SKP)</a>
+          {% endif %}
+
+          {% if obj_file != blank %}
+            <a class="link" href="{{ obj_file.url }}" download>3D (OBJ)</a>
+          {% elsif obj_link != blank %}
+            <a class="link" href="{{ obj_link }}" target="_blank" rel="noopener noreferrer">3D (OBJ)</a>
+          {% endif %}
+
+          {% if revit_file != blank %}
+            <a class="link" href="{{ revit_file.url }}" download>3D (Revit)</a>
+          {% elsif revit_link != blank %}
+            <a class="link" href="{{ revit_link }}" target="_blank" rel="noopener noreferrer">3D (Revit)</a>
+          {% endif %}
+
+          {% if archicad_file != blank %}
+            <a class="link" href="{{ archicad_file.url }}" download>3D (Archicad)</a>
+          {% elsif archicad_link != blank %}
+            <a class="link" href="{{ archicad_link }}" target="_blank" rel="noopener noreferrer">3D (Archicad)</a>
+          {% endif %}
+
+          {% if textures_file != blank %}
+            <a class="link" href="{{ textures_file.url }}" download>
+              {{ 'download_files.texturemaps' | t }}
+            </a>
+          {% elsif textures_link != blank %}
+            <a class="link" href="{{ textures_link }}" target="_blank" rel="noopener noreferrer">
+              {{ 'download_files.texturemaps' | t }}
+            </a>
+          {% endif %}
+
+          {% if all_3d_link != blank %}
+            <a class="link" href="{{ all_3d_link }}" target="_blank" rel="noopener noreferrer">3D</a>
+          {% endif %}
+        </li>
+      {% endif %}
+
+      {% if has_manuals %}
+        <li class="wentz-download-group">
+          <h6>{{ 'download_files.title_3' | t }}</h6>
+
+          {% if manual_file != blank %}
+            <a class="link" href="{{ manual_file.url }}" download>
+              {{ 'download_files.manual' | t }}
+            </a>
+          {% endif %}
+
+          {% if care_file != blank %}
+            <a class="link" href="{{ care_file.url }}" download>
+              {{ 'download_files.cuidados' | t }}
+            </a>
+          {% endif %}
+        </li>
+      {% endif %}
+
+    </ul>
+  {% endif %}
+{% endif %}

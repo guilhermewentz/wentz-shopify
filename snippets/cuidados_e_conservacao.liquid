@@ -1,0 +1,213 @@
+{% liquid
+  assign cuidados_e_conservacao = product.metafields.custom.cuidados_e_conservacao.value
+
+  if cuidados_e_conservacao
+    assign cuidados_pt = cuidados_e_conservacao.paragrafo_cuidados_pt
+    assign cuidados_en = cuidados_e_conservacao.paragrafo_cuidados_en
+    assign artigos = cuidados_e_conservacao.links.value
+  endif
+%}
+
+{% if localization.language.iso_code == 'pt-BR' and cuidados_pt != blank %}
+  <div class="cuidados-texto">
+    {{ cuidados_pt | escape | newline_to_br }}
+  </div>
+{% elsif localization.language.iso_code == 'en' and cuidados_en != blank %}
+  <div class="cuidados-texto">
+    {{ cuidados_en | escape | newline_to_br }}
+  </div>
+{% endif %}
+
+{% if artigos != blank %}
+  <div class="cuidados-artigos">
+
+    <div class="cuidados-artigos__intro">
+      {% if localization.language.iso_code == 'en' %}
+        <p class="cuidados-artigos__heading">MATERIAL CARE</p>
+        <p>Specific care guidelines for the materials used in this product.</p>
+      {% else %}
+        <p class="cuidados-artigos__heading">CUIDADOS POR MATERIAL</p>
+        <p>Orientações específicas para a conservação dos materiais utilizados neste produto.</p>
+      {% endif %}
+    </div>
+
+    <div class="cuidados-artigos__grid">
+      {% for artigo in artigos %}
+        <a
+          href="{{ artigo.url }}"
+          class="cuidados-artigos__card"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          {% if artigo.image != blank %}
+            {{
+              artigo.image
+              | image_url: width: 600
+              | image_tag: loading: 'lazy', class: 'cuidados-artigos__image'
+            }}
+          {% endif %}
+
+          <span class="cuidados-artigos__title">
+            {{ artigo.title }}
+          </span>
+
+        </a>
+      {% endfor %}
+    </div>
+
+  </div>
+{% endif %}
+
+<style>
+  /* ==========================================
+     WENTZ — CUIDADOS E CONSERVAÇÃO
+     ========================================== */
+
+  /* TEXTO PRINCIPAL */
+
+  .cuidados-texto {
+    line-height: 1.6;
+    white-space: normal;
+  }
+
+  /* INTRODUÇÃO DOS MATERIAIS */
+
+  .cuidados-artigos {
+    margin-top: 36px;
+    margin-bottom: 36px;
+  }
+
+  .cuidados-artigos__intro {
+    margin-bottom: 28px;
+  }
+
+  /* Título em preto */
+
+  .cuidados-artigos__heading {
+    margin: 0 0 14px 0 !important;
+    color: #000000 !important;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .cuidados-artigos__intro p:not(.cuidados-artigos__heading) {
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  /* ==========================================
+     DESKTOP
+     ========================================== */
+
+  /* Quatro colunas alinhadas à grade de produtos */
+
+  .cuidados-artigos__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px 24px;
+  }
+
+  /* Cards horizontais */
+
+  .cuidados-artigos__card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+    text-decoration: none;
+  }
+
+  /* Imagens quadradas — 50% da coluna */
+
+  .cuidados-artigos__card img.cuidados-artigos__image {
+    display: block;
+    width: 50%;
+    height: auto;
+    max-width: 50%;
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  /* Títulos dos materiais */
+
+  .cuidados-artigos__title {
+    display: block;
+    font-size: 12px;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  /* ==========================================
+     MOBILE
+     ========================================== */
+
+  @media screen and (max-width: 699px) {
+
+    /* Espaçamento antes de Cuidados por Material */
+
+    .cuidados-artigos {
+      margin-top: 48px !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Espaçamento entre título e descrição */
+
+    .cuidados-artigos__heading {
+      margin-bottom: 14px !important;
+    }
+
+    /* Espaçamento entre descrição e imagens */
+
+    .cuidados-artigos__intro {
+      margin-bottom: 28px !important;
+    }
+
+    /* Duas colunas */
+
+    .cuidados-artigos .cuidados-artigos__grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 24px 14px !important;
+    }
+
+    /* Cards verticais */
+
+    .cuidados-artigos .cuidados-artigos__card {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      gap: 14px !important;
+    }
+
+    /* Imagens quadradas */
+
+    .cuidados-artigos .cuidados-artigos__card img.cuidados-artigos__image {
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      aspect-ratio: 1 / 1 !important;
+      object-fit: cover !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Títulos dos materiais */
+
+    .cuidados-artigos__title {
+      display: block;
+      width: 100%;
+      margin: 0 !important;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+  }
+</style>

@@ -1,0 +1,395 @@
+{%- comment -%}
+----------------------------------------------------------------------------------------------------------------------
+MEGA MENU PANEL
+----------------------------------------------------------------------------------------------------------------------
+
+This component is used to show the different links in different panel for the menu drawer
+
+********************************************
+Supported variables
+********************************************
+
+* main_menu: the menu to show for the primary menu
+* secondary_menu: the secondary menu (shown on mobile)
+* mega_menu_block: use when mega menu is set to drawer
+* is_mega_menu: set to true if mega menu is set to drawer
+* layout
+{%- endcomment -%}
+
+<div class="panel-list__wrapper">
+  <div class="panel">
+    <div class="panel__wrapper" {% if mega_menu_block.settings.promo_content_layout == 'grid' or mega_menu_block.settings.promo_content_layout == 'collage' %}style="--panel-wrapper-justify-content: flex-start"{% endif %}>
+      <div class="panel__scroller v-stack gap-8">
+        {%- if is_mega_menu -%}
+          <button is="close-button" aria-label="{{ 'general.accessibility.close' | t | escape }}" {%- if section.settings.opening_from == 'bottom' -%}class="sm-max:hidden"{%- endif -%}>
+            {%- render 'icon' with 'close', width: 19, height: 19 -%}
+          </button>
+        {%- endif -%}
+        <ul class="v-stack gap-4">
+          {%- for link in main_menu.links -%}
+            {%- unless is_mega_menu -%}
+              {% liquid
+                assign link_title_downcase = link.title | downcase
+                assign mega_menu_block = ''
+                assign is_image_shown = false
+
+                for block in section.blocks
+                  assign menu_item_downcase = block.settings.menu_item | strip | downcase
+
+                  if menu_item_downcase == link_title_downcase
+  assign mega_menu_block = block
+
+elsif menu_item_downcase == 'coleções' and link_title_downcase == 'collections'
+  assign mega_menu_block = block
+
+elsif menu_item_downcase == 'explorar' and link_title_downcase == 'explore'
+  assign mega_menu_block = block
+
+elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
+  assign mega_menu_block = block
+
+                  if block.settings.drawer_link_image == 'show'
+                    assign is_image_shown = true
+                    break
+                  endif
+
+                    break
+                  endif
+                endfor %}
+
+            {%- else -%}
+              {%- assign is_image_shown = false -%}
+
+              {%- if mega_menu_block.settings.drawer_link_image == 'show' -%}
+                {%- assign is_image_shown = true -%}
+              {%- endif -%}
+
+            {%- endunless -%}
+            {% comment %} The CSS class below (link-mobile...), in the li tag, will be used for custom Liquid settings to hide duplicate menus. {% endcomment %}
+            <li class="{{ heading_size }} link-mobile-{{ link.title | handleize }}-{{ forloop.index }}">
+              {%- if link.links.size > 0 or mega_menu_block != '' and is_mega_menu == false -%}
+                <button class="text-with-icon w-full group justify-between" aria-expanded="false" data-panel="1-{% increment level_1 %}">
+                  <span>{{ link.title }}</span>
+                  <span class="circle-chevron group-hover:colors group-expanded:colors">{%- render 'icon' with 'chevron-right-small', direction_aware: true -%}</span>
+                </button>
+              {%- else -%}
+                <a href="{{ link.url }}" class="group block w-full">
+                  <span><span class="reversed-link">{{ link.title }}</span></span>
+                </a>
+              {%- endif -%}
+            </li>
+
+            {%- if link.links.size > 0 or mega_menu_block != '' and is_mega_menu == false -%}
+              {%- capture link_level_2 -%}
+                {{- link_level_2 -}}
+
+                <div class="panel__wrapper" {% if mega_menu_block.settings.promo_content_layout == 'grid' or mega_menu_block.settings.promo_content_layout == 'collage' %}style="--panel-wrapper-justify-content: flex-start"{% endif %} hidden>
+                  <ul class="v-stack {% if is_mega_menu and is_image_shown == 'show' %}gap-3{% else %}gap-4{% endif %}">
+                    <li class="{% if layout != 'drawer' %}lg:hidden{% endif %}">
+                      <button class="text-with-icon {{ heading_size }} text-subdued" data-panel="0">
+                        {%- render 'icon' with 'chevron-left', direction_aware: true -%} {{ link.title }}
+                      </button>
+                    </li>
+
+                    {%- if link.links.size > 0 -%}
+                     {%- assign expanded_mobile_menu = false -%}
+{%- assign mobile_menu_title = link.title | strip | downcase -%}
+
+{%- if mobile_menu_title == 'produtos' or mobile_menu_title == 'products' or mobile_menu_title == 'explorar' or mobile_menu_title == 'explore' -%}
+  {%- assign expanded_mobile_menu = true -%}
+{%- endif -%}
+
+{%- for sub_link in link.links -%}
+
+  {%- if expanded_mobile_menu -%}
+
+    {%- comment -%}
+      WENTZ: Mobile navigation with expanded submenus
+    {%- endcomment -%}
+
+    {%- assign sub_link_title_lowercase = sub_link.title | strip | downcase -%}
+{%- assign current_market = localization.market.handle | downcase -%}
+
+{%- assign hide_mobile_link = false -%}
+
+{%- if sub_link_title_lowercase contains 'ocultar' -%}
+  {%- assign hide_mobile_link = true -%}
+{%- endif -%}
+
+{%- if current_market == 'international' -%}
+  {%- if sub_link_title_lowercase == 'available online' or sub_link_title_lowercase == 'disponível online' -%}
+    {%- assign hide_mobile_link = true -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- unless hide_mobile_link -%}
+
+      <li class="wentz-mobile-category">
+
+        {%- if sub_link.url != blank and sub_link.url != '#' -%}
+          <a href="{{ sub_link.url }}" class="wentz-mobile-category__title">
+            {{ sub_link.title }}
+          </a>
+        {%- else -%}
+          <span class="wentz-mobile-category__title">
+            {{ sub_link.title }}
+          </span>
+        {%- endif -%}
+
+        {%- if sub_link.links.size > 0 -%}
+
+          <ul class="wentz-mobile-category__links">
+
+            {%- for sub_sub_link in sub_link.links -%}
+
+  {%- assign link_path = sub_sub_link.url | split: '?' | first | split: '/' | last -%}
+
+  {%- if localization.country.iso_code != 'BR' and link_path == 'online' -%}
+    {%- continue -%}
+  {%- endif -%}
+
+  <li>
+    <a href="{{ sub_sub_link.url }}">
+      {{ sub_sub_link.title }}
+    </a>
+  </li>
+
+{%- endfor -%}
+
+
+          </ul>
+
+        {%- endif -%}
+
+      </li>
+
+    {%- endunless -%}
+
+  {%- else -%}
+
+    {%- comment -%}
+      Original navigation for other menus
+    {%- endcomment -%}
+
+    <li class="{{ heading_size }}">
+
+      {%- if sub_link.links.size > 0 -%}
+
+        {% assign sub_link_class = '' %}
+        {% assign sub_link_title_lowercase = sub_link.title | downcase %}
+
+        {% if sub_link_title_lowercase contains 'ocultar' %}
+          {% assign sub_link_class = 'hidden' %}
+        {% endif %}
+
+        <button
+          class="text-with-icon w-full justify-between {{ sub_link_class }}"
+          aria-expanded="false"
+          data-panel="2-{% increment level_2 %}">
+
+          <span>{{ sub_link.title }}</span>
+
+          <span class="circle-chevron group-hover:colors group-expanded:colors">
+            {%- render 'icon' with 'chevron-right-small', direction_aware: true -%}
+          </span>
+
+        </button>
+
+      {%- else -%}
+
+        <a
+          class="group {% if is_image_shown and is_mega_menu %}h-stack gap-4{% else %}block w-full{% endif %}"
+          href="{{ sub_link.url }}">
+
+          {%- if is_image_shown and sub_link.object != blank and is_mega_menu -%}
+
+            {%- assign sub_link_image = '' -%}
+
+            {%- case sub_link.type -%}
+              {%- when 'collection_link' -%}
+                {%- assign sub_link_image = sub_link.object.products.first.featured_media -%}
+              {%- when 'product_link' -%}
+                {%- assign sub_link_image = sub_link.object.featured_media -%}
+              {%- when 'blog_link' -%}
+                {%- assign sub_link_image = sub_link.object.articles.first.image -%}
+              {%- when 'article_link' -%}
+                {%- assign sub_link_image = sub_link.object.image -%}
+            {%- endcase -%}
+
+            {%- if sub_link_image != blank -%}
+              {{- sub_link_image | image_url: width: 120 | image_tag: loading: 'lazy', sizes: '60px', widths: '120', class: 'panel-link__image rounded' -}}
+            {%- endif -%}
+
+          {%- endif -%}
+
+          <span>
+            <span class="reversed-link">{{ sub_link.title }}</span>
+          </span>
+
+        </a>
+
+      {%- endif -%}
+
+    </li>
+
+    {%- if sub_link.links.size > 0 -%}
+
+      {%- capture link_level_3 -%}
+        {{- link_level_3 -}}
+
+        <div class="panel__wrapper" hidden>
+
+          <ul class="v-stack {% if is_image_shown %}gap-3{% else %}gap-4{% endif %}">
+
+            <li class="text-with-icon {% if layout != 'drawer' %}lg:hidden{% endif %}">
+
+              <button class="text-with-icon {{ heading_size }} text-subdued" data-panel="1">
+                {%- render 'icon' with 'chevron-left', direction_aware: true -%}
+                {{ sub_link.title }}
+              </button>
+
+            </li>
+
+            {%- for sub_sub_link in sub_link.links -%}
+
+              <li>
+
+                <a
+                  class="group {% if is_image_shown %}h-stack gap-4{% else %}block w-full{% endif %}"
+                  href="{{ sub_sub_link.url }}">
+
+                  {%- if is_image_shown and sub_sub_link.object != blank -%}
+
+                    {%- assign sub_sub_link_image = '' -%}
+
+                    {%- case sub_sub_link.type -%}
+                      {%- when 'collection_link' -%}
+                        {%- assign sub_sub_link_image = sub_sub_link.object.products.first.featured_media -%}
+                      {%- when 'product_link' -%}
+                        {%- assign sub_sub_link_image = sub_sub_link.object.featured_media -%}
+                      {%- when 'blog_link' -%}
+                        {%- assign sub_sub_link_image = sub_sub_link.object.articles.first.image -%}
+                      {%- when 'article_link' -%}
+                        {%- assign sub_sub_link_image = sub_sub_link.object.image -%}
+                    {%- endcase -%}
+
+                    {%- if sub_sub_link_image != blank -%}
+                      {{- sub_sub_link_image | image_url: width: 104 | image_tag: loading: 'lazy', sizes: '52px', widths: '52,104', class: 'panel-link__image rounded' -}}
+                    {%- endif -%}
+
+                  {%- endif -%}
+
+                  <span>
+                    <span class="reversed-link">{{ sub_sub_link.title }}</span>
+                  </span>
+
+                </a>
+
+              </li>
+
+            {%- endfor -%}
+
+          </ul>
+
+        </div>
+
+      {%- endcapture -%}
+
+    {%- endif -%}
+
+  {%- endif -%}
+
+{%- endfor -%}
+                    {%- endif -%}
+                  </ul>
+
+                  {%- unless is_mega_menu -%}
+                    {%- if mega_menu_block != '' -%}
+                     {%- render 'navigation-promo-block', navigation_layout: layout, mega_menu_block: mega_menu_block, heading_size: heading_size, is_navigation_drawer: true, link_col: link.links.size, force_carousel_mode: true -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                </div>
+              {%- endcapture -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+
+        {%- if secondary_menu != blank -%}
+          <ul class="v-stack gap-3">
+            {%- for link in secondary_menu.links -%}
+              <li>
+                <a href="{{ link.url }}" class="{{ heading_size }} group"><span><span class="reversed-link">{{ link.title }}</span></span></a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+
+      {%- if is_mega_menu -%}
+        {%- render 'navigation-promo-block', navigation_layout: layout, mega_menu_block: mega_menu_block, heading_size: heading_size, is_navigation_drawer: true, link_col: link.links.size, force_carousel_mode: true -%}
+      {%- else -%}
+        {%- comment -%}
+        ----------------------------------------------------------------------------------------------------------------
+        SOCIAL MEDIA + LOCALIZATION
+        ----------------------------------------------------------------------------------------------------------------
+        {%- endcomment -%}
+
+        {%- if section.settings.show_social_media -%}
+          {%- capture social_media -%}{%- render 'social-media' -%}{%- endcapture -%}
+        {%- endif -%}
+
+        {%- if show_country_selector and localization.available_countries.size > 1 -%}
+          {%- assign country_selector = true -%}
+        {%- endif -%}
+
+        {%- if show_locale_selector and localization.available_languages.size > 1 -%}
+          {%- assign locale_selector = true -%}
+        {%- endif -%}
+
+        {%- if social_media != blank or country_selector or locale_selector or shop.customer_accounts_enabled -%}
+          <div class="panel-footer v-stack gap-5">
+            {{- social_media -}}
+
+            {%- if country_selector or locale_selector or shop.customer_accounts_enabled -%}
+              <div class="panel-footer__localization-wrapper h-stack gap-6 border-t md:hidden">
+                {%- if country_selector -%}
+  {%- render 'wentz-market-selector',
+    popover_horizontal_position: 'start',
+    popover_vertical_position: 'start',
+    heading_size: heading_size,
+    show_language_chevron: true,
+    show_country_flag: false
+  -%}
+{%- endif -%}
+
+                {%- if locale_selector -%}
+                  {%- render 'localization-selector', 
+                    type: 'locale',
+                    language_title_mode: section.settings.language_title,
+                    language_option_mode: section.settings.language_option,
+                    show_language_chevron: section.settings.show_language_chevron -%}
+                {%- endif -%}
+
+                {%- if shop.customer_accounts_enabled -%}
+                  <a href="{{ routes.account_url }}" class="panel-footer__account-link bold">{{- 'header.general.account' | t -}}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if link_level_2 != blank -%}
+    <div class="panel gap-8">
+      {{ link_level_2 }}
+    </div>
+  {%- endif -%}
+
+  {%- if link_level_3 != blank %}
+    <div class="panel">
+      {{ link_level_3 }}
+    </div>
+  {%- endif -%}
+</div>

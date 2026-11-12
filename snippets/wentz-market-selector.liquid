@@ -1,0 +1,101 @@
+{%- comment -%}
+  WENTZ MARKET SELECTOR
+
+  Current markets:
+  - Brazil: BR
+  - International: PT (technical reference country)
+
+  Future markets can be added as additional options.
+
+  This component uses Shopify's native localization form.
+{%- endcomment -%}
+
+{%- assign is_brazil = false -%}
+
+{%- if localization.country.iso_code == 'BR' -%}
+  {%- assign is_brazil = true -%}
+{%- endif -%}
+
+{%- assign market_selector_id = 'wentz-market-' | append: section.id | append: '-' | append: popover_horizontal_position -%}
+{%- assign market_form_id = 'wentz-market-form-' | append: section.id | append: '-' | append: popover_horizontal_position -%}
+
+<div class="relative wentz-market-selector">
+
+  <button
+    type="button"
+    class="text-with-icon gap-2.5 group"
+    aria-label="Select market"
+    aria-controls="{{ market_selector_id }}"
+    aria-expanded="false"
+  >
+    <span class="bold {{ heading_size }} language_title">
+  {%- if is_brazil -%}
+    {%- if show_country_flag != false -%}🇧🇷 {% endif -%}BRASIL
+  {%- else -%}
+    {%- if show_country_flag != false -%}🌐 {% endif -%}INTERNATIONAL
+  {%- endif -%}
+</span>
+
+{%- if show_language_chevron == true -%}
+  {%- render 'icon' with 'chevron-left-small' -%}
+{%- elsif show_language_chevron == nil -%}
+  {%- render 'icon' with 'chevron-bottom' -%}
+{%- endif -%}
+  </button>
+
+  <x-popover
+    id="{{ market_selector_id }}"
+    initial-focus="[aria-selected='true']"
+    anchor-horizontal="{{ popover_horizontal_position | default: 'end' }}"
+    anchor-vertical="{{ popover_vertical_position | default: 'start' }}"
+    class="popover"
+  >
+
+    <p slot="title">
+      {%- if is_brazil -%}
+        Selecionar mercado
+      {%- else -%}
+        Select market
+      {%- endif -%}
+    </p>
+
+    {%- form 'localization', id: market_form_id -%}
+
+      <x-listbox
+        class="popover-listbox popover-listbox--sm"
+        role="listbox"
+      >
+
+        <button
+          type="submit"
+          class="popover-listbox__option"
+          name="country_code"
+          value="BR"
+          role="option"
+          {% if is_brazil %}
+            aria-selected="true"
+          {% endif %}
+        >
+          🇧🇷 BRASIL
+        </button>
+
+        <button
+          type="submit"
+          class="popover-listbox__option"
+          name="country_code"
+          value="PT"
+          role="option"
+          {% unless is_brazil %}
+            aria-selected="true"
+          {% endunless %}
+        >
+          🌐 INTERNATIONAL
+        </button>
+
+      </x-listbox>
+
+    {%- endform -%}
+
+  </x-popover>
+
+</div>

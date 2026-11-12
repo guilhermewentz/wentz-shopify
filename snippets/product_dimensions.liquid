@@ -1,0 +1,26 @@
+{% liquid 
+    assign dimensions = product.metafields.custom.dimensions.value
+%}
+
+{% if dimensions != blank %}
+<div class="product-dimensions">
+    {% for item in dimensions %}
+        {% if item.description != blank or item.image != blank %}
+        <div class="dimension-item">
+            {% if item.description != blank %}
+            <p class="dimension-description">
+                {{ item.description | metafield_tag }}
+            </p>
+            {% endif %}
+            {% if item.image != blank %}
+            <img 
+                class="dimension-image" 
+                src="{{ item.image | img_url: 'master' }}" 
+                alt="Product Dimensions: {{ item.description | metafield_tag | strip_html | escape }}"
+                loading="lazy">
+            {% endif %}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}

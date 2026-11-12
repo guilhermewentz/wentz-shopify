@@ -1,0 +1,48 @@
+{% if show_consultant_button %}
+
+  {%- assign consultant_button_label = 'product.general.consultant_button' | t -%}
+
+  {% if localization.country.iso_code == 'BR' %}
+
+    {%- assign consultant_url = 'https://wa.me/' | append: consultant_number | append: '?text=' | append: consultant_message -%}
+
+  {% else %}
+
+    {%- assign email_subject = 'Quote Request - ' | append: product.title | url_encode | replace: '+', '%20' -%}
+
+    {%- assign product_url = shop.url | append: product.url -%}
+
+    {%- capture email_body -%}
+Hello WENTZ team,
+
+I would like to request a quote for the following product:
+
+{{ product.title }}
+{{ product_url }}
+
+Thank you.
+    {%- endcapture -%}
+
+    {%- assign email_body = email_body | strip | url_encode | replace: '+', '%20' -%}
+
+    {%- assign consultant_url = 'mailto:info@wentz.design?subject=' | append: email_subject | append: '&body=' | append: email_body -%}
+
+  {% endif %}
+
+  <div id="consultant-button" class="simulator-button">
+    <a
+      id="simulator-button"
+      class="button button--lg {{ consultant_button_style }}"
+      href="{{ consultant_url }}"
+      {% unless localization.country.iso_code == 'BR' %}
+        data-no-instant
+      {% endunless %}
+      {% if localization.country.iso_code == 'BR' %}
+        target="_blank" rel="noopener noreferrer"
+      {% endif %}
+    >
+      {{ consultant_button_label }}
+    </a>
+  </div>
+
+{% endif %}

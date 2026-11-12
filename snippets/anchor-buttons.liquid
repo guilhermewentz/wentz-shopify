@@ -1,0 +1,51 @@
+{% assign button_target = block.settings.anchor_target %}
+<anchor-buttons class="anchor-buttons">
+
+    {% if block.settings.anchor_title_1 != "" %}
+        {% assign title_1 = block.settings.anchor_title_1 | t %}
+        <button 
+            class="button--anchor" 
+            data-target="{{ button_target }}"
+            data-anchor="{{ title_1 | handleize }}">
+            <span class="{{ heading_size }}">
+                {{ title_1 }} +
+            </span>
+        </button>
+    {% endif %}
+    
+    {% if block.settings.anchor_title_2 != "" %}
+        {% assign title_2 = block.settings.anchor_title_2 | t %}
+        <button 
+            class="button--anchor" 
+            data-target="{{ button_target }}"
+            data-anchor="{{ title_2 | handleize }}">
+            <span class="{{ heading_size }}">
+                {{ title_2 }} +
+            </span>
+        </button>
+    {% endif %}
+    
+    {% if block.settings.anchor_title_3 != "" %}
+        {% assign title_3 = block.settings.anchor_title_3 | t %}
+        <button 
+            class="button--anchor" 
+            data-target="{{ button_target }}"
+            data-anchor="{{ title_3 | handleize }}">
+            <span class="{{ heading_size }}">
+                {{ title_3 }} +
+            </span>
+        </button>
+    {% endif %}
+    
+    {% if block.settings.anchor_title_4 != "" %}
+        {% assign title_4 = block.settings.anchor_title_4 | t %}
+        <button 
+            class="button--anchor" 
+            data-target="{{ button_target }}"
+            data-anchor="{{ title_4 | handleize }}">
+            <span class="{{ heading_size }}">
+                {{ title_4 }} +
+            </span>
+        </button>
+    {% endif %}
+</anchor-buttons>

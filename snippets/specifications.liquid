@@ -1,0 +1,58 @@
+{% liquid
+  assign product_specifications = product.metafields.custom.product_specifications.value
+
+  if product_specifications
+      assign additional_info_1 = product_specifications.additional_info_1
+      assign additional_info_2 = product_specifications.additional_info_2
+  endif
+%}
+
+<div class="specifications-grid">
+    <div class="specifications-column">
+        <div class="specifications-content">
+            <h2 class="{{ heading_size }}">{{ block.settings.title_1 | t }}</h2>
+            <P>{{- block.settings.content_1 -}}</P>
+        </div>
+
+        <div class="specifications-content">
+            <h2 class="{{ heading_size }}">{{ block.settings.title_2 | t }}</h2>
+            <p>{{- block.settings.content_2 -}}&nbsp;{{- block.settings.content_extra -}}</p>
+        </div>
+
+        <div class="specifications-content">
+            <h2 class="{{ heading_size }}">{{ block.settings.title_3 | t }}</h2>
+            <p>{{- block.settings.content_3 -}}</p>
+        </div>
+        
+        <div class="specifications-content">
+            <h2 class="{{ heading_size }}">{{ block.settings.title_4 | t }}</h2>
+            <p>{{- block.settings.content_4 -}}</p>
+        </div>
+    </div>
+
+    <div class="specifications-column">
+        <div class="specifications-content">
+            <h2 class="{{ heading_size }}">{{ block.settings.title_5 | t }}</h2>
+            <p>{{- block.settings.content_5 -}}</p>
+        </div>
+
+        <div class="specifications-content">
+            <h2 class="{{ heading_size }}">{{ block.settings.title_6 | t }}</h2>
+            <p>{{- block.settings.content_6 -}}</p>
+        </div>
+    </div>
+
+    <div class="specifications-column">
+        <div class="specifications-content">
+           <p>{{- additional_info_1 | metafield_tag -}}</p>
+        </div>
+    </div>
+
+    <div class="specifications-column">
+        <div class="specifications-content">
+           <p>{{- additional_info_2 | metafield_tag -}}</p>
+        </div>
+    </div>
+
+</div>
+
