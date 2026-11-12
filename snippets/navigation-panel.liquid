@@ -359,7 +359,7 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
     popover_horizontal_position: 'start',
     popover_vertical_position: 'start',
     heading_size: heading_size,
-    show_language_chevron: true,
+    show_language_chevron: false,
     show_country_flag: false
   -%}
 {%- endif -%}
@@ -369,7 +369,7 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
                     type: 'locale',
                     language_title_mode: section.settings.language_title,
                     language_option_mode: section.settings.language_option,
-                    show_language_chevron: section.settings.show_language_chevron -%}
+                    show_language_chevron: false -%}
                 {%- endif -%}
 
                 {%- if shop.customer_accounts_enabled -%}
