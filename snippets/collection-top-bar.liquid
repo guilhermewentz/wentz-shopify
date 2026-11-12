@@ -72,12 +72,12 @@ Supported variables
 
                 {%- assign downcase_label = filter.label | downcase -%}
 
-                {%- if downcase_label == 'disponível para compra online' and localization.country.iso_code != 'BR' -%}
+                {%- if filter.param_name == 'filter.p.m.custom.disponivel_para_compra_online' and localization.country.iso_code != 'BR' -%}
   {%- continue -%}
 {%- endif -%}
 
-{%- if downcase_label == 'disponível para compra online' -%}
-  {%- assign online_filter_value = filter.values | first -%}
+{%- if filter.param_name == 'filter.p.m.custom.disponivel_para_compra_online' -%}
+  {%- assign online_filter_value = filter.true_value | default: filter.values.first -%}
 
   {%- if online_filter_value != blank -%}
     <div class="availability-facet">

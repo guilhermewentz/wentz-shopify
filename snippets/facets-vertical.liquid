@@ -63,6 +63,28 @@ Supported variables
 
   {%- if show_filters -%}
     {%- for filter in results.filters -%}
+      {%- if filter.param_name == 'filter.p.m.custom.disponivel_para_compra_online' -%}
+        {%- if localization.country.iso_code != 'BR' -%}{%- continue -%}{%- endif -%}
+        {%- assign online_filter_value = filter.true_value | default: filter.values.first -%}
+        {%- if online_filter_value != blank -%}
+          <div class="accordion">
+            <div class="accordion__toggle">
+              <label for="{{ id_prefix }}-online-purchase" class="bold">{{ filter.label | escape }}</label>
+              <input
+                id="{{ id_prefix }}-online-purchase"
+                type="checkbox"
+                class="switch"
+                name="{{ online_filter_value.param_name }}"
+                value="{{ online_filter_value.value }}"
+                {% if collection.handle == 'compra-online' %}checked disabled
+                {% elsif online_filter_value.active %}checked{% endif %}
+                {% if collection.handle != 'compra-online' and online_filter_value.count == 0 and online_filter_value.active == false %}disabled{% endif %}
+              >
+            </div>
+          </div>
+        {%- endif -%}
+        {%- continue -%}
+      {%- endif -%}
       {%- if filter.type == 'boolean' or filter.param_name == 'filter.v.availability' -%}
         <div class="accordion">
           <div class="accordion__toggle">
