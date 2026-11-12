@@ -1,0 +1,242 @@
+{%style%}
+.impact-text-v2-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40vh;
+}
+.impact-text-v2-{{ section.id }} {
+   display: grid;
+   gap: var(--spacing-{{ section.settings.impact_text_block_space }});
+}
+.impact-text-v2 .text-block-{{ section.id }} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    gap: var(--spacing-{{ section.settings.impact_text_title_space }});
+}
+
+.impact-text-v2 .text-block.reverse {
+    flex-direction: column-reverse;
+}
+
+.impact-text-v2 .title {
+    font-family: var(--heading-extra-font-family);
+    line-height: var(--spacing-7);
+}
+
+.impact-text-v2 .subtitle {
+    text-transform: none;
+}
+
+.impact-text--center-v2 {
+  text-align: center;
+  justify-content: safe center;
+}
+
+.impact-text--end-v2 {
+  text-align: end;
+  justify-content: end;
+}
+{% endstyle %}
+
+{% assign all_blocks_empty = true %}
+
+{% for block in section.blocks %}
+  {% if block.settings.title != '' or block.settings.subtitle != '' %}
+    {% assign all_blocks_empty = false %}
+  {% endif %}
+{% endfor %}
+
+{% unless all_blocks_empty %}
+<div {% render 'section-properties' %}>
+  <div class="impact-text-v2-container">
+    <div class="impact-text-v2 impact-text-v2-{{ section.id }}">
+      {% for block in section.blocks %}
+        {% if block.settings.title != '' or block.settings.subtitle != '' %}
+          {% assign heading_size = section.settings.heading_size %}
+          {% assign subtitle_size = section.settings.subtitle_size %}
+          <div class="text-block text-block-{{ section.id }} impact-text--{{ section.settings.text_alignment }}-v2 {% if section.settings.order == 'subtitle_first' %}reverse{% endif %}">
+            <h1 class="title {{ heading_size }}">{{ block.settings.title }}</h1>
+            <p class="subtitle {{ subtitle_size }}">{{ block.settings.subtitle }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endunless %}
+
+
+
+{% schema %}
+{
+    "name": "Impact Text v2",
+    "settings": [
+        {
+            "type": "select",
+            "id": "text_alignment",
+            "label": "Text alignment",
+            "options": [
+                {
+                "value": "start",
+                "label": "Left"
+                },
+                {
+                "value": "center",
+                "label": "Center"
+                },
+                {
+                "value": "end",
+                "label": "Right"
+                }
+            ],
+            "default": "center"
+        },
+        {
+            "type": "select",
+            "id": "heading_size",
+            "label": "Heading size",
+            "options": [
+                {
+                "value": "h0",
+                "label": "XX-Large"
+                },
+                {
+                "value": "h1",
+                "label": "X-Large"
+                },
+                {
+                "value": "h2",
+                "label": "Large"
+                },
+                {
+                "value": "h3",
+                "label": "Medium"
+                },
+                {
+                "value": "h4",
+                "label": "Small"
+                },
+                {
+                "value": "h5",
+                "label": "X-Small"
+                },
+                {
+                "value": "h6",
+                "label": "XX-Small"
+                }
+            ],
+            "default": "h6"
+        },
+        {
+            "type": "select",
+            "id": "subtitle_size",
+            "label": "Subtitle size",
+            "options": [
+                {
+                "value": "h0",
+                "label": "XX-Large"
+                },
+                {
+                "value": "h1",
+                "label": "X-Large"
+                },
+                {
+                "value": "h2",
+                "label": "Large"
+                },
+                {
+                "value": "h3",
+                "label": "Medium"
+                },
+                {
+                "value": "h4",
+                "label": "Small"
+                },
+                {
+                "value": "h5",
+                "label": "X-Small"
+                },
+                {
+                "value": "h6",
+                "label": "XX-Small"
+                }
+            ],
+            "default": "h6"
+        },
+        {
+            "type": "range",
+            "id": "impact_text_block_space",
+            "label": "Impact text block space",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "type": "range",
+            "id": "impact_text_title_space",
+            "label": "Impact text title space",
+            "min": 1,
+            "max": 20,
+            "step": 1,
+            "default": 1
+        },
+        {
+            "id": "order",
+            "type": "select",
+            "label": "Text Order",
+            "options": [
+                {
+                    "value": "title_first",
+                    "label": "Title above Subtitle"
+                },
+                {
+                    "value": "subtitle_first",
+                    "label": "Subtitle above Title"
+                }
+            ],
+            "default": "title_first"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "text_block",
+            "name": "Text Block",
+            "settings": [
+                {
+                    "id": "title",
+                    "type": "richtext",
+                    "label": "Title",
+                    "default": "<p>Large Title</p>"
+                },
+                
+                {
+                    "id": "subtitle",
+                    "type": "text",
+                    "label": "Subtitle",
+                    "default": "Subtitle text"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Impact Text v2",
+            "category": "Text",
+            "blocks": [
+                {
+                    "type": "text_block"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
+
+
+

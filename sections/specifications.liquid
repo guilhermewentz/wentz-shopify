@@ -1,0 +1,365 @@
+
+{% liquid
+  assign single_open = section.settings.single_open
+  assign first_open = section.settings.first_open
+  assign heading_size = section.settings.heading_size
+  assign hide_chevron = true
+  assign show_more_icon = true
+  assign heading_size = heading_size | default: "h6"
+%}
+
+<div 
+    id="{{ section.settings.section_id }}" 
+    {% render 'section-properties', class: "specifications-section" %}
+  >
+    <div 
+      class="specifications-container" 
+      style="background-color: {{ section.settings.background_color }};"
+    >
+    {% for block in section.blocks %}
+
+        {% if block.type == 'specifications' %}
+    {%- assign specs = product.metafields.custom.product_specifications.value -%}
+    {% unless specs %}{% continue %}{% endunless %}
+  {% endif %}
+  
+  {% if block.type == 'dimensions' %}
+    {%- assign dims = product.metafields.custom.dimensions.value -%}
+    {% unless dims %}{% continue %}{% endunless %}
+  {% endif %}
+  
+  {% if block.type == 'download_files' %}
+    {%- assign download_file = product.metafields.custom.download_file.value -%}
+    {% unless download_file %}{% continue %}{% endunless %}
+  {% endif %}
+  
+  {% if block.type == 'cuidados_e_conservacao' %}
+    {%- assign cuidados = product.metafields.custom.cuidados_e_conservacao.value -%}
+    {% unless cuidados %}{% continue %}{% endunless %}
+  {% endif %}
+
+
+      {%- assign title = block.settings.title | t -%}       
+      {%- assign content = block.settings.content -%}
+
+      <details 
+        {% if id %}id="{{ id | escape }}"{% endif %} 
+        class="specifications-border accordion {% if size %}accordion--{{ size }}{% endif %} group" 
+        aria-expanded="{% if open %}true{% else %}false{% endif %}" 
+        is="accordion-disclosure" 
+        data-single-open="{{ single_open }}"
+        data-first-open="{{ first_open }}"
+        style="border-color:{{ border_color }};"
+        {% if open %}open{% endif %} 
+        {{ block.shopify_attributes }}
+      >
+        <summary>
+          {%- comment -%}iOS 14 does not support flex on the summary itself, so we have to use this extra div{%- endcomment -%}
+          <div class="accordion__toggle bold">
+            {%- if icon -%}
+              <div class="text-with-icon">
+                {%- render 'icon' with icon -%}
+                <h1 class="{{ heading_size }}">
+                  {{- title | escape -}}&nbsp;
+                  {% if show_more_icon %}
+                    <span class="show-more-icon"></span>
+                  {% endif %}         
+                </h1>
+              </div>
+            {%- else -%}
+              <h1 class="{{ heading_size }}">
+                {{- title | escape -}}&nbsp;
+                {% if show_more_icon %}
+                  <span class="show-more-icon"></span>
+                {% endif %}      
+              </h1>
+            {%- endif -%}
+            {% unless hide_chevron %}
+              <span 
+                class="circle-chevron group-hover:colors group-expanded:colors group-expanded:rotate">
+                {%- render 'icon' with 'chevron-bottom-small' -%}
+              </span>
+            {% endunless %}
+          
+          </div>
+        </summary>
+
+        <div class="">         
+          {{ content }}      
+          {% case block.type %}
+          {% when 'specifications' %}
+            {% render 'specifications', heading_size: heading_size, block: block %}
+          {% when 'dimensions' %}
+            {% render 'product_dimensions', block: block %}
+          {% when 'download_files' %}           
+            {% render 'download_files', heading_size: heading_size, block: block %}
+          {% when 'cuidados_e_conservacao' %}
+            {% render 'cuidados_e_conservacao', heading_size: heading_size, block: block %}
+            {% endcase %}
+        
+        </div>
+          
+      </details>
+
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+    "name": "Specifications",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "single_open",
+            "label": "Open one accordion at a time",
+            "default": false
+        },
+        {
+            "type": "checkbox",
+            "id": "first_open",
+            "label": "Keep the first accordion open by default",
+            "default": false
+        },
+        {
+            "type": "text",
+            "id": "section_id",
+            "label": "Section ID",
+            "default": "specifications_section",
+            "info": "Used as an anchor for buttons in other sections. Make sure it is unique."
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background color",
+            "default": "#ffffff"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "h0",
+              "label": "XX-Large"
+            },
+            {
+              "value": "h1",
+              "label": "X-Large"
+            },
+            {
+              "value": "h2",
+              "label": "Large"
+            },
+            {
+              "value": "h3",
+              "label": "Medium"
+            },
+            {
+              "value": "h4",
+              "label": "Small"
+            },
+            {
+              "value": "h5",
+              "label": "X-Small"
+            },
+            {
+              "value": "h6",
+              "label": "XX-Small"
+            }
+          ],
+          "default": "h6"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "specifications",
+            "name": "specifications",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Main title",
+                    "default": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                },
+                {
+                    "type": "text",
+                    "id": "title_1",
+                    "label": "Title 1",
+                    "default": "Title 1"
+                },
+                 {
+                    "type": "text",
+                    "id": "content_1",
+                    "label": "Content 1",
+                    "default": "Content 1"
+                },
+                {
+                    "type": "text",
+                    "id": "title_2",
+                    "label": "Title 2",
+                    "default": "Title 2"
+                },
+                 {
+                    "type": "text",
+                    "id": "content_2",
+                    "label": "Content 2",
+                    "default": "Content 2"
+                },
+                  {
+                    "type": "text",
+                    "id": "content_extra",
+                    "label": "Content extra",
+                    "default": "Content extra"
+                },
+                {
+                    "type": "text",
+                    "id": "title_3",
+                    "label": "Title 3",
+                    "default": "Title 3"
+                },
+                 {
+                    "type": "text",
+                    "id": "content_3",
+                    "label": "Content 3",
+                    "default": "Content 3"
+                },
+                  {
+                    "type": "text",
+                    "id": "title_4",
+                    "label": "Title 4",
+                    "default": "Title 4"
+                },
+                 {
+                    "type": "text",
+                    "id": "content_4",
+                    "label": "Content 4",
+                    "default": "Content 4"
+                },
+                {
+                    "type": "text",
+                    "id": "title_5",
+                    "label": "Title 5",
+                    "default": "Title 5"
+                },
+                 {
+                    "type": "richtext",
+                    "id": "content_5",
+                    "label": "Content 5",
+                    "default": "<p>Content 5</p>"
+                },
+                {
+                    "type": "text",
+                    "id": "title_6",
+                    "label": "Title 6",
+                    "default": "Title 6"
+                },
+                 {
+                    "type": "richtext",
+                    "id": "content_6",
+                    "label": "Content 6",
+                    "default": "<p>Content 6</p>"
+                }
+            ]
+        },
+        {
+            "type": "dimensions",
+            "name": "dimensions",
+            "settings": [
+                {
+                  "type": "paragraph",
+                  "content": "Configuration made by the product metafield area."
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Main title",
+                    "default": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                }
+            ]
+        },
+        {
+            "type": "cuidados_e_conservacao",
+            "name": "cuidados_e_conservacao",
+            "settings": [
+                {
+                  "type": "paragraph",
+                  "content": "Configuration made by the product metafield area."
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Main title",
+                    "default": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                }
+            ]
+        },
+        {
+            "type": "download_files",
+            "name": "download files",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Main title",
+                    "default": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content"
+                },
+                {
+                    "type": "text",
+                    "id": "title_1",
+                    "label": "Download title 1",
+                    "default": "Title 1"
+                },
+                {
+                    "type": "text",
+                    "id": "title_2",
+                    "label": "Download title 2",
+                    "default": "Title 2"
+                },
+                {
+                    "type": "text",
+                    "id": "title_3",
+                    "label": "Download title 3",
+                    "default": "Title 3"
+                },
+                {
+                    "type": "text",
+                    "id": "title_4",
+                    "label": "Download title 4",
+                    "default": "Title 4"
+                },
+                 {
+                  "type": "paragraph",
+                  "content": "File configuration made by the product metafield area."
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Specifications",
+            "category": "Sections"
+        }
+    ]
+}
+{% endschema %}
