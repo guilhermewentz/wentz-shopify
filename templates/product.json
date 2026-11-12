@@ -1,1 +1,403 @@
-{"sections":{"main":{"type":"main-product","blocks":{"vendor":{"type":"vendor","disabled":true,"settings":{}},"title":{"type":"title","settings":{"heading_tag":"h6"}},"badges":{"type":"badges","disabled":true,"settings":{}},"rating":{"type":"rating","disabled":true,"settings":{"show_empty":true}},"description":{"type":"description","settings":{"collapse_content":false}},"separator":{"type":"separator","settings":{}},"variant_picker":{"type":"variant_picker","settings":{"hide_sold_out_variants":false,"stack_blocks":false,"selector_style":"block","swatch_selector_style":"swatch","variant_image_options":"","size_chart_page":""}},"anchor_buttons_wCmbA6":{"type":"anchor_buttons","settings":{"heading_size":"h6","anchor_title_1":"sections.specifications.title","anchor_title_2":"sections.dimensions.title","anchor_title_3":"sections.download_files.title","anchor_title_4":"sections.cuidados_e_conservacao.title","anchor_target":"specifications_section"}},"separator_ycVqdM":{"type":"separator","settings":{}},"price":{"type":"price","settings":{"show_taxes_notice":false}},"variant_production_time_MQXKhB":{"type":"variant_production_time","settings":{"variant_production_time_label":"Tempo de produção:"}},"quantity_selector":{"type":"quantity_selector","settings":{}},"buy_buttons":{"type":"buy_buttons","settings":{"simulator_intro_text":"Ou personalize seu produto no Configurador 3D e solicite um orçamento.","show_simulator_button":false,"simulator_button_style":"button--secondary","show_consultant_button":true,"consultant_button_style":"button--outline","consultant_number":"+551123073370","consultant_message":"Olá, eu gostaria de mais informações sobre o produto {{ product.title }}","show_payment_button":false,"show_gift_card_recipient":true,"atc_button_background":"#000000","atc_button_text_color":"#ffffff","payment_button_background":"#000000","payment_button_text_color":"#ffffff"}},"payment_terms":{"type":"payment_terms","settings":{}}},"block_order":["vendor","title","badges","rating","description","separator","variant_picker","anchor_buttons_wCmbA6","separator_ycVqdM","price","variant_production_time_MQXKhB","quantity_selector","buy_buttons","payment_terms"],"custom_css":[".h3 {font-weight: 400;}",".button,.btn {border-radius: 0px;}","@media (min-width: 1000px) {.product-gallery--desktop-thumbnails-left {display: grid !important; grid-template-columns: 64px 1fr !important; gap: 0 20px !important; column-gap: 20px !important; }}",".wentz-production-info .prose {display: flex; flex-direction: column; gap: 4px;}","#wentz-production-status {font-weight: 500;}",".wentz-production-info[hidden],#wentz-production-detail[hidden] {display: none !important;}"],"settings":{"full_width":true,"show_fixed_add_to_cart":true,"desktop_media_width":50,"desktop_media_layout":"carousel_thumbnails_left","mobile_media_size":"contained","mobile_carousel_control":"dots","enable_video_autoplay":true,"enable_video_looping":true,"enable_image_zoom":true,"max_image_zoom_level":3,"background":"","background_gradient":"","text_color":"","input_background":"rgba(0,0,0,0)","input_text_color":""}},"impact_text_v2_LTtmxR":{"type":"impact-text-v2","blocks":{"text_block_w9bidJ":{"type":"text_block","settings":{"title":"{{ product.metafields.custom.product_attributes.value.principal | metafield_tag }}","subtitle":"{{ product.metafields.custom.product_attributes.value.principal_subtitle.value }}"}}},"block_order":["text_block_w9bidJ"],"custom_css":[".impact-text--center-v2 {max-width: 750px; display: flex; flex-direction: column; justify-content: center; align-items: center;}"],"name":"Impact Text v2","settings":{"text_alignment":"center","heading_size":"h0","subtitle_size":"h6","impact_text_block_space":1,"impact_text_title_space":6,"order":"title_first"}},"image_gallery_CPgTKw":{"type":"image-gallery","blocks":{"image_RJkzDJ":{"type":"image","settings":{"image":"{{ product.metafields.custom.product_attributes.value.image_1.value }}","alt":"Image description"}},"image_HkxYkJ":{"type":"image","settings":{"image":"{{ product.metafields.custom.product_attributes.value.image_2.value }}","alt":"Image description"}},"image_KNLA3m":{"type":"image","settings":{"image":"{{ product.metafields.custom.product_attributes.value.image_3.value }}","alt":"Image description"}},"image_zehK3Q":{"type":"image","settings":{"image":"{{ product.metafields.custom.product_attributes.value.image_4.value }}","alt":"Image description"}},"image_phankP":{"type":"image","settings":{"image":"{{ product.metafields.custom.product_attributes.value.imagem_5.value }}","alt":"Image description"}},"image_yJVdtK":{"type":"image","settings":{"image":"{{ product.metafields.custom.product_attributes.value.imagem_6.value }}","alt":"Image description"}}},"block_order":["image_RJkzDJ","image_HkxYkJ","image_KNLA3m","image_zehK3Q","image_phankP","image_yJVdtK"],"custom_css":[],"name":"Image Gallery","settings":{"heading":"","images_per_row":2,"images_per_row_mobile":1,"grid_gap":20,"full_width":true,"mobile_slider":false,"use_journal_gallery":false}},"media_with_text_pUtKfw":{"type":"media-with-text","settings":{"full_width":true,"spacing":"none"}},"impact_text_v2_i8M8dN":{"type":"impact-text-v2","blocks":{"text_block_YJfQaE":{"type":"text_block","settings":{"title":"{{ product.metafields.custom.product_attributes.value.secondary_1 | metafield_tag }}","subtitle":"{{ product.metafields.custom.product_attributes.value.secondary_subtitle_1.value }}"}},"text_block_E48tPJ":{"type":"text_block","settings":{"title":"{{ product.metafields.custom.product_attributes.value.secondary_2 | metafield_tag }}","subtitle":"{{ product.metafields.custom.product_attributes.value.secondary_subtitle_2.value }}"}},"text_block_FyzkJW":{"type":"text_block","settings":{"title":"{{ product.metafields.custom.product_attributes.value.secondary_3 | metafield_tag }}","subtitle":"{{ product.metafields.custom.product_attributes.value.secondary_subtitle_3.value }}"}},"text_block_QwBACn":{"type":"text_block","settings":{"title":"{{ product.metafields.custom.product_attributes.value.secondary_4 | metafield_tag }}","subtitle":"{{ product.metafields.custom.product_attributes.value.secondary_subtitle_4.value }}"}}},"block_order":["text_block_YJfQaE","text_block_E48tPJ","text_block_FyzkJW","text_block_QwBACn"],"name":"Impact Text v2","settings":{"text_alignment":"center","heading_size":"h1","subtitle_size":"h6","impact_text_block_space":20,"impact_text_title_space":1,"order":"subtitle_first"}},"specifications_WkWKKj":{"type":"specifications","blocks":{"specifications_GbaFNi":{"type":"specifications","settings":{"title":"sections.specifications.title","content":"","title_1":"sections.specifications.field_title","content_1":"{{ product.metafields.custom.product_specifications.value.name.value }}","title_2":"sections.specifications.field_design","content_2":"{{ product.metafields.custom.product_specifications.value.design.value }}","content_extra":"{{ product.metafields.custom.product_specifications.value.year.value }}","title_3":"sections.specifications.field_category","content_3":"{{ product.metafields.custom.product_specifications.value.category.value }}","title_4":"sections.specifications.field_environment","content_4":"{{ product.metafields.custom.product_specifications.value.environment.value }}","title_5":"sections.specifications.field_materials","content_5":"<p>{{ product.metafields.custom.product_specifications.value.materials | metafield_tag }}<\/p>","title_6":"sections.specifications.field_technical_description","content_6":"<p>{{ product.metafields.custom.product_specifications.value.technical_specifications | metafield_tag }}<\/p>"}},"dimensions_9jXVDJ":{"type":"dimensions","settings":{"title":"sections.dimensions.title","content":""}},"download_files_tbgyHj":{"type":"download_files","settings":{"title":"sections.download_files.title","content":"","title_1":"FICHA TÉCNICA","title_2":"ARQUIVO 2D\/3D","title_3":"MANUAIS","title_4":"Title 4"}},"cuidados-e-conservacao-shuxcu9k":{"type":"cuidados_e_conservacao","settings":{"title":"sections.cuidados_e_conservacao.title","content":""}}},"block_order":["specifications_GbaFNi","dimensions_9jXVDJ","download_files_tbgyHj","cuidados-e-conservacao-shuxcu9k"],"name":"Specifications","settings":{"single_open":true,"first_open":true,"section_id":"specifications_section","background_color":"#fbfaf7","heading_size":"h6"}},"related-products":{"type":"related-products","custom_css":[".heading,.h0,.h1,.h2,.h3,.h4,.h5,.h6,.prose :is(h1, h2, h3, h4, h5, h6) {font-weight: 400;}"],"settings":{"recommendations_count":4,"products":[],"full_width":true,"stack_products":true,"show_progress_bar":false,"products_per_row_mobile":"2","products_per_row_desktop":4,"subheading":"","title":"Conheça também","heading_size":"h6","content":"","background":"","background_gradient":"","text_color":"","heading_color":"","heading_gradient":"","product_card_background":"","product_card_text_color":""}}},"order":["main","impact_text_v2_LTtmxR","image_gallery_CPgTKw","media_with_text_pUtKfw","impact_text_v2_i8M8dN","specifications_WkWKKj","related-products"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "disabled": true,
+          "settings": {}
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "heading_tag": "h6"
+          }
+        },
+        "badges": {
+          "type": "badges",
+          "disabled": true,
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "disabled": true,
+          "settings": {
+            "show_empty": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "collapse_content": false
+          }
+        },
+        "separator": {
+          "type": "separator",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "hide_sold_out_variants": false,
+            "stack_blocks": false,
+            "selector_style": "block",
+            "swatch_selector_style": "swatch",
+            "variant_image_options": "",
+            "size_chart_page": ""
+          }
+        },
+        "anchor_buttons_wCmbA6": {
+          "type": "anchor_buttons",
+          "settings": {
+            "heading_size": "h6",
+            "anchor_title_1": "sections.specifications.title",
+            "anchor_title_2": "sections.dimensions.title",
+            "anchor_title_3": "sections.download_files.title",
+            "anchor_title_4": "sections.cuidados_e_conservacao.title",
+            "anchor_target": "specifications_section"
+          }
+        },
+        "separator_ycVqdM": {
+          "type": "separator",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_taxes_notice": false
+          }
+        },
+        "variant_production_time_MQXKhB": {
+          "type": "variant_production_time",
+          "settings": {
+            "variant_production_time_label": "Tempo de produção:"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "simulator_intro_text": "Ou personalize seu produto no Configurador 3D e solicite um orçamento.",
+            "show_simulator_button": false,
+            "simulator_button_style": "button--secondary",
+            "show_consultant_button": true,
+            "consultant_button_style": "button--outline",
+            "consultant_number": "+551123073370",
+            "consultant_message": "Olá, eu gostaria de mais informações sobre o produto {{ product.title }}",
+            "show_payment_button": false,
+            "show_gift_card_recipient": true,
+            "atc_button_background": "#000000",
+            "atc_button_text_color": "#ffffff",
+            "payment_button_background": "#000000",
+            "payment_button_text_color": "#ffffff"
+          }
+        },
+        "payment_terms": {
+          "type": "payment_terms",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "badges",
+        "rating",
+        "description",
+        "separator",
+        "variant_picker",
+        "anchor_buttons_wCmbA6",
+        "separator_ycVqdM",
+        "price",
+        "variant_production_time_MQXKhB",
+        "quantity_selector",
+        "buy_buttons",
+        "payment_terms"
+      ],
+      "custom_css": [
+        ".h3 {font-weight: 400;}",
+        ".button,.btn {border-radius: 0px;}",
+        "@media (min-width: 1000px) {.product-gallery--desktop-thumbnails-left {display: grid !important; grid-template-columns: 64px 1fr !important; gap: 0 16px !important; column-gap: 16px !important; }}",
+        ".wentz-production-info .prose {display: flex; flex-direction: column; gap: 4px;}",
+        "#wentz-production-status {font-weight: 500;}",
+        ".wentz-production-info[hidden],#wentz-production-detail[hidden] {display: none !important;}"
+      ],
+      "settings": {
+        "full_width": true,
+        "show_fixed_add_to_cart": true,
+        "desktop_media_width": 50,
+        "desktop_media_layout": "carousel_thumbnails_left",
+        "mobile_media_size": "contained",
+        "mobile_carousel_control": "dots",
+        "enable_video_autoplay": true,
+        "enable_video_looping": true,
+        "enable_image_zoom": true,
+        "max_image_zoom_level": 3,
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "input_background": "rgba(0,0,0,0)",
+        "input_text_color": ""
+      }
+    },
+    "impact_text_v2_LTtmxR": {
+      "type": "impact-text-v2",
+      "blocks": {
+        "text_block_w9bidJ": {
+          "type": "text_block",
+          "settings": {
+            "title": "{{ product.metafields.custom.product_attributes.value.principal | metafield_tag }}",
+            "subtitle": "{{ product.metafields.custom.product_attributes.value.principal_subtitle.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_w9bidJ"
+      ],
+      "custom_css": [
+        ".impact-text--center-v2 {max-width: 750px; display: flex; flex-direction: column; justify-content: center; align-items: center;}"
+      ],
+      "name": "Impact Text v2",
+      "settings": {
+        "text_alignment": "center",
+        "heading_size": "h0",
+        "subtitle_size": "h6",
+        "impact_text_block_space": 1,
+        "impact_text_title_space": 6,
+        "order": "title_first"
+      }
+    },
+    "image_gallery_CPgTKw": {
+      "type": "image-gallery",
+      "blocks": {
+        "image_RJkzDJ": {
+          "type": "image",
+          "settings": {
+            "image": "{{ product.metafields.custom.product_attributes.value.image_1.value }}",
+            "alt": "Image description"
+          }
+        },
+        "image_HkxYkJ": {
+          "type": "image",
+          "settings": {
+            "image": "{{ product.metafields.custom.product_attributes.value.image_2.value }}",
+            "alt": "Image description"
+          }
+        },
+        "image_KNLA3m": {
+          "type": "image",
+          "settings": {
+            "image": "{{ product.metafields.custom.product_attributes.value.image_3.value }}",
+            "alt": "Image description"
+          }
+        },
+        "image_zehK3Q": {
+          "type": "image",
+          "settings": {
+            "image": "{{ product.metafields.custom.product_attributes.value.image_4.value }}",
+            "alt": "Image description"
+          }
+        },
+        "image_phankP": {
+          "type": "image",
+          "settings": {
+            "image": "{{ product.metafields.custom.product_attributes.value.imagem_5.value }}",
+            "alt": "Image description"
+          }
+        },
+        "image_yJVdtK": {
+          "type": "image",
+          "settings": {
+            "image": "{{ product.metafields.custom.product_attributes.value.imagem_6.value }}",
+            "alt": "Image description"
+          }
+        }
+      },
+      "block_order": [
+        "image_RJkzDJ",
+        "image_HkxYkJ",
+        "image_KNLA3m",
+        "image_zehK3Q",
+        "image_phankP",
+        "image_yJVdtK"
+      ],
+      "custom_css": [],
+      "name": "Image Gallery",
+      "settings": {
+        "heading": "",
+        "images_per_row": 2,
+        "images_per_row_mobile": 1,
+        "grid_gap": 20,
+        "full_width": true,
+        "mobile_slider": false,
+        "use_journal_gallery": false
+      }
+    },
+    "media_with_text_pUtKfw": {
+      "type": "media-with-text",
+      "settings": {
+        "full_width": true,
+        "spacing": "none"
+      }
+    },
+    "impact_text_v2_i8M8dN": {
+      "type": "impact-text-v2",
+      "blocks": {
+        "text_block_YJfQaE": {
+          "type": "text_block",
+          "settings": {
+            "title": "{{ product.metafields.custom.product_attributes.value.secondary_1 | metafield_tag }}",
+            "subtitle": "{{ product.metafields.custom.product_attributes.value.secondary_subtitle_1.value }}"
+          }
+        },
+        "text_block_E48tPJ": {
+          "type": "text_block",
+          "settings": {
+            "title": "{{ product.metafields.custom.product_attributes.value.secondary_2 | metafield_tag }}",
+            "subtitle": "{{ product.metafields.custom.product_attributes.value.secondary_subtitle_2.value }}"
+          }
+        },
+        "text_block_FyzkJW": {
+          "type": "text_block",
+          "settings": {
+            "title": "{{ product.metafields.custom.product_attributes.value.secondary_3 | metafield_tag }}",
+            "subtitle": "{{ product.metafields.custom.product_attributes.value.secondary_subtitle_3.value }}"
+          }
+        },
+        "text_block_QwBACn": {
+          "type": "text_block",
+          "settings": {
+            "title": "{{ product.metafields.custom.product_attributes.value.secondary_4 | metafield_tag }}",
+            "subtitle": "{{ product.metafields.custom.product_attributes.value.secondary_subtitle_4.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_YJfQaE",
+        "text_block_E48tPJ",
+        "text_block_FyzkJW",
+        "text_block_QwBACn"
+      ],
+      "name": "Impact Text v2",
+      "settings": {
+        "text_alignment": "center",
+        "heading_size": "h1",
+        "subtitle_size": "h6",
+        "impact_text_block_space": 20,
+        "impact_text_title_space": 1,
+        "order": "subtitle_first"
+      }
+    },
+    "specifications_WkWKKj": {
+      "type": "specifications",
+      "blocks": {
+        "specifications_GbaFNi": {
+          "type": "specifications",
+          "settings": {
+            "title": "sections.specifications.title",
+            "content": "",
+            "title_1": "sections.specifications.field_title",
+            "content_1": "{{ product.metafields.custom.product_specifications.value.name.value }}",
+            "title_2": "sections.specifications.field_design",
+            "content_2": "{{ product.metafields.custom.product_specifications.value.design.value }}",
+            "content_extra": "{{ product.metafields.custom.product_specifications.value.year.value }}",
+            "title_3": "sections.specifications.field_category",
+            "content_3": "{{ product.metafields.custom.product_specifications.value.category.value }}",
+            "title_4": "sections.specifications.field_environment",
+            "content_4": "{{ product.metafields.custom.product_specifications.value.environment.value }}",
+            "title_5": "sections.specifications.field_materials",
+            "content_5": "<p>{{ product.metafields.custom.product_specifications.value.materials | metafield_tag }}</p>",
+            "title_6": "sections.specifications.field_technical_description",
+            "content_6": "<p>{{ product.metafields.custom.product_specifications.value.technical_specifications | metafield_tag }}</p>"
+          }
+        },
+        "dimensions_9jXVDJ": {
+          "type": "dimensions",
+          "settings": {
+            "title": "sections.dimensions.title",
+            "content": ""
+          }
+        },
+        "download_files_tbgyHj": {
+          "type": "download_files",
+          "settings": {
+            "title": "sections.download_files.title",
+            "content": "",
+            "title_1": "FICHA TÉCNICA",
+            "title_2": "ARQUIVO 2D/3D",
+            "title_3": "MANUAIS",
+            "title_4": "Title 4"
+          }
+        },
+        "cuidados-e-conservacao-shuxcu9k": {
+          "type": "cuidados_e_conservacao",
+          "settings": {
+            "title": "sections.cuidados_e_conservacao.title",
+            "content": ""
+          }
+        }
+      },
+      "block_order": [
+        "specifications_GbaFNi",
+        "dimensions_9jXVDJ",
+        "download_files_tbgyHj",
+        "cuidados-e-conservacao-shuxcu9k"
+      ],
+      "name": "Specifications",
+      "settings": {
+        "single_open": true,
+        "first_open": true,
+        "section_id": "specifications_section",
+        "background_color": "#fbfaf7",
+        "heading_size": "h6"
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "custom_css": [
+        ".heading,.h0,.h1,.h2,.h3,.h4,.h5,.h6,.prose :is(h1, h2, h3, h4, h5, h6) {font-weight: 400;}"
+      ],
+      "settings": {
+        "recommendations_count": 4,
+        "products": [],
+        "full_width": true,
+        "stack_products": true,
+        "show_progress_bar": false,
+        "products_per_row_mobile": "2",
+        "products_per_row_desktop": 4,
+        "subheading": "",
+        "title": "Conheça também",
+        "heading_size": "h6",
+        "content": "",
+        "background": "",
+        "background_gradient": "",
+        "text_color": "",
+        "heading_color": "",
+        "heading_gradient": "",
+        "product_card_background": "",
+        "product_card_text_color": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "impact_text_v2_LTtmxR",
+    "image_gallery_CPgTKw",
+    "media_with_text_pUtKfw",
+    "impact_text_v2_i8M8dN",
+    "specifications_WkWKKj",
+    "related-products"
+  ]
+}
