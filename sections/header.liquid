@@ -73,6 +73,15 @@ the underlying logic of the menu.
       }
     }
   {%- endif -%}
+  /* Keep desktop utility icons proportional to the header labels. */
+  @media screen and (min-width: 1150px) {
+    #shopify-section-{{ section.id }} .header__secondary-nav .header__utility-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+  }
+
 </style>
 {% assign heading_size = section.settings.heading_size %}
 <height-observer variable="header">
@@ -93,7 +102,7 @@ the underlying logic of the menu.
 
           <a href="{{ routes.search_url }}" class="tap-area sm:hidden" aria-controls="search-drawer">
             <span class="sr-only">{{ 'header.general.search' | t }}</span>
-            {%- render 'icon' with 'search' -%}
+            {%- render 'icon' with 'search', class: 'header__utility-icon' -%}
           </a>
 
           {%- if section.settings.layout != 'drawer' and section.settings.menu.links.size > 0 -%}
@@ -290,7 +299,7 @@ the underlying logic of the menu.
             <li>
               <a href="{{ routes.search_url }}" class="hidden tap-area sm:block" aria-controls="search-drawer">
                 <span class="sr-only">{{ 'header.general.search' | t }}</span>
-                {%- render 'icon' with 'search' -%}
+                {%- render 'icon' with 'search', class: 'header__utility-icon' -%}
               </a>
             </li>
 
@@ -298,7 +307,7 @@ the underlying logic of the menu.
               <li>
                 <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}" class="hidden tap-area sm:block">
                   <span class="sr-only">{% if customer %}{{ 'header.general.account' | t }}{% else %}{{ 'header.general.login' | t }}{% endif %}</span>
-                  {%- render 'icon' with 'account' -%}
+                  {%- render 'icon' with 'account', class: 'header__utility-icon' -%}
                 </a>
               </li>
             {%- endif -%}
@@ -306,7 +315,7 @@ the underlying logic of the menu.
             <li>
               <a href="{{ routes.cart_url }}" data-no-instant class="relative tap-area" {% if settings.cart_type != 'page' and request.page_type != 'cart' %}aria-controls="cart-drawer"{% endif %}>
                 <span class="sr-only">{{ 'header.general.cart' | t }}</span>
-                {%- render 'icon' with 'cart' -%}
+                {%- render 'icon' with 'cart', class: 'header__utility-icon' -%}
 
                 <div class="header__cart-count">
                   <cart-count class="count-bubble {% if cart.item_count == 0 %}opacity-0{% endif %}">
