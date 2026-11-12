@@ -123,6 +123,10 @@ the underlying logic of the menu.
         assign menu_match = true
       endif
 
+      if menu_item_downcase == 'produtos' and link_title_downcase == 'products'
+        assign menu_match = true
+      endif
+
       if menu_item_downcase == 'coleções' and link_title_downcase == 'collections'
         assign menu_match = true
       endif
