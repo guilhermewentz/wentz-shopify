@@ -129,7 +129,7 @@
       "custom_css": [
         ".h3 {font-weight: 400;}",
         ".button,.btn {border-radius: 0px;}",
-        "@media (min-width: 1000px) {.product-gallery--desktop-thumbnails-left {display: grid !important; grid-template-columns: 64px 1fr !important; gap: 0 16px !important; column-gap: 16px !important; }}",
+        "@media (min-width: 1000px) {.product-gallery--desktop-thumbnails-left {display: grid !important; grid-template-columns: 64px 1fr !important; gap: 0 20px !important; column-gap: 20px !important; }}",
         ".wentz-production-info .prose {display: flex; flex-direction: column; gap: 4px;}",
         "#wentz-production-status {font-weight: 500;}",
         ".wentz-production-info[hidden],#wentz-production-detail[hidden] {display: none !important;}"
