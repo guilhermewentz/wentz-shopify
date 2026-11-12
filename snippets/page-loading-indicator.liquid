@@ -1,0 +1,87 @@
+{%- comment -%}A decorative, non-blocking indicator for normal page navigation.{%- endcomment -%}
+<style>
+  .wentz-page-loading {
+    position: fixed;
+    inset: 0 0 auto;
+    height: 2px;
+    z-index: 2147483000;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: difference;
+    transition: opacity 180ms ease;
+  }
+
+  .wentz-page-loading.is-loading {
+    opacity: 0.75;
+    transition-delay: 120ms;
+  }
+
+  .wentz-page-loading::after {
+    content: "";
+    display: block;
+    width: 30%;
+    height: 100%;
+    background: #fff;
+    transform: translateX(-110%);
+  }
+
+  .wentz-page-loading.is-loading::after {
+    animation: wentz-page-loading 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  }
+
+  @keyframes wentz-page-loading {
+    from { transform: translateX(-110%); }
+    to { transform: translateX(440%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wentz-page-loading { display: none; }
+  }
+</style>
+
+<div class="wentz-page-loading" aria-hidden="true"></div>
+
+<script>
+  (() => {
+    const indicator = document.currentScript.previousElementSibling;
+    if (!indicator || indicator.dataset.ready === 'true') return;
+    indicator.dataset.ready = 'true';
+
+    let safetyTimer;
+    const stop = () => {
+      clearTimeout(safetyTimer);
+      indicator.classList.remove('is-loading');
+    };
+    const start = () => {
+      clearTimeout(safetyTimer);
+      indicator.classList.add('is-loading');
+      // Recover after a cancelled navigation or an unusually slow third party.
+      safetyTimer = setTimeout(stop, 8000);
+    };
+
+    // Never delay navigation or wait for videos and third-party pixels.
+    if (document.readyState === 'loading') {
+      start();
+      document.addEventListener('DOMContentLoaded', stop, { once: true });
+    }
+
+    window.addEventListener('pageshow', stop);
+    window.addEventListener('pagehide', stop);
+
+    document.addEventListener('click', event => {
+      if (event.defaultPrevented || event.button !== 0 ||
+          event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const link = event.target.closest?.('a[href]');
+      if (!link || link.hasAttribute('download') || link.hasAttribute('aria-controls') ||
+          (link.target && link.target.toLowerCase() !== '_self')) return;
+
+      const url = new URL(link.href, location.href);
+      if (!['http:', 'https:'].includes(url.protocol) || url.origin !== location.origin ||
+          /(^|\/)(cart|checkout|checkouts|account|localization)(\/|$)/.test(url.pathname)) return;
+      if (url.pathname === location.pathname && url.search === location.search) return;
+
+      start();
+    });
+  })();
+</script>
