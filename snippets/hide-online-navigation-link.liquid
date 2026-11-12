@@ -1,0 +1,11 @@
+{%- comment -%}
+  Output "true" when an online-shopping navigation item should be hidden.
+  Apply the same market rule at every navigation level, in either language.
+{%- endcomment -%}
+{%- if localization.country.iso_code != 'BR' -%}
+  {%- assign item_title = navigation_link.title | strip | downcase | replace: 'í', 'i' -%}
+  {%- assign item_path = navigation_link.url | split: '?' | first | split: '#' | first | split: '/' | last -%}
+  {%- if item_title == 'disponivel online' or item_title == 'available online' or item_title == 'disponivel para compra online' or item_path == 'online' or item_path == 'disponivel-online' or item_path == 'available-online' -%}
+    true
+  {%- endif -%}
+{%- endif -%}

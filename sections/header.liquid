@@ -110,6 +110,8 @@ the underlying logic of the menu.
             <nav class="header__link-list {% if section.settings.layout == 'logo_left_navigation_center' %}justify-center{% endif %} wrap" role="navigation">
               <ul class="contents" role="list">
                 {%- for link in section.settings.menu.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
   {% liquid
     assign link_title_downcase = link.title | strip | downcase
     assign mega_menu_block = ''
@@ -180,6 +182,8 @@ the underlying logic of the menu.
                           <div class="dropdown-menu {% if link.levels <= 1 %}dropdown-menu--restrictable{% endif %}">
                             <ul class="contents" role="list">
                               {%- for sub_link in link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
                                 <li>
                                   {%- if sub_link.levels == 0 -%}
                                     <a href="{{ sub_link.url }}" class="dropdown-menu__item group" {% if sub_link.current %}aria-current="page"{% endif %}>
@@ -195,6 +199,8 @@ the underlying logic of the menu.
                                       <div class="dropdown-menu">
                                         <ul class="contents" role="list">
                                           {%- for sub_sub_link in sub_link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
                                             <li>
                                               <a href="{{ sub_sub_link.url }}" class="dropdown-menu__item group" {% if sub_sub_link.current %}aria-current="page"{% endif %}>
                                                 <span><span class="reversed-link {{ heading_size }}">{{ sub_sub_link.title }}</span></span>
@@ -260,6 +266,8 @@ the underlying logic of the menu.
           <nav class="header__link-list" role="navigation">
             <ul class="contents">
               {%- for link in section.settings.secondary_menu.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
                 <li>
                   <a href="{{ link.url }}" class="bold link-faded-reverse {{ heading_size }}">{{ link.title }}</a>
                 </li>

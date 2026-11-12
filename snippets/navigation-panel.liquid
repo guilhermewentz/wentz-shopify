@@ -27,6 +27,8 @@ Supported variables
         {%- endif -%}
         <ul class="v-stack gap-4">
           {%- for link in main_menu.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
             {%- unless is_mega_menu -%}
               {% liquid
                 assign link_title_downcase = link.title | downcase
@@ -100,6 +102,8 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
 {%- endif -%}
 
 {%- for sub_link in link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
 
   {%- if expanded_mobile_menu -%}
 
@@ -108,7 +112,7 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
     {%- endcomment -%}
 
     {%- assign sub_link_title_lowercase = sub_link.title | strip | downcase -%}
-{%- assign current_market = localization.market.handle | downcase -%}
+
 
 {%- assign hide_mobile_link = false -%}
 
@@ -116,11 +120,7 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
   {%- assign hide_mobile_link = true -%}
 {%- endif -%}
 
-{%- if current_market == 'international' -%}
-  {%- if sub_link_title_lowercase == 'available online' or sub_link_title_lowercase == 'disponível online' -%}
-    {%- assign hide_mobile_link = true -%}
-  {%- endif -%}
-{%- endif -%}
+
 
 {%- unless hide_mobile_link -%}
 
@@ -141,12 +141,10 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
           <ul class="wentz-mobile-category__links">
 
             {%- for sub_sub_link in sub_link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
 
-  {%- assign link_path = sub_sub_link.url | split: '?' | first | split: '/' | last -%}
-
-  {%- if localization.country.iso_code != 'BR' and link_path == 'online' -%}
-    {%- continue -%}
-  {%- endif -%}
+  
 
   <li>
     <a href="{{ sub_sub_link.url }}">
@@ -251,6 +249,8 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
             </li>
 
             {%- for sub_sub_link in sub_link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
 
               <li>
 
@@ -317,6 +317,8 @@ elsif menu_item_downcase == 'produtos' and link_title_downcase == 'products'
         {%- if secondary_menu != blank -%}
           <ul class="v-stack gap-3">
             {%- for link in secondary_menu.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
               <li>
                 <a href="{{ link.url }}" class="{{ heading_size }} group"><span><span class="reversed-link">{{ link.title }}</span></span></a>
               </li>

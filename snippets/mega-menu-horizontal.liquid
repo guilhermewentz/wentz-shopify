@@ -58,6 +58,8 @@
   {%- if link.links.size > 0 -%}
     <ul class="mega-menu__nav" role="list">
       {%- for sub_link in link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
         <li class="v-stack gap-4 justify-items-start">
           {% assign sub_link_class = '' %}          
           {% assign sub_link_title_lowercase = sub_link.title | downcase %}
@@ -73,12 +75,10 @@
           {%- if sub_link.levels > 0 -%}
             <ul class="v-stack gap-2 justify-items-start" role="list">
               {%- for sub_sub_link in sub_link.links -%}
+                {%- capture hide_online_link -%}{%- render 'hide-online-navigation-link', navigation_link: sub_sub_link -%}{%- endcapture -%}
+                {%- if hide_online_link == 'true' -%}{%- continue -%}{%- endif -%}
 
-  {%- assign link_path = sub_sub_link.url | split: '?' | first | split: '/' | last -%}
-
-  {%- if localization.country.iso_code != 'BR' and link_path == 'online' -%}
-    {%- continue -%}
-  {%- endif -%}
+  
 
   <li>
     <a href="{{ sub_sub_link.url }}" class="{% if mega_menu_block.settings.submenu_style == 'bold_text' %}{% else %}link-faded{% endif %}">
