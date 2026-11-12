@@ -3961,7 +3961,7 @@ tfoot td {
   transition: opacity .2s ease-in-out, transform .2s ease-in-out;
   position: absolute;
   transform: scale(.75);
-  box-shadow: 0 0 0 2px;
+  box-shadow: 0 0 0 1px;
 }
 
 :checked + .color-swatch:before, .color-swatch.is-selected:before {
