@@ -1,0 +1,6 @@
+{%- comment -%}
+  Full-banner link for the current homepage. Keep separate from the CTA to avoid nested anchors.
+{%- endcomment -%}
+{%- if request.page_type == 'index' and url != blank -%}
+  <a class="wentz-banner-link" href="{{ url }}" aria-label="{{ label | strip_html | escape }}"></a>
+{%- endif -%}

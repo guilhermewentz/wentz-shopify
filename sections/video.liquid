@@ -69,6 +69,17 @@
       </video-media>
     {%- endif -%}
 
+    {%- assign banner_url = blank -%}
+    {%- assign banner_label = shop.name -%}
+    {%- for banner_block in section.blocks -%}
+      {%- if banner_block.type == 'button' and banner_block.settings.url != blank -%}
+        {%- assign banner_url = banner_block.settings.url -%}
+        {%- assign banner_label = banner_block.settings.text | default: shop.name -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
+
     {%- if section.blocks.size > 0 -%}
       <div class="place-self-center text-center">
         <div class="prose">

@@ -21,6 +21,8 @@
           </a>
         </picture>        
       {% endif %}
+      {%- assign banner_label = block.settings.heading | default: block.settings.button_text | default: shop.name -%}
+      {% render 'homepage-banner-link', url: block.settings.button_url, label: banner_label %}
       <div class="text-content {{ block.settings.mobile_text_position }} {{ block.settings.desktop_text_position }}" style="color:{{ block.settings.text_color }};">
         <div class="prose">     
           {%- if block.settings.subheading != blank -%}

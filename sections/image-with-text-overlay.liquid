@@ -40,6 +40,17 @@
       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' | replace: '<svg', '<svg preserveAspectRatio="xMinYMin slice"' }}
     {%- endif -%}
 
+    {%- assign banner_url = blank -%}
+    {%- assign banner_label = shop.name -%}
+    {%- for banner_block in section.blocks -%}
+      {%- if banner_block.type == 'button' and banner_block.settings.url != blank -%}
+        {%- assign banner_url = banner_block.settings.url -%}
+        {%- assign banner_label = banner_block.settings.text | default: shop.name -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
+
     {%- if section.blocks.size > 0 -%}
       <div class="{{ section.settings.mobile_text_position }} {{ section.settings.desktop_text_position }}">
         <div class="prose">

@@ -114,6 +114,11 @@ LIQUID
           {%- comment -%}---------------- CONTENT ----------------{%- endcomment -%}
           {%- capture content_class -%}{{ block.settings.mobile_text_position }} {{ block.settings.desktop_text_position }}{%- endcapture -%}
 
+          {%- if block.settings.button_text != blank -%}
+            {%- assign banner_label = block.settings.title | default: block.settings.button_text -%}
+            {% render 'homepage-banner-link', url: block.settings.button_link, label: banner_label %}
+          {%- endif -%}
+
           <div {% render 'surface', class: content_class, text_color: block.settings.text_color %}>
             <div class="prose">
               {%- if block.settings.subheading != blank -%}
