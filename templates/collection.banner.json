@@ -22,7 +22,7 @@
         "show_collection_title": true,
         "show_collection_description": true,
         "show_collection_image": true,
-        "collection_title_size": "h6",
+        "collection_title_size": "h0",
         "image_size": "auto",
         "image": "{{ collection.metafields.custom[\"collection-banner-desktop\"].value }}",
         "mobile_image": "{{ collection.metafields.custom[\"collection-banner-mobile\"].value }}",
