@@ -242,7 +242,7 @@
           "settings": {
             "image": "shopify://shop_images/WENTZ_portable_lamp_001.jpg",
             "mobile_image": "shopify://shop_images/WENTZ_portable_lamp_001.jpg",
-            "mobile_text_position": "place-self-center text-center",
+            "mobile_text_position": "place-self-end-center text-center",
             "desktop_text_position": "sm:place-self-end-center sm:text-center",
             "text_color": "#ffffff",
             "subheading": "",
@@ -262,7 +262,7 @@
           "settings": {
             "image": "shopify://shop_images/WENTZ-OBJECTS-1.jpg",
             "mobile_image": "shopify://shop_images/WENTZ-OBJECTS-1.jpg",
-            "mobile_text_position": "place-self-center text-center",
+            "mobile_text_position": "place-self-end-center text-center",
             "desktop_text_position": "sm:place-self-end-center sm:text-center",
             "text_color": "#ffffff",
             "subheading": "",
