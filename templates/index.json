@@ -419,7 +419,7 @@
             "title": "WENTZ[GALERIA]",
             "heading_tag": "h0",
             "button_text": "VISITE",
-            "banner_link": "",
+            "banner_link": "shopify://pages/wentzgaleria",
             "button_link": "shopify://pages/wentzgaleria",
             "size": "h6",
             "style": "link",
