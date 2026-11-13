@@ -88,7 +88,8 @@
     {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="place-self-center text-center">
+      {%- assign homepage_banner_buttons = '' -%}
+      <div class="{% if request.page_type == 'index' %} homepage-banner-content{% endif %} place-self-center text-center">
         <div class="prose">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -119,11 +120,19 @@
 
               {%- when 'button' -%}
                 {%- if block.settings.text != blank -%}
-                  {% render 'button', content: block.settings.text, href: block.settings.url, size: block.settings.size, style: block.settings.style, background: block.settings.background, text_color: block.settings.text_color, block: block %}
+                  {%- capture banner_button -%}{% render 'button', content: block.settings.text, href: block.settings.url, size: block.settings.size, style: block.settings.style, background: block.settings.background, text_color: block.settings.text_color, block: block %}{%- endcapture -%}
+                  {%- if request.page_type == 'index' -%}
+                    {%- assign homepage_banner_buttons = homepage_banner_buttons | append: banner_button -%}
+                  {%- else -%}
+                    {{- banner_button -}}
+                  {%- endif -%}
                 {%- endif -%}
             {%- endcase -%}
           {%- endfor -%}
         </div>
+        {%- if request.page_type == 'index' and homepage_banner_buttons != blank -%}
+          <div class="homepage-banner-actions">{{- homepage_banner_buttons -}}</div>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>

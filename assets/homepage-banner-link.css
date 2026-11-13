@@ -23,3 +23,57 @@
   outline: 2px solid currentColor;
   outline-offset: -6px;
 }
+
+/* Keep banner headings centered independently of bottom-aligned calls to action. */
+.content-over-media > .homepage-banner-content {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template: 1fr / minmax(0, 1fr);
+  place-self: stretch;
+  z-index: 3;
+  pointer-events: none;
+  text-align: center;
+}
+.content-over-media > .homepage-banner-content > .prose {
+  grid-area: 1 / 1;
+  place-self: center;
+  width: min(var(--content-over-media-content-max-width, 780px), 100%);
+  padding: calc(var(--header-height, 0px) * var(--section-is-first, 0)) var(--container-gutter) 0;
+  margin: 0;
+}
+.content-over-media > .homepage-banner-content > .homepage-banner-actions {
+  grid-area: 1 / 1;
+  align-self: end;
+  justify-self: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-5);
+  padding-bottom: max(var(--spacing-5), env(safe-area-inset-bottom, 0px));
+}
+.homepage-banner-actions > .button {
+  pointer-events: auto;
+  max-width: 100%;
+  white-space: normal;
+}
+@media screen and (min-width: 700px) {
+  .content-over-media > .homepage-banner-content > .homepage-banner-actions {
+    padding: var(--spacing-8);
+  }
+}
+@media screen and (min-width: 1000px) {
+  .content-over-media > .homepage-banner-content > .homepage-banner-actions {
+    padding: var(--spacing-12);
+  }
+}
+
+.content-over-media:focus-within > .homepage-banner-content {
+  opacity: 1 !important;
+}
