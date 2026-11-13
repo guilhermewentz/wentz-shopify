@@ -167,7 +167,7 @@
       ],
       "name": "Image with text overlay",
       "settings": {
-        "banner_link": "",
+        "banner_link": "shopify://collections/essencial",
         "full_width": true,
         "allow_transparent_header": true,
         "enable_parallax": false,
