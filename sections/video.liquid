@@ -15,6 +15,10 @@
     {%- endif -%}
   }
 
+  #shopify-section-{{ section.id }} .prose .video-banner__heading {
+    line-height: 0.86;
+  }
+
   {%- unless section.settings.full_width -%}
     #shopify-section-{{ section.id }}:first-child .section[allow-transparent-header] {
       padding-block-start: max(var(--section-inner-max-spacing-block), var(--header-height));
@@ -103,7 +107,7 @@
 
               {%- when 'heading' -%}
                 {%- if block.settings.text != blank -%}
-                  <p class="{{ block.settings.heading_tag }}" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</p>
+                  <p class="{{ block.settings.heading_tag }} video-banner__heading" {{ block.shopify_attributes }}>{{ block.settings.text | escape | newline_to_br }}</p>
                 {%- endif -%}
 
               {%- when 'richtext' -%}
@@ -280,10 +284,11 @@
       "name": "Heading",
       "settings": [
         {
-          "type": "text",
+          "type": "textarea",
           "id": "text",
           "label": "Text",
-          "default": "Heading"
+          "default": "Heading",
+          "info": "Use Enter para quebrar a linha. Entrelinha de 86%."
         },
         {
           "type": "select",
