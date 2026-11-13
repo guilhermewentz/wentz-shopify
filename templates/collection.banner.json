@@ -1,1 +1,108 @@
-{"sections":{"banner":{"type":"collection-banner","custom_css":[".heading,.h0,.h1,.h2,.h3,.h4,.h5,.h6,.prose :is(h1, h2, h3, h4, h5, h6) {font-weight: 400;}"],"settings":{"full_width":false,"allow_transparent_header":false,"enable_parallax":false,"show_collection_title":true,"show_collection_description":true,"show_collection_image":true,"collection_title_size":"h0","image_size":"auto","image":"{{ collection.metafields.custom[\"collection-banner-desktop\"].value }}","mobile_image":"{{ collection.metafields.custom[\"collection-banner-mobile\"].value }}","mobile_text_position":"place-self-center text-center","desktop_text_position":"sm:place-self-center sm:text-center","featured_product":"","featured_product_heading":"Featured product","text_color":"#ffffff","overlay_color":"#000000","overlay_opacity":0}},"main":{"type":"main-collection","custom_css":[".collection .product-list {gap: 20px !important;}"],"settings":{"products_per_page":50,"products_per_row_mobile":"1","products_per_row_desktop":3,"filter_layout":"horizontal","show_sort_by":false,"show_filters":true,"show_filter_group_name":true,"show_filter_values_count":true,"open_first_filter_group":false,"configurator_variant_title":"Configurador 3D"}},"rich_text_jYrnWa":{"type":"rich-text","blocks":{"richtext_DipyxC":{"type":"richtext","settings":{"content":"<p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p>"}}},"block_order":["richtext_DipyxC"],"name":"Rich text","settings":{"full_width":true,"content_width":"small","text_position":"center","background":"","background_gradient":"","text_color":""}},"rich_text_PqcfkN":{"type":"rich-text","blocks":{"richtext_WURLDV":{"type":"richtext","settings":{"content":"<p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p><p><\/p>"}}},"block_order":["richtext_WURLDV"],"name":"Rich text","settings":{"full_width":true,"content_width":"small","text_position":"center","background":"","background_gradient":"","text_color":""}}},"order":["banner","main","rich_text_jYrnWa","rich_text_PqcfkN"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "collection-banner",
+      "custom_css": [
+        ".heading,.h0,.h1,.h2,.h3,.h4,.h5,.h6,.prose :is(h1, h2, h3, h4, h5, h6) {font-weight: 400;}"
+      ],
+      "settings": {
+        "full_width": false,
+        "allow_transparent_header": false,
+        "enable_parallax": false,
+        "show_collection_title": true,
+        "show_collection_description": false,
+        "show_collection_image": true,
+        "collection_title_size": "h6",
+        "image_size": "auto",
+        "image": "{{ collection.metafields.custom[\"collection-banner-desktop\"].value }}",
+        "mobile_image": "{{ collection.metafields.custom[\"collection-banner-mobile\"].value }}",
+        "mobile_text_position": "place-self-center text-center",
+        "desktop_text_position": "sm:place-self-center sm:text-center",
+        "featured_product": "",
+        "featured_product_heading": "Featured product",
+        "text_color": "#ffffff",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0
+      }
+    },
+    "main": {
+      "type": "main-collection",
+      "custom_css": [
+        ".collection .product-list {gap: 20px !important;}"
+      ],
+      "settings": {
+        "products_per_page": 50,
+        "products_per_row_mobile": "1",
+        "products_per_row_desktop": 3,
+        "filter_layout": "horizontal",
+        "show_sort_by": false,
+        "show_filters": true,
+        "show_filter_group_name": true,
+        "show_filter_values_count": true,
+        "open_first_filter_group": false,
+        "configurator_variant_title": "Configurador 3D"
+      }
+    },
+    "rich_text_jYrnWa": {
+      "type": "rich-text",
+      "blocks": {
+        "richtext_DipyxC": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "richtext_DipyxC"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "full_width": true,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    },
+    "rich_text_PqcfkN": {
+      "type": "rich-text",
+      "blocks": {
+        "richtext_WURLDV": {
+          "type": "richtext",
+          "settings": {
+            "content": "<p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p><p></p>"
+          }
+        }
+      },
+      "block_order": [
+        "richtext_WURLDV"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "full_width": true,
+        "content_width": "small",
+        "text_position": "center",
+        "background": "",
+        "background_gradient": "",
+        "text_color": ""
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "main",
+    "rich_text_jYrnWa",
+    "rich_text_PqcfkN"
+  ]
+}
