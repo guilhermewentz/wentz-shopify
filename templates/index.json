@@ -56,6 +56,7 @@
       ],
       "name": "Video",
       "settings": {
+        "banner_link": "",
         "full_width": true,
         "allow_transparent_header": true,
         "autoplay": true,
@@ -110,6 +111,7 @@
       ],
       "name": "Image with text overlay",
       "settings": {
+        "banner_link": "shopify://collections/desdobra",
         "full_width": true,
         "allow_transparent_header": true,
         "enable_parallax": false,
@@ -165,6 +167,7 @@
       ],
       "name": "Image with text overlay",
       "settings": {
+        "banner_link": "",
         "full_width": true,
         "allow_transparent_header": true,
         "enable_parallax": false,
@@ -260,6 +263,7 @@
             "style": "link",
             "button_size": "h6",
             "button_text": "LUMINÁRIA PORTÁTIL 001",
+            "banner_link": "",
             "button_url": "shopify://products/luminaria-portatil-001",
             "button_background": "#000000",
             "button_text_color": "#ffffff"
@@ -280,6 +284,7 @@
             "style": "link",
             "button_size": "h6",
             "button_text": "COLEÇÃO \"OBJECTS FOR SILENCE\"",
+            "banner_link": "",
             "button_url": "shopify://collections/objects-for-silence",
             "button_background": "#000000",
             "button_text_color": "#ffffff"
@@ -335,6 +340,7 @@
         ".content-over-media .place-self-center {place-self: end center !important; margin-bottom: 10px !important;}"
       ],
       "settings": {
+        "banner_link": "",
         "full_width": true,
         "allow_transparent_header": true,
         "autoplay": true,
@@ -413,6 +419,7 @@
             "title": "WENTZ[GALERIA]",
             "heading_tag": "h0",
             "button_text": "VISITE",
+            "banner_link": "",
             "button_link": "shopify://pages/wentzgaleria",
             "size": "h6",
             "style": "link",
