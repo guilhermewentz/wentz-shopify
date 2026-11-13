@@ -23,13 +23,13 @@
           "type": "heading",
           "settings": {
             "text": "VOLVO + WENTZ: The Art of Balance",
-            "heading_tag": "h0"
+            "heading_tag": "h6"
           }
         },
         "button_metiCR": {
           "type": "button",
           "settings": {
-            "style": "outline",
+            "style": "link",
             "size": "h6",
             "text": "DESCUBRA A COLABORAÇÃO",
             "url": "shopify://blogs/journal-pt/volvo-wentz-the-art-of-balance",
@@ -68,7 +68,7 @@
           "settings": {
             "text": "",
             "richtext_heading": "<p>[DES]DOBRA</p>",
-            "heading_tag": "h0",
+            "heading_tag": "h6",
             "desktop_color_heading": "#ffffff",
             "mobile_color_heading": "#ffffff"
           }
@@ -83,7 +83,7 @@
         "button_kgqLjp": {
           "type": "button",
           "settings": {
-            "style": "outline",
+            "style": "link",
             "size": "h6",
             "text": "DESCUBRA A NOVA VERSÃO DO SOFÁ DOBRA",
             "url": "shopify://collections/desdobra",
@@ -129,8 +129,8 @@
           "type": "heading",
           "settings": {
             "text": "",
-            "richtext_heading": "<p>ESSENCIAL</p>",
-            "heading_tag": "h0",
+            "richtext_heading": "<p>COLEÇÃO ESSENCIAL</p>",
+            "heading_tag": "h6",
             "desktop_color_heading": "#ffffff",
             "mobile_color_heading": "#ffffff"
           }
@@ -138,9 +138,9 @@
         "button_P9WrEW": {
           "type": "button",
           "settings": {
-            "style": "outline",
+            "style": "link",
             "size": "h6",
-            "text": "DESCUBRA A COLEÇÃO",
+            "text": "DESCUBRA",
             "url": "shopify://collections/essencial",
             "background": "",
             "text_color": "#ffffff"
