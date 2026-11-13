@@ -53,7 +53,7 @@
           {%- endif -%}    
         </div>
         {%- if request.page_type == 'index' and homepage_banner_buttons != blank -%}
-          <div class="homepage-banner-actions">{{- homepage_banner_buttons -}}</div>
+          <div class="homepage-banner-actions"><div class="prose">{{- homepage_banner_buttons -}}</div></div>
         {%- endif -%}
       </div>
     </image-link>
