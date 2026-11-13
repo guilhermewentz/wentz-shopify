@@ -56,7 +56,7 @@
       ],
       "name": "Video",
       "settings": {
-        "banner_link": "",
+        "banner_link": "shopify://blogs/journal-pt/volvo-wentz-the-art-of-balance",
         "full_width": true,
         "allow_transparent_header": true,
         "autoplay": true,
