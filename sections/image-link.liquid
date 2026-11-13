@@ -12,17 +12,21 @@
   {% endif %}
   {%- capture class -%}media-content content-over-media{% endcapture %}
   {% for block in section.blocks %}
+    {%- assign banner_url = block.settings.button_url -%}
+    {%- if request.page_type == 'index' and block.settings.banner_link != blank -%}
+      {%- assign banner_url = block.settings.banner_link -%}
+    {%- endif -%}
     <image-link reveal-on-scroll="true" {% render 'surface', class: class %}>
       {% if block.settings.image != blank %}          
         <picture>
-          <a class="link" href="{{ block.settings.button_url }}">
+          <a class="link" href="{{ banner_url }}">
             <img loading="lazy" class="image" src="{{ block.settings.image | image_url }}"/>
             <img loading="lazy" class="mobile-image" src="{{ block.settings.mobile_image | image_url }}"/>
           </a>
         </picture>        
       {% endif %}
       {%- assign banner_label = block.settings.heading | default: block.settings.button_text | default: shop.name -%}
-      {% render 'homepage-banner-link', url: block.settings.button_url, label: banner_label %}
+      {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
       <div class="text-content {{ block.settings.mobile_text_position }} {{ block.settings.desktop_text_position }}" style="color:{{ block.settings.text_color }};">
         <div class="prose">     
           {%- if block.settings.subheading != blank -%}
@@ -54,26 +58,29 @@
   "class": "shopify-section--image-link",
   "tag": "section",
   "disabled_on": {
-    "groups": ["header", "custom.overlay"]
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
   },
   "settings": [
-        {
-          "type": "color",
-          "id": "overlay_color",
-          "label": "Overlay",
-          "default": "#000000"
-        },
-        {
-          "type": "range",
-          "id": "overlay_opacity",
-          "label": "Overlay opacity",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "default": 0
-        }
-    ],
+    {
+      "type": "color",
+      "id": "overlay_color",
+      "label": "Overlay",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 0
+    }
+  ],
   "blocks": [
     {
       "type": "item",
@@ -299,6 +306,12 @@
           "id": "button_text",
           "label": "Text",
           "default": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "banner_link",
+          "label": "Link do banner",
+          "info": "Na homepage, define o destino da imagem ou vídeo. Se vazio, usa o link do botão."
         },
         {
           "type": "url",

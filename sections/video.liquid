@@ -78,6 +78,9 @@
         {%- break -%}
       {%- endif -%}
     {%- endfor -%}
+    {%- if section.settings.banner_link != blank -%}
+      {%- assign banner_url = section.settings.banner_link -%}
+    {%- endif -%}
     {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
 
     {%- if section.blocks.size > 0 -%}
@@ -128,9 +131,18 @@
   "class": "shopify-section--video",
   "tag": "section",
   "disabled_on": {
-    "groups": ["header", "custom.overlay"]
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
   },
   "settings": [
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Link do banner",
+      "info": "Na homepage, define o destino da imagem ou vídeo. Se vazio, usa o link do botão."
+    },
     {
       "type": "paragraph",
       "content": "For best visual results and avoid platform branding, use a MP4 file."
@@ -199,7 +211,10 @@
     {
       "type": "video_url",
       "id": "external_video_url",
-      "accept": ["vimeo", "youtube"],
+      "accept": [
+        "vimeo",
+        "youtube"
+      ],
       "label": "Video URL",
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },

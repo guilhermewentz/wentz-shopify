@@ -62,6 +62,10 @@ LIQUID
     {%- endunless -%}
 
     {%- for block in section.blocks -%}
+      {%- assign banner_url = block.settings.button_link -%}
+      {%- if request.page_type == 'index' and block.settings.banner_link != blank -%}
+        {%- assign banner_url = block.settings.banner_link -%}
+      {%- endif -%}
       {%- capture slide -%}
         <div class="content-over-media content-over-media--{{ section.settings.image_size }} {% unless section.settings.full_width %}rounded{% endunless %}" style="--content-over-media-content-max-width: {{ block.settings.content_max_width }}px; --content-over-media-overlay: {{ block.settings.overlay_color.rgb }} / {{ block.settings.overlay_opacity | divided_by: 100.0 }}">
           {%- comment -%}---------------- MEDIA ----------------{%- endcomment -%}
@@ -116,7 +120,7 @@ LIQUID
 
           {%- if block.settings.button_text != blank -%}
             {%- assign banner_label = block.settings.title | default: block.settings.button_text -%}
-            {% render 'homepage-banner-link', url: block.settings.button_link, label: banner_label %}
+            {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
           {%- endif -%}
 
           <div {% render 'surface', class: content_class, text_color: block.settings.text_color %}>
@@ -139,8 +143,8 @@ LIQUID
         </div>
       {%- endcapture -%}
 
-      {%- if block.settings.button_link != blank and block.settings.button_text == blank -%}
-        <a id="block-{{ block.id }}" href="{{ block.settings.button_link }}" class="slideshow__slide {% if forloop.first %}is-selected{% endif %}" data-slide-type="{{ block.type }}" role="group" {{ block.shopify_attributes }}>
+      {%- if banner_url != blank and block.settings.button_text == blank -%}
+        <a id="block-{{ block.id }}" href="{{ banner_url }}" class="slideshow__slide {% if forloop.first %}is-selected{% endif %}" data-slide-type="{{ block.type }}" role="group" {{ block.shopify_attributes }}>
           {{- slide -}}
         </a>
       {%- else -%}
@@ -200,7 +204,10 @@ LIQUID
   "class": "shopify-section--slideshow",
   "tag": "section",
   "disabled_on": {
-    "groups": ["header", "custom.overlay"]
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
   },
   "max_blocks": 5,
   "settings": [
@@ -496,6 +503,12 @@ LIQUID
         },
         {
           "type": "url",
+          "id": "banner_link",
+          "label": "Link do banner",
+          "info": "Na homepage, define o destino da imagem ou vídeo. Se vazio, usa o link do botão."
+        },
+        {
+          "type": "url",
           "id": "button_link",
           "label": "Button link",
           "info": "Leave the button text empty to make the slide fully clickable."
@@ -776,6 +789,12 @@ LIQUID
           "type": "text",
           "id": "button_text",
           "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "banner_link",
+          "label": "Link do banner",
+          "info": "Na homepage, define o destino da imagem ou vídeo. Se vazio, usa o link do botão."
         },
         {
           "type": "url",

@@ -49,6 +49,9 @@
         {%- break -%}
       {%- endif -%}
     {%- endfor -%}
+    {%- if section.settings.banner_link != blank -%}
+      {%- assign banner_url = section.settings.banner_link -%}
+    {%- endif -%}
     {% render 'homepage-banner-link', url: banner_url, label: banner_label %}
 
     {%- if section.blocks.size > 0 -%}
@@ -103,11 +106,22 @@
   "class": "shopify-section--image-with-text-overlay",
   "tag": "section",
   "disabled_on": {
-    "templates": ["password"],
-    "groups": ["header", "custom.overlay"]
+    "templates": [
+      "password"
+    ],
+    "groups": [
+      "header",
+      "custom.overlay"
+    ]
   },
   "max_blocks": 6,
   "settings": [
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Link do banner",
+      "info": "Na homepage, define o destino da imagem ou vídeo. Se vazio, usa o link do botão."
+    },
     {
       "type": "checkbox",
       "id": "full_width",
