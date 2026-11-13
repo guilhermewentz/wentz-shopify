@@ -12,7 +12,8 @@
     "banner": {
       "type": "collection-banner",
       "custom_css": [
-        ".heading,.h0,.h1,.h2,.h3,.h4,.h5,.h6,.prose :is(h1, h2, h3, h4, h5, h6) {font-weight: 400;}"
+        ".heading,.h0,.h1,.h2,.h3,.h4,.h5,.h6,.prose :is(h1, h2, h3, h4, h5, h6) {font-weight: 400;}",
+        ".v-stack:has(> h1 + .prose) {gap: 0;}"
       ],
       "settings": {
         "full_width": false,
