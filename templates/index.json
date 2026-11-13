@@ -22,7 +22,14 @@
         "heading_VRqRjP": {
           "type": "heading",
           "settings": {
-            "text": "VOLVO + WENTZ: The Art of Balance",
+            "text": "VOLVO + WENTZ",
+            "heading_tag": "h0"
+          }
+        },
+        "heading_WhyDqT": {
+          "type": "heading",
+          "settings": {
+            "text": "The Art of Balance",
             "heading_tag": "h0"
           }
         },
@@ -41,6 +48,7 @@
       "block_order": [
         "subheading_gP3KGn",
         "heading_VRqRjP",
+        "heading_WhyDqT",
         "button_metiCR"
       ],
       "custom_css": [
