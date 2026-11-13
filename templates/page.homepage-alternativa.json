@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "banners": {
+      "type": "homepage-alternativa",
+      "blocks": {
+        "video_D6B8ag": {
+          "type": "banner",
+          "settings": {
+            "title": "VOLVO + WENTZ: The Art of Balance",
+            "video": "shopify://files/videos/VOLVO_WENTZ _banner_1.mp4",
+            "mobile_video": "shopify://files/videos/VOLVO_WENTZ_banner_mobile.mp4",
+            "button_text": "DESCUBRA A COLABORAÇÃO",
+            "button_link": "shopify://blogs/journal-pt/volvo-wentz-the-art-of-balance"
+          }
+        },
+        "image_with_text_overlay_DeArtq": {
+          "type": "banner",
+          "settings": {
+            "title": "[DES]DOBRA",
+            "image": "shopify://shop_images/WENTZ-desdobra-banner.jpg",
+            "mobile_image": "shopify://shop_images/WENTZ-desdobra-banner-mobile.jpg",
+            "button_text": "DESCUBRA A NOVA VERSÃO DO SOFÁ DOBRA",
+            "button_link": "shopify://collections/desdobra"
+          }
+        },
+        "image_with_text_overlay_rhmbN4": {
+          "type": "banner",
+          "settings": {
+            "title": "ESSENCIAL",
+            "image": "shopify://shop_images/WENTZ_ESSENCIAL_home.jpg",
+            "mobile_image": "shopify://shop_images/WENTZ_ESSENCIAL_home_mobile.jpg",
+            "button_text": "DESCUBRA A COLEÇÃO",
+            "button_link": "shopify://collections/essencial"
+          }
+        },
+        "image_link_AQWPBe_0": {
+          "type": "banner",
+          "settings": {
+            "title": "LUMINÁRIA PORTÁTIL 001",
+            "image": "shopify://shop_images/WENTZ_portable_lamp_001.jpg",
+            "mobile_image": "shopify://shop_images/WENTZ_portable_lamp_001.jpg",
+            "button_text": "LUMINÁRIA PORTÁTIL 001",
+            "button_link": "shopify://products/luminaria-portatil-001"
+          }
+        },
+        "image_link_AQWPBe_1": {
+          "type": "banner",
+          "settings": {
+            "title": "OBJECTS FOR SILENCE",
+            "image": "shopify://shop_images/WENTZ-OBJECTS-1.jpg",
+            "mobile_image": "shopify://shop_images/WENTZ-OBJECTS-1.jpg",
+            "button_text": "COLEÇÃO \"OBJECTS FOR SILENCE\"",
+            "button_link": "shopify://collections/objects-for-silence"
+          }
+        },
+        "slideshow_wWzY7g_0": {
+          "type": "banner",
+          "settings": {
+            "title": "WENTZ[GALERIA]",
+            "image": "shopify://shop_images/WENTZ-galeria-banner-3.jpg",
+            "mobile_image": "shopify://shop_images/WENTZ-galeria-banner-3-mobile.jpg",
+            "button_text": "VISITE",
+            "button_link": "shopify://pages/wentzgaleria"
+          }
+        }
+      },
+      "block_order": [
+        "video_D6B8ag",
+        "image_with_text_overlay_DeArtq",
+        "image_with_text_overlay_rhmbN4",
+        "image_link_AQWPBe_0",
+        "image_link_AQWPBe_1",
+        "slideshow_wWzY7g_0"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "banners"
+  ]
+}

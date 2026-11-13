@@ -1,0 +1,87 @@
+{{ 'wentz-home-alternativa.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'wentz-home-alternativa.js' | asset_url }}" defer></script>
+
+<wentz-home class="wentz-home" allow-transparent-header>
+  <div class="wentz-home__stage">
+    {%- for block in section.blocks -%}
+      {%- assign title = block.settings.title -%}
+      {%- assign heading_element = 'h2' -%}
+      {%- if forloop.first -%}{%- assign heading_element = 'h1' -%}{%- endif -%}
+      {%- assign loading = 'lazy' -%}
+      {%- assign priority = 'auto' -%}
+      {%- if forloop.first -%}
+        {%- assign loading = 'eager' -%}
+        {%- assign priority = 'high' -%}
+      {%- endif -%}
+      <article id="wentz-banner-{{ section.id }}-{{ block.id }}" class="wentz-home__panel" aria-labelledby="wentz-title-{{ section.id }}-{{ block.id }}" {{ block.shopify_attributes }}>
+        <div class="wentz-home__media" aria-hidden="true">
+          {%- if block.settings.video != blank -%}
+            {%- capture desktop_class -%}wentz-home__video-desktop{% if block.settings.mobile_video != blank %} has-mobile{% endif %}{%- endcapture -%}
+            {{- block.settings.video | video_tag: class: desktop_class, playsinline: true, muted: true, loop: true, controls: false, preload: 'metadata', image_size: '2000x' -}}
+            {%- if block.settings.mobile_video != blank -%}
+              {{- block.settings.mobile_video | video_tag: class: 'wentz-home__video-mobile', playsinline: true, muted: true, loop: true, controls: false, preload: 'metadata', image_size: '1000x' -}}
+            {%- endif -%}
+          {%- elsif block.settings.image != blank -%}
+            <picture>
+              {%- if block.settings.mobile_image != blank -%}
+                <source media="(max-width: 699px)"
+                  srcset="{{ block.settings.mobile_image | image_url: width: 400 }} 400w, {{ block.settings.mobile_image | image_url: width: 700 }} 700w, {{ block.settings.mobile_image | image_url: width: 1000 }} 1000w, {{ block.settings.mobile_image | image_url: width: 1400 }} 1400w"
+                  sizes="100vw" width="{{ block.settings.mobile_image.width }}" height="{{ block.settings.mobile_image.height }}">
+              {%- endif -%}
+              {{- block.settings.image | image_url: width: 3200 | image_tag: loading: loading, fetchpriority: priority, sizes: '100vw', widths: '700,1000,1400,1800,2200,2600,3200', alt: '' -}}
+            </picture>
+          {%- else -%}
+            {{- 'lifestyle-1' | placeholder_svg_tag -}}
+          {%- endif -%}
+        </div>
+        <{{ heading_element }} class="h0 wentz-home__title" id="wentz-title-{{ section.id }}-{{ block.id }}">{{ title | escape }}</{{ heading_element }}>
+        {%- if block.settings.button_text != blank and block.settings.button_link != blank -%}
+          <div class="wentz-home__cta">
+            {%- render 'button', content: block.settings.button_text, href: block.settings.button_link, style: 'outline', size: 'h6' -%}
+          </div>
+        {%- endif -%}
+      </article>
+    {%- endfor -%}
+    {%- if section.blocks.size > 1 -%}
+      <nav class="wentz-home__nav" aria-label="Banners">
+        {%- for block in section.blocks -%}
+          <button type="button" data-wentz-go="{{ forloop.index0 }}" aria-label="{{ block.settings.title | escape }}" aria-controls="wentz-banner-{{ section.id }}-{{ block.id }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}">
+            <span class="sr-only">{{ forloop.index }} / {{ section.blocks.size }}</span>
+          </button>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+  </div>
+</wentz-home>
+
+{% schema %}
+{
+  "name": "Homepage alternativa",
+  "tag": "section",
+  "class": "shopify-section--homepage-alternativa",
+  "max_blocks": 12,
+  "disabled_on": { "groups": ["header", "footer", "custom.overlay"] },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Banners em tela cheia com transição ao rolar. O rodapé original permanece após o último banner. Com movimento reduzido, os banners usam rolagem natural."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "WENTZ" },
+        { "type": "image_picker", "id": "image", "label": "Imagem desktop" },
+        { "type": "image_picker", "id": "mobile_image", "label": "Imagem mobile" },
+        { "type": "video", "id": "video", "label": "Vídeo desktop", "info": "Substitui a imagem quando selecionado." },
+        { "type": "video", "id": "mobile_video", "label": "Vídeo mobile" },
+        { "type": "text", "id": "button_text", "label": "Texto do botão" },
+        { "type": "url", "id": "button_link", "label": "Link do botão" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Homepage alternativa", "blocks": [{ "type": "banner" }] }]
+}
+{% endschema %}
