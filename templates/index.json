@@ -131,7 +131,7 @@
           "type": "heading",
           "settings": {
             "text": "",
-            "richtext_heading": "<p>ESSENCIAL</p>",
+            "richtext_heading": "<p>—ESSENCIAL</p>",
             "heading_tag": "h0",
             "desktop_color_heading": "#ffffff",
             "mobile_color_heading": "#ffffff"
@@ -287,6 +287,7 @@
         "item_QpnGdP",
         "item_AidHmm"
       ],
+      "disabled": true,
       "custom_css": [
         "@media (hover: hover) and (pointer: fine) {.content-over-media > :last-child {opacity: 0; transition: opacity 0.4s ease; } .content-over-media:hover > :last-child {opacity: 1; }}"
       ],
