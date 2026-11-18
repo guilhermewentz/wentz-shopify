@@ -77,9 +77,21 @@ Supported variables
 {%- endif -%}
 
 {%- if filter.param_name == 'filter.p.m.custom.disponivel_para_compra_online' -%}
-  {%- assign online_filter_value = filter.true_value | default: filter.values.first -%}
+  {%- assign online_filter_value = filter.true_value -%}
+        {%- if online_filter_value == blank -%}
+          {%- for candidate_value in filter.values -%}
+            {%- assign candidate_boolean = candidate_value.value | append: '' | downcase -%}
+            {%- if candidate_boolean == 'true' or candidate_boolean == '1' -%}
+              {%- assign online_filter_value = candidate_value -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
 
   {%- if online_filter_value != blank -%}
+          {%- if online_filter_value.count == 0 and online_filter_value.active == false -%}
+            {%- continue -%}
+          {%- endif -%}
     <div class="availability-facet">
      <label for="online-purchase-{{ section.id }}" class="bold">
   {{ filter.label }}

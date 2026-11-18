@@ -65,8 +65,20 @@ Supported variables
     {%- for filter in results.filters -%}
       {%- if filter.param_name == 'filter.p.m.custom.disponivel_para_compra_online' -%}
         {%- if localization.country.iso_code != 'BR' -%}{%- continue -%}{%- endif -%}
-        {%- assign online_filter_value = filter.true_value | default: filter.values.first -%}
+        {%- assign online_filter_value = filter.true_value -%}
+        {%- if online_filter_value == blank -%}
+          {%- for candidate_value in filter.values -%}
+            {%- assign candidate_boolean = candidate_value.value | append: '' | downcase -%}
+            {%- if candidate_boolean == 'true' or candidate_boolean == '1' -%}
+              {%- assign online_filter_value = candidate_value -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
         {%- if online_filter_value != blank -%}
+          {%- if online_filter_value.count == 0 and online_filter_value.active == false -%}
+            {%- continue -%}
+          {%- endif -%}
           <div class="accordion">
             <div class="accordion__toggle">
               <label for="{{ id_prefix }}-online-purchase" class="bold">{{ filter.label | escape }}</label>
