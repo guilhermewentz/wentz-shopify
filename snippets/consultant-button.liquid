@@ -4,7 +4,19 @@
 
   {% if localization.country.iso_code == 'BR' %}
 
-    {%- assign consultant_url = 'https://wa.me/' | append: consultant_number | append: '?text=' | append: consultant_message -%}
+    {%- assign consultant_language = request.locale.iso_code | split: '-' | first | downcase -%}
+    {%- if consultant_language == 'pt' -%}
+      {%- assign consultant_product_url = shop.url | append: product.url -%}
+      {%- capture portuguese_consultant_message -%}
+Olá! Gostaria de saber mais sobre o produto {{ product.title }}.
+
+{{ consultant_product_url }}
+      {%- endcapture -%}
+      {%- assign encoded_consultant_message = portuguese_consultant_message | strip | url_encode | replace: '+', '%20' -%}
+      {%- assign consultant_url = 'https://wa.me/' | append: consultant_number | append: '?text=' | append: encoded_consultant_message -%}
+    {%- else -%}
+      {%- assign consultant_url = 'https://wa.me/' | append: consultant_number | append: '?text=' | append: consultant_message -%}
+    {%- endif -%}
 
   {% else %}
 
