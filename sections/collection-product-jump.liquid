@@ -10,7 +10,10 @@
 {% stylesheet %}
 .collection-product-jump {
   position: fixed;
-  right: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(100% - 40px);
   bottom: max(20px, env(safe-area-inset-bottom, 0px));
   z-index: 8;
   opacity: 0;
@@ -39,7 +42,7 @@
 .collection-product-jump__link:hover { background: rgb(25 25 25 / .35); }
 .collection-product-jump__link:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 @media (min-width: 1000px) {
-  .collection-product-jump { right: 48px; bottom: 32px; }
+  .collection-product-jump { bottom: 32px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .collection-product-jump { transition: none; }
