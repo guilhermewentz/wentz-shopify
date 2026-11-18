@@ -11,9 +11,10 @@
     const controller = new AbortController();
     const { signal } = controller;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-    const cue = document.createElement('a');
+    const cue = document.createElement('button');
     cue.className = 'homepage-scroll-cue';
-    cue.href = '#' + next.id;
+    cue.type = 'button';
+    cue.setAttribute('aria-controls', next.id);
     cue.setAttribute('aria-label', document.documentElement.lang.startsWith('pt') ? 'Rolar para o próximo banner' : 'Scroll to the next banner');
     cue.innerHTML = '<svg aria-hidden="true" width="18" height="26" viewBox="0 0 18 26" fill="none"><path d="M9 2v20M3 16l6 6 6-6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     // Keep the original content as the last child, preserving the theme's hover rules.
@@ -26,8 +27,8 @@
       cue.setAttribute('aria-hidden', String(hidden));
     };
     cue.addEventListener('click', event => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
       event.preventDefault();
+      event.stopPropagation();
       next.scrollIntoView({ behavior: reducedMotion.matches ? 'instant' : 'smooth', block: 'start' });
     }, { signal });
     window.addEventListener('scroll', update, { passive: true, signal });

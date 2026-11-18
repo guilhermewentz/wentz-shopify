@@ -92,7 +92,7 @@
 }
 
 /* A quiet scroll invitation, independent of the banner's hover content and CTA. */
-.content-over-media > a.homepage-scroll-cue {
+.content-over-media > button.homepage-scroll-cue {
   position: absolute;
   grid-area: auto;
   inset: auto var(--spacing-5) max(8px, env(safe-area-inset-bottom, 0px)) auto;
@@ -105,18 +105,22 @@
   color: #fff;
   z-index: 4;
   opacity: .8;
+  background: none;
+  border: 0;
+  cursor: pointer;
   transition: opacity .3s ease;
 }
 .homepage-scroll-cue svg {
+  pointer-events: none;
   animation: wentz-scroll-invite 3s ease-in-out 3;
 }
-.content-over-media > a.homepage-scroll-cue:hover,
-.content-over-media > a.homepage-scroll-cue:focus-visible { opacity: 1; }
-.content-over-media > a.homepage-scroll-cue:focus-visible {
+.content-over-media > button.homepage-scroll-cue:hover,
+.content-over-media > button.homepage-scroll-cue:focus-visible { opacity: 1; }
+.content-over-media > button.homepage-scroll-cue:focus-visible {
   outline: 1px solid currentColor;
   outline-offset: 2px;
 }
-.content-over-media > a.homepage-scroll-cue.is-dismissed {
+.content-over-media > button.homepage-scroll-cue.is-dismissed {
   opacity: 0;
   pointer-events: none;
 }
@@ -125,12 +129,12 @@
   35% { transform: translateY(4px); }
 }
 @media (min-width: 700px) {
-  .content-over-media > a.homepage-scroll-cue { right: var(--spacing-8); bottom: var(--spacing-5); }
+  .content-over-media > button.homepage-scroll-cue { right: var(--spacing-8); bottom: var(--spacing-5); }
 }
 @media (min-width: 1000px) {
-  .content-over-media > a.homepage-scroll-cue { right: var(--spacing-12); bottom: var(--spacing-8); }
+  .content-over-media > button.homepage-scroll-cue { right: var(--spacing-12); bottom: var(--spacing-8); }
 }
 @media (prefers-reduced-motion: reduce) {
   .homepage-scroll-cue svg { animation: none; }
-  .content-over-media > a.homepage-scroll-cue { transition: none; }
+  .content-over-media > button.homepage-scroll-cue { transition: none; }
 }
