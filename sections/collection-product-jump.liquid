@@ -1,3 +1,17 @@
+{%- assign show_collection_jump = false -%}
+{%- for menu_link in linklists['menu-principal'].links -%}
+  {%- assign menu_title = menu_link.title | upcase | strip -%}
+  {%- if menu_title == 'COLEÇÕES' or menu_title == 'COLLECTIONS' -%}
+    {%- for collection_link in menu_link.links -%}
+      {%- assign menu_collection_handle = collection_link.url | url_decode | split: '/collections/' | last | split: '/' | first | split: '?' | first | split: '#' | first -%}
+      {%- if collection_link.object.handle == collection.handle or menu_collection_handle == collection.handle -%}
+        {%- assign show_collection_jump = true -%}
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if show_collection_jump -%}
 <collection-product-jump class="collection-product-jump">
   <a class="collection-product-jump__link" href="#collection-products">
     <span>{{ section.settings.label | escape }}</span>
@@ -6,6 +20,7 @@
     </svg>
   </a>
 </collection-product-jump>
+{%- endif -%}
 
 {% stylesheet %}
 .collection-product-jump {
@@ -30,16 +45,14 @@
   border: 1px solid rgb(255 255 255 / .25);
   border-radius: 0;
   color: #fff;
-  background: rgb(25 25 25 / .22);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: #000;
   font: inherit;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: .02em;
   text-decoration: none;
 }
-.collection-product-jump__link:hover { background: rgb(25 25 25 / .35); }
+.collection-product-jump__link:hover { background: #000; }
 .collection-product-jump__link:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
 @media (min-width: 1000px) {
   .collection-product-jump { bottom: 32px; }
