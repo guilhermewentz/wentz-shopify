@@ -2,9 +2,14 @@
 
   {%- assign consultant_button_label = 'product.general.consultant_button' | t -%}
 
-  {% if localization.country.iso_code == 'BR' %}
+  {%- assign consultant_language = request.locale.iso_code | split: '-' | first | downcase -%}
+  {%- assign consultant_use_whatsapp = false -%}
+  {%- if localization.country.iso_code == 'BR' and consultant_language != 'en' -%}
+    {%- assign consultant_use_whatsapp = true -%}
+  {%- endif -%}
 
-    {%- assign consultant_language = request.locale.iso_code | split: '-' | first | downcase -%}
+  {% if consultant_use_whatsapp %}
+
     {%- if consultant_language == 'pt' -%}
       {%- assign consultant_product_url = shop.url | append: product.url -%}
       {%- capture portuguese_consultant_message -%}
@@ -51,10 +56,10 @@ Thank you.
       id="simulator-button"
       class="button button--lg w-full{% unless consultant_is_primary %} button--outline{% endunless %}"
       href="{{ consultant_url }}"
-      {% unless localization.country.iso_code == 'BR' %}
+      {% unless consultant_use_whatsapp %}
         data-no-instant
       {% endunless %}
-      {% if localization.country.iso_code == 'BR' %}
+      {% if consultant_use_whatsapp %}
         target="_blank" rel="noopener noreferrer"
       {% endif %}
     >
