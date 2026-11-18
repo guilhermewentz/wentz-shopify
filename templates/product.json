@@ -105,8 +105,15 @@
             "payment_button_text_color": "#ffffff"
           }
         },
+        "share_buttons_hYHRX8": {
+          "type": "share_buttons",
+          "settings": {
+            "alignment": "center"
+          }
+        },
         "payment_terms": {
           "type": "payment_terms",
+          "disabled": true,
           "settings": {}
         }
       },
@@ -124,6 +131,7 @@
         "variant_production_time_MQXKhB",
         "quantity_selector",
         "buy_buttons",
+        "share_buttons_hYHRX8",
         "payment_terms"
       ],
       "custom_css": [
