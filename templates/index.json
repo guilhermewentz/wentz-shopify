@@ -52,7 +52,7 @@
         "full_width": true,
         "allow_transparent_header": true,
         "autoplay": true,
-        "video_size": "fill",
+        "video_size": "auto",
         "video": "shopify://files/videos/VOLVO_WENTZ _banner_1.mp4",
         "mobile_video": "shopify://files/videos/VOLVO_WENTZ_banner_mobile.mp4",
         "external_video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
