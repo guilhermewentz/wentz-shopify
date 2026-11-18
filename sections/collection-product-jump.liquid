@@ -1,0 +1,97 @@
+<collection-product-jump class="collection-product-jump">
+  <a class="collection-product-jump__link" href="#collection-products">
+    <span>{{ section.settings.label | escape }}</span>
+    <svg aria-hidden="true" width="14" height="20" viewBox="0 0 14 20" fill="none">
+      <path d="M7 1v16M2 12l5 5 5-5" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</collection-product-jump>
+
+{% stylesheet %}
+.collection-product-jump {
+  position: fixed;
+  right: 20px;
+  bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  z-index: 8;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.collection-product-jump.is-visible { opacity: 1; visibility: visible; }
+.collection-product-jump__link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid rgb(255 255 255 / .25);
+  border-radius: 0;
+  color: #fff;
+  background: rgb(25 25 25 / .22);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font: inherit;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  text-decoration: none;
+}
+.collection-product-jump__link:hover { background: rgb(25 25 25 / .35); }
+.collection-product-jump__link:focus-visible { outline: 1px solid currentColor; outline-offset: 4px; }
+@media (min-width: 1000px) {
+  .collection-product-jump { right: 48px; bottom: 32px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .collection-product-jump { transition: none; }
+}
+{% endstylesheet %}
+
+{% javascript %}
+if (!customElements.get('collection-product-jump')) {
+  customElements.define('collection-product-jump', class extends HTMLElement {
+    connectedCallback() {
+      this.controller = new AbortController();
+      const { signal } = this.controller;
+      // Section scripts run after the complete template is parsed.
+      this.target = document.querySelector('#main .shopify-section--main-collection');
+      if (!this.target) return;
+      const link = this.querySelector('a');
+      link.href = '#' + this.target.id;
+      this.update = () => {
+        const header = document.querySelector('store-header');
+        const offset = header ? header.getBoundingClientRect().height : 0;
+        const visible = this.target.getBoundingClientRect().top > window.innerHeight - 80;
+        this.classList.toggle('is-visible', visible);
+        link.tabIndex = visible ? 0 : -1;
+        this.setAttribute('aria-hidden', String(!visible));
+      };
+      link.addEventListener('click', event => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const header = document.querySelector('store-header');
+        const offset = header ? header.getBoundingClientRect().height : 0;
+        const top = this.target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+      }, { signal });
+      window.addEventListener('scroll', this.update, { passive: true, signal });
+      window.addEventListener('resize', this.update, { passive: true, signal });
+      this.update();
+    }
+    disconnectedCallback() { this.controller?.abort(); }
+  });
+}
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Âncora de produtos",
+  "tag": "section",
+  "class": "collection-product-jump-section",
+  "enabled_on": { "templates": ["collection"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "Texto", "default": "Ver produtos" }
+  ],
+  "presets": [{ "name": "Âncora de produtos" }]
+}
+{% endschema %}
