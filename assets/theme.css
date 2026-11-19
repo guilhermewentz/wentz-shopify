@@ -3542,6 +3542,11 @@ model-media model-viewer, model-media .shopify-model-viewer-ui {
   display: inline-block;
 }
 
+/* Keep formatted rich-text fragments flowing within their paragraph. */
+.prose p span:not(.metafield-multi_line_text_field) {
+  display: inline;
+}
+
 .prose :is(.h0, .h1, .h2, .h3, .h4, h1, h2, h3, h4) + * {
   margin-block-start: var(--spacing-3);
 }
