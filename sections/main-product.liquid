@@ -11,6 +11,26 @@
     #shopify-section-{{ section.id }} {
       --section-spacing-block-start: {% if section.settings.mobile_media_size == 'expanded' %}0px{% else %}var(--container-gutter){% endif %};
     }
+
+    /* Keep the zoom control on the photo rather than above a viewport-height image box. */
+    #shopify-section-{{ section.id }} .product-gallery__media[data-media-type="image"] img {
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .product-gallery__media-list-wrapper > .product-gallery__zoom {
+      top: 12px;
+      inset-inline-end: 12px;
+      inset-inline-start: auto;
+      z-index: 2;
+    }
+
+    #shopify-section-{{ section.id }} .product-gallery {
+      row-gap: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .product {
+      row-gap: 32px;
+    }
   }
 
   @media screen and (min-width: 1000px) {
