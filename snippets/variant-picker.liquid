@@ -23,9 +23,8 @@ Supported variables
 {%- assign size_label_list = 'general.label.size' | t | replace: ', ', ',' | downcase | split: ',' -%}
 {%- assign variant_image_options = block.settings.variant_image_options | replace: ', ', ',' | downcase | split: ',' -%}
 
-{%- unless product.has_only_default_variant -%}
   <variant-picker
-    class="variant-picker" 
+    class="variant-picker" {% if product.has_only_default_variant %}hidden{% endif %} 
     section-id="{{ section.id }}" 
     handle="{{ product.handle }}" 
     form-id="{{ form_id }}" 
@@ -38,10 +37,15 @@ Supported variables
     <script data-variant type="application/json">
       {{- product.selected_or_first_available_variant | json -}}
     </script>
-    
+    {% liquid
+      assign production_time = product.selected_or_first_available_variant.metafields.custom.manufacturing-time.value
+      if product.has_only_default_variant and production_time == blank
+        assign production_time = product.metafields.custom.manufacturing-time.value
+      endif
+    %}
 <span
   class="hidden"
-  data-variant-time="{{ product.selected_or_first_available_variant.metafields.custom.manufacturing-time | escape }}"
+  data-variant-time="{{ production_time | escape }}"
   data-inventory-quantity="{{ product.selected_or_first_available_variant.inventory_quantity }}"
   data-inventory-policy="{{ product.selected_or_first_available_variant.inventory_policy }}"
   data-inventory-management="{{ product.selected_or_first_available_variant.inventory_management }}"
@@ -49,6 +53,7 @@ Supported variables
 </span>
 
 
+    {%- unless product.has_only_default_variant -%}
     {%- for option in product.options_with_values -%}
       {% liquid
         assign option_downcase = option.name | downcase
@@ -162,5 +167,5 @@ Supported variables
         {%- endif -%}
       </fieldset>
     {%- endfor -%}
+    {%- endunless -%}
   </variant-picker>
-{%- endunless -%}
