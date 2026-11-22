@@ -8,7 +8,12 @@
     const { signal } = controller;
     const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const cues = [];
+    const firstBanner = sections.find(section =>
+      !section.classList.contains('shopify-section-group-footer-group') &&
+      section.querySelector('.content-over-media > .homepage-banner-content')
+    );
     sections.forEach((section, index) => {
+      if (section !== firstBanner) return;
       if (section.classList.contains('shopify-section-group-footer-group')) return;
       const next = sections[index + 1];
       if (!next?.id) return;
