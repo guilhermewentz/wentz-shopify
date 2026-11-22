@@ -57,7 +57,7 @@
   justify-content: center;
   gap: var(--spacing-4);
   padding: var(--spacing-5);
-  padding-bottom: max(var(--spacing-5), env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 }
 .homepage-banner-actions .button {
   pointer-events: auto;
@@ -66,12 +66,12 @@
 }
 @media screen and (min-width: 700px) {
   .content-over-media > .homepage-banner-content > .homepage-banner-actions {
-    padding: var(--spacing-8);
+    padding-inline: var(--spacing-8);
   }
 }
 @media screen and (min-width: 1000px) {
   .content-over-media > .homepage-banner-content > .homepage-banner-actions {
-    padding: var(--spacing-12);
+    padding-inline: var(--spacing-12);
   }
 }
 
@@ -95,7 +95,8 @@
 .content-over-media > button.homepage-scroll-cue {
   position: absolute;
   grid-area: auto;
-  inset: auto var(--spacing-5) max(8px, env(safe-area-inset-bottom, 0px)) auto;
+  inset: auto auto calc(16px + env(safe-area-inset-bottom, 0px)) 50%;
+  transform: translateX(-50%);
   width: 44px;
   height: 44px;
   max-width: none;
@@ -127,12 +128,6 @@
 @keyframes wentz-scroll-invite {
   0%, 65%, 100% { transform: translateY(0); }
   35% { transform: translateY(4px); }
-}
-@media (min-width: 700px) {
-  .content-over-media > button.homepage-scroll-cue { right: var(--spacing-8); bottom: var(--spacing-5); }
-}
-@media (min-width: 1000px) {
-  .content-over-media > button.homepage-scroll-cue { right: var(--spacing-12); bottom: var(--spacing-8); }
 }
 @media (prefers-reduced-motion: reduce) {
   .homepage-scroll-cue svg { animation: none; }
