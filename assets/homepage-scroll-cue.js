@@ -29,14 +29,6 @@
         cues.push({ cue, media });
       });
     });
-    const update = () => cues.forEach(({ cue, media }) => {
-      const hidden = media.getBoundingClientRect().top < -64;
-      cue.classList.toggle('is-dismissed', hidden);
-      cue.tabIndex = hidden ? -1 : 0;
-      cue.setAttribute('aria-hidden', String(hidden));
-    });
-    window.addEventListener('scroll', update, { passive: true, signal });
-    update();
     cleanup = () => {
       controller.abort();
       cues.forEach(({ cue }) => cue.remove());
