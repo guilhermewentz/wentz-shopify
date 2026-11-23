@@ -490,6 +490,9 @@
       "stone": "Pedras",
       "fabric": "Tecidos",
       "glass": "Vidros"
+    },
+    "product": {
+      "configurator": "Configurador 3D"
     }
   }
 }

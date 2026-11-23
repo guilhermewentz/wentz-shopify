@@ -215,7 +215,12 @@ Supported variables
                   {% endif %}
                 </fieldset>
                 {% if inform_configurator %}
-                  <span>{{ configurator_variant_title }}</span>
+                  {%- assign configurator_label = configurator_variant_title | strip -%}
+                  {%- if configurator_label == 'Configurador 3D' -%}
+                    <span>{{ 'wentz.product.configurator' | t }}</span>
+                  {%- else -%}
+                    <span>{{ configurator_variant_title }}</span>
+                  {%- endif -%}
                 {% endif %}
 
               {%- when 'variant' -%}

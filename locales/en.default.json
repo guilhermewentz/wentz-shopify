@@ -889,6 +889,9 @@
       "stone": "Stone",
       "fabric": "Fabrics",
       "glass": "Glass"
+    },
+    "product": {
+      "configurator": "3D Configurator"
     }
   }
 }
