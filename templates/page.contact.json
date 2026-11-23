@@ -142,7 +142,7 @@
         "heading_NMbEkF": {
           "type": "heading",
           "settings": {
-            "text": "INTERNACIONAL",
+            "text": "COMERCIAL",
             "heading_tag": "h1",
             "text_color": "",
             "gradient": ""
@@ -151,7 +151,7 @@
         "richtext_HGpHYz": {
           "type": "richtext",
           "settings": {
-            "content": "<p>INTERNATIONAL SALES<br/><a href=\"mailto:galeria@wentz.design\" target=\"_blank\" title=\"mailto:galeria@wentz.design\">EXPORT@WENTZ.DESIGN</a></p><p></p>"
+            "content": "<p>—</p><p>INTERNATIONAL SALES<br/><a href=\"mailto:export@wentz.design\" target=\"_blank\" title=\"mailto:export@wentz.design\">EXPORT@WENTZ.DESIGN</a></p><p>—</p><p>REVENDAS<br/><a href=\"mailto:comercial@wentz.design\" target=\"_blank\" title=\"mailto:comercial@wentz.design\">COMERCIAL@WENTZ.DESIGN</a></p><p></p><p></p>"
           }
         }
       },
