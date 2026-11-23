@@ -86,12 +86,13 @@
                 </li>
 
                 {%- for tag in blog.all_tags -%}
+                  {%- capture tag_label -%}{%- render 'material-category-label', tag: tag -%}{%- endcapture -%}
                   <li role="tab" aria-selected="{% if current_tags contains tag %}true{% else %}false{% endif %}">
 
                     {%- if current_tags contains tag -%}
-                      {{- tag | link_to_remove_tag: tag -}}
+                      {{- tag_label | link_to_remove_tag: tag -}}
                     {%- else -%}
-                      {{- tag | link_to_tag: tag -}}
+                      {{- tag_label | link_to_tag: tag -}}
                     {%- endif -%}
                   </li>
                 {%- endfor -%}

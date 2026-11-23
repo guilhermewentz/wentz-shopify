@@ -35,7 +35,7 @@ Supported parameters
 
       <a href="{{ article.url }}" class="blog-post-card__figure {% unless featured %}rounded{% endunless %}">
         {%- if featured != true and show_category and article.tags.size > 0 -%}
-          <span class="badge badge--primary">{{ article.tags | first }}</span>
+          <span class="badge badge--primary">{% assign category_tag = article.tags | first %}{% render 'material-category-label', tag: category_tag %}</span>
         {%- endif -%}
 
         {{- article.image | image_url: width: article.image.width | image_tag: loading: loading_strategy, sizes: sizes, widths: '300,400,500,600,800,1000,1200,1400,1600,1800,2000', class: 'w-full h-full object-cover zoom-image' -}}
@@ -51,7 +51,7 @@ Supported parameters
     <div class="v-stack {% if featured %}gap-5 sm:gap-6{% else %}gap-4 sm:gap-5{% endif %}">
       <div class="v-stack gap-3 {% if featured %}sm:gap-5{% else %}sm:gap-4{% endif %}">
         {%- if featured and show_category and article.tags.size > 0 -%}
-          <span class="badge badge--current badge--lg">{{ article.tags | first }}</span>
+          <span class="badge badge--current badge--lg">{% assign category_tag = article.tags | first %}{% render 'material-category-label', tag: category_tag %}</span>
         {%- endif -%}
 
         <p class="{% if heading_size != blank %}{{ heading_size }}{% elsif featured %}h0{% else %}h3{% endif %}">

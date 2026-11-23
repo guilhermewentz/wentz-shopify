@@ -219,7 +219,7 @@
       {%- else -%}
         {%- assign products = section.settings.products | default: section.settings.collection.products -%}
       {%- endif -%}
-      <div id="{{ scroll_area_id }}" class="wentz-loop-scroller" tabindex="0" aria-label="Carrossel de produtos">
+      <div id="{{ scroll_area_id }}" class="wentz-loop-scroller" tabindex="0" aria-label="{{ 'wentz.carousel.products' | t | escape }}">
         <div class="wentz-loop-track product-list">
           {%- for repetition in (1..3) -%}
             {%- for product in products limit: section.settings.products_count -%}
@@ -236,14 +236,14 @@
       </div>
     </div>
 
-    <nav class="wentz-featured-footer wentz-loop-nav" aria-label="Navegação do carrossel">
-      <button type="button" class="wentz-loop-prev" aria-label="Produtos anteriores" aria-controls="{{ scroll_area_id }}">&lt;</button>
+    <nav class="wentz-featured-footer wentz-loop-nav" aria-label="{{ 'wentz.carousel.navigation' | t | escape }}">
+      <button type="button" class="wentz-loop-prev" aria-label="{{ 'wentz.carousel.previous' | t | escape }}" aria-controls="{{ scroll_area_id }}">&lt;</button>
       {%- if section.settings.link_text != blank and link_url != blank -%}
         <a href="{{ link_url }}" class="wentz-featured-view-all">
           {{ section.settings.link_text | escape }}
         </a>
       {%- endif -%}
-      <button type="button" class="wentz-loop-next" aria-label="Próximos produtos" aria-controls="{{ scroll_area_id }}">&gt;</button>
+      <button type="button" class="wentz-loop-next" aria-label="{{ 'wentz.carousel.next' | t | escape }}" aria-controls="{{ scroll_area_id }}">&gt;</button>
     </nav>
 
   </div>

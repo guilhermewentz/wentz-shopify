@@ -1,0 +1,17 @@
+{%- assign category_key = blank -%}
+{%- assign normalized_tag = tag | downcase | strip -%}
+{%- case normalized_tag -%}
+  {%- when 'couros + camurças' -%}{%- assign category_key = 'leather' -%}
+  {%- when 'madeiras' -%}{%- assign category_key = 'wood' -%}
+  {%- when 'metais' -%}{%- assign category_key = 'metal' -%}
+  {%- when 'palha + tela' -%}{%- assign category_key = 'cane' -%}
+  {%- when 'pedras' -%}{%- assign category_key = 'stone' -%}
+  {%- when 'tecidos' -%}{%- assign category_key = 'fabric' -%}
+  {%- when 'vidros' -%}{%- assign category_key = 'glass' -%}
+{%- endcase -%}
+{%- if category_key != blank -%}
+  {%- assign translation_key = 'wentz.material_categories.' | append: category_key -%}
+  {{- translation_key | t -}}
+{%- else -%}
+  {{- tag | escape -}}
+{%- endif -%}

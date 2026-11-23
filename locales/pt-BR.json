@@ -8,6 +8,12 @@
  * ------------------------------------------------------------
  */
 {
+  "404": {
+    "general": {
+      "title": "Página não encontrada",
+      "continue_shopping": "Continuar comprando"
+    }
+  },
   "general": {
     "page": "Página {{ page }}",
     "home": "Início",
@@ -366,12 +372,6 @@
       "error": "Um ou mais erros aconteceram durante a estimativa de frete:"
     }
   },
-  "404": {
-    "general": {
-      "title": "Página não encontrada",
-      "continue_shopping": "Continuar comprando"
-    }
-  },
   "search": {
     "general": {
       "title": "Pesquisar",
@@ -473,6 +473,23 @@
     },
     "download_files": {
       "title": "DOWNLOADS"
+    }
+  },
+  "wentz": {
+    "carousel": {
+      "products": "Carrossel de produtos",
+      "navigation": "Navegação do carrossel",
+      "previous": "Produtos anteriores",
+      "next": "Próximos produtos"
+    },
+    "material_categories": {
+      "leather": "Couros + Camurças",
+      "wood": "Madeiras",
+      "metal": "Metais",
+      "cane": "Palha + Tela",
+      "stone": "Pedras",
+      "fabric": "Tecidos",
+      "glass": "Vidros"
     }
   }
 }
