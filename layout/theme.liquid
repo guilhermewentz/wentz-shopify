@@ -109,6 +109,9 @@ NOTE TO DEVELOPERS: welcome to Impact theme! We hope that you will enjoy editing
         {%- sections 'footer-group' -%}
       {%- endif -%}
     </main>
+    {%- if request.page_type == 'index' and request.design_mode == false -%}
+      <script src="{{ 'wentz-homepage-analytics.js' | asset_url }}" defer></script>
+    {%- endif -%}
   </body>
   
 </html>
