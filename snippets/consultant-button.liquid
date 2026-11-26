@@ -8,7 +8,44 @@
     {%- assign consultant_use_whatsapp = true -%}
   {%- endif -%}
 
-  {% if consultant_use_whatsapp %}
+  {%- assign restock_variant = product.selected_or_first_available_variant -%}
+  {%- if restock_variant.inventory_management != blank and restock_variant.inventory_policy == 'deny' and restock_variant.inventory_quantity <= 0 and restock_variant.available == false -%}
+    {%- assign consultant_use_whatsapp = false -%}
+    {%- assign restock_product_url = shop.url | append: product.url | append: '?variant=' | append: restock_variant.id -%}
+    {%- capture restock_product_name -%}
+      {{ product.title }}{% unless product.has_only_default_variant %} — {{ restock_variant.title }}{% endunless %}
+    {%- endcapture -%}
+    {%- if consultant_language == 'pt' -%}
+      {%- assign consultant_button_label = 'Avise-me quando voltar' -%}
+      {%- assign email_subject = 'Aviso de reposição — ' | append: restock_product_name -%}
+      {%- capture email_body -%}
+Olá, equipe WENTZ!
+
+Por favor, avisem-me quando este produto voltar a estar disponível:
+
+{{ restock_product_name }}
+{{ restock_product_url }}
+
+Obrigado!
+      {%- endcapture -%}
+    {%- else -%}
+      {%- assign consultant_button_label = 'Notify me when available' -%}
+      {%- assign email_subject = 'Back in stock alert — ' | append: restock_product_name -%}
+      {%- capture email_body -%}
+Hello WENTZ team,
+
+Please let me know when this product is available again:
+
+{{ restock_product_name }}
+{{ restock_product_url }}
+
+Thank you!
+      {%- endcapture -%}
+    {%- endif -%}
+    {%- assign email_subject = email_subject | strip | url_encode | replace: '+', '%20' -%}
+    {%- assign email_body = email_body | strip | url_encode | replace: '+', '%20' -%}
+    {%- assign consultant_url = 'mailto:info@wentz.design?subject=' | append: email_subject | append: '&body=' | append: email_body -%}
+  {% elsif consultant_use_whatsapp %}
 
     {%- if consultant_language == 'pt' -%}
       {%- assign consultant_product_url = shop.url | append: product.url -%}
@@ -55,7 +92,7 @@ Thank you.
     <a
       id="simulator-button"
       class="button button--lg w-full{% unless consultant_is_primary %} button--outline{% endunless %}"
-      href="{{ consultant_url }}"
+      href="{{ consultant_url | escape }}"
       {% unless consultant_use_whatsapp %}
         data-no-instant
       {% endunless %}
