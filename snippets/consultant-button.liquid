@@ -44,7 +44,7 @@ Thank you!
     {%- endif -%}
     {%- assign email_subject = email_subject | strip | url_encode | replace: '+', '%20' -%}
     {%- assign email_body = email_body | strip | url_encode | replace: '+', '%20' -%}
-    {%- assign consultant_url = 'mailto:info@wentz.design?subject=' | append: email_subject | append: '&body=' | append: email_body -%}
+    {%- assign consultant_url = 'mailto:sac@wentz.design?subject=' | append: email_subject | append: '&body=' | append: email_body -%}
   {% elsif consultant_use_whatsapp %}
 
     {%- if consultant_language == 'pt' -%}
